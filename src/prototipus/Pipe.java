@@ -46,13 +46,31 @@ public class Pipe extends Component {
 		setLeaks(true);
 	}
 	
-	public void updateStatus() {
+	public void update() {
 		if(!leaks)
 			waterFlows();
 		else if(waterLevel > 0)
 		{
 			waterLevel --;
 			leakedWater ++;
+		}
+		if(this.hasOutputComponent()){
+			if(!leaks) {
+				output.addWater();
+				takeWater();
+			}
+			else {
+				if(this.isFull()) {
+					leakedWater++;
+					takeWater();
+				}
+			}
+		}
+		else {
+			if(this.isFull()) {
+				leakedWater++;
+				takeWater();
+			}
 		}
 		decreaseSlipperyCounter();
 		decreaseStickyCounter();
