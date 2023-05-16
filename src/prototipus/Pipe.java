@@ -11,9 +11,6 @@ package prototipus;
 //
 //
 
-
-
-
 public class Pipe extends Component {
 	
 	public Pipe(int capacity) {
@@ -45,53 +42,14 @@ public class Pipe extends Component {
 	public void punctured() {
 		setLeaks(true);
 	}
-
-	public void update(){
-		if(this.hasOutputComponent()){
-			if(!leaks) {
-				output.addWater();
-				takeWater();
-			}
-			else {
-				if(this.isFull()) {
-					leakedWater++;
-					takeWater();
-				}
-			}
-		}
-		else {
-			if(this.isFull()) {
-				leakedWater++;
-				takeWater();
-			}
-		}
-	}
 	
-	public void update() {
+	public void updateStatus() {
 		if(!leaks)
 			waterFlows();
 		else if(waterLevel > 0)
 		{
 			waterLevel --;
 			leakedWater ++;
-		}
-		if(this.hasOutputComponent()){
-			if(!leaks) {
-				output.addWater();
-				takeWater();
-			}
-			else {
-				if(this.isFull()) {
-					leakedWater++;
-					takeWater();
-				}
-			}
-		}
-		else {
-			if(this.isFull()) {
-				leakedWater++;
-				takeWater();
-			}
 		}
 		decreaseSlipperyCounter();
 		decreaseStickyCounter();

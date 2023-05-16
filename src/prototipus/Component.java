@@ -35,8 +35,8 @@ public abstract class Component implements Updateable{
 	
 	public static final int counterPeriod = 10;
 	
-	protected Component input;
-	protected Component output;
+	private Component input;
+	private Component output;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	protected ArrayList<Component> neighbours = new ArrayList<Component>();
 	
@@ -49,7 +49,6 @@ public abstract class Component implements Updateable{
 	public abstract void punctured();
 	
 	public abstract void malfunction();
-	public abstract void update();
 	
 	public boolean addWater() {
 		if(waterLevel >= capacity)
@@ -139,37 +138,10 @@ public abstract class Component implements Updateable{
 		if(output != null && waterLevel > 0) {
 			boolean isOutputFull = output.isFull();
 			if(!isOutputFull) {
-				update();
+				if(output.addWater())
+					this.takeWater();
 			}
 		}
-	}
-	
-	public void updateStatus() {
-		/*if(stickyCounter > 0)
-			decreaseStickyCounter();
-		if(slipperyCounter > 0)
-			decreaseSlipperyCounter();
-		if(punctureCounter > 0)
-			decreasePunctureCounter();*/
-		waterFlows();
-	}
-	/*
-	public void decreaseStickyCounter(){
-		stickyCounter--;
-	}
-
-	public void decreaseSlipperyCounter(){
-		slipperyCounter--;
-	}
-
-	public void decreasePunctureCounter(){
-		punctureCounter--;
-	}*/
-
-	public boolean hasOutputComponent(){
-		if(output != null)
-			return true;
-		return false;
 	}
 	
 	public int getSlipperyCounter() {
@@ -202,12 +174,12 @@ public abstract class Component implements Updateable{
 	}
 	
 	public void setInput(Component input) {
-		if(neighbours.contains(input))
+		if(neighbours.contains(input) && this.output != input)
 			this.input = input;
 	}
 	
 	public void setOutput(Component output) {
-		if(neighbours.contains(output))
+		if(neighbours.contains(output) && this.input != output)
 			this.output = output;
 	}
 	
@@ -219,15 +191,15 @@ public abstract class Component implements Updateable{
 		String status = "waterLevel: " + waterLevel + ", slippery: " + (slipperyCounter != 0) 
 				+ ", sticky: " + (stickyCounter != 0) + ", broken: " 
 				+ broken + ", punctured: " + leaks + System.lineSeparator()
-				+ "input: " + Prototipus.getComponentTypeAndIndex(input)
-				+ System.lineSeparator() + "output: " + Prototipus.getComponentTypeAndIndex(output)
+				+ "input: " + PrototypeTest.getComponentTypeAndIndex(input)
+				+ System.lineSeparator() + "output: " + PrototypeTest.getComponentTypeAndIndex(output)
 				+ System.lineSeparator();
 		String playersStatus = "Players standing on this component:" + System.lineSeparator();
 		for(int i = 0; i < players.size(); ++i)
-			playersStatus += "player" + (i + 1) + ": " + Prototipus.getPlayerTypeAndIndex(players.get(i)) + System.lineSeparator();
+			playersStatus += "player" + (i + 1) + ": " + PrototypeTest.getPlayerTypeAndIndex(players.get(i)) + System.lineSeparator();
 		String neighboursStatus = "Neighbouring components: " + System.lineSeparator();
 		for(int i = 0; i < neighbours.size(); ++i)
-			neighboursStatus += "neighbour" + (i + 1) + ": " + Prototipus.getComponentTypeAndIndex(neighbours.get(i)) + System.lineSeparator();
+			neighboursStatus += "neighbour" + (i + 1) + ": " + PrototypeTest.getComponentTypeAndIndex(neighbours.get(i)) + System.lineSeparator();
 		return status + playersStatus + neighboursStatus;
 	}
 }

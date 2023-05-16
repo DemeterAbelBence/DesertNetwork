@@ -47,19 +47,8 @@ public class Pump extends Component {
 	
 	public void punctured() {
 	}
-
-	public void update(){
-		if(!broken){
-			output.addWater();
-			takeWater();
-			int rand = random.nextInt(100);
-			if(rand < 5){
-				malfunction();
-			}
-		}
-	}
 	
-	public void update() {
+	public void updateStatus() {
 		if(random.nextInt(100) < 2) // 2% esely
 			malfunction();
 		if(!broken)

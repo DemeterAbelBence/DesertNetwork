@@ -79,8 +79,8 @@ public class RepairMan extends Player implements Updateable{
 				newPipe.addNeighbour(otherEndPump);
 				newPipe.addNeighbour(newPump);
 				newPump.addNeighbour(newPipe);
-				Prototipus.pumps.add(newPump);
-				Prototipus.pipes.add(newPipe);
+				PrototypeTest.addPump(newPump);
+				PrototypeTest.addPipe(newPipe);
 				hasPump = false;
 			}
 		}
@@ -109,6 +109,6 @@ public class RepairMan extends Player implements Updateable{
 	
 	public String toString() {
 		return super.toString() + ", hasPump: " + hasPump + ", pipeInHand: "
-	+ Prototipus.getComponentTypeAndIndex(pipeInHand);
+	+ PrototypeTest.getComponentTypeAndIndex(pipeInHand);
 	}
 }

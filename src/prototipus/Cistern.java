@@ -28,9 +28,6 @@ public class Cistern extends Component implements Updateable {
 	public void punctured() {
 	}
 	
-	public void update(){
-	}
-
-	public void update(){
+	public void updateStatus() {
 	}
 }

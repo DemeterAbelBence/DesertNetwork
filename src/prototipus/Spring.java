@@ -28,26 +28,12 @@ public class Spring extends Component implements Updateable{
 	
 	public void malfunction() {
 	}
-
-	public void update(){
-		for (Component c : neighbours) {
-			c.addWater();
-			takeWater();
-		}
-	}
 	
 	public void punctured() {
 	}
 	
-	/*public void updateStatus() {
+	public void updateStatus() {
 		for(Component neighbour : neighbours) 
 			neighbour.addWater();
-	}*/
-	
-	public void update(){
-		for (Component c : neighbours) {
-			c.addWater();
-			takeWater();
-		}
 	}
 }

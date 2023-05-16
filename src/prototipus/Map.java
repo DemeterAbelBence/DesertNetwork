@@ -28,8 +28,11 @@ public class Map {
 	public List<Saboteur> saboteurs = new ArrayList<Saboteur>();
 	public List<RepairMan> repairmen = new ArrayList<RepairMan>();
 	
-	public void createNew(String[] inputCommands) {
+	public int createNew(String[] inputCommands) {
+		int n = 0;
 		for(int j = 0; !inputCommands[j].equals("done"); ++j) {
+			n++;
+			
 			String line = inputCommands[j];
 			String[] cmd = line.split(" ");
 			switch (cmd[0]) {
@@ -97,6 +100,9 @@ public class Map {
 				break;
 			}
 			default: {
+				if(cmd[0].equals("newMap"))
+					break;
+				
 				char endChar = cmd[0].charAt(cmd[0].length() - 1);
 				String componentType;
 				Pipe newPipe = new Pipe();
@@ -139,6 +145,7 @@ public class Map {
 			}
 			}
 		}
+		return n;
 	}
 	
 	public void mapInit() {
