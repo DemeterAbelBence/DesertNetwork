@@ -30,7 +30,7 @@ public abstract class Component implements Updateable{
 	protected int stickyCounter = 0;
 	protected int slipperyCounter = 0;
 	protected int punctureCounter = 0;	
-	protected int capacity;
+	protected int capacity=-1;
 	protected int waterLevel = 0;
 	
 	public static final int counterPeriod = 10;
@@ -73,19 +73,23 @@ public abstract class Component implements Updateable{
 	
 	public void addNeighbour(Component c) {
 		neighbours.add(c);
-		if(neighbours.size() == 0) {
+		if(neighbours.size() == 1) {
 			//ha spring lenne
-			if(c.node && !c.itemSource && c.capacity != 0){
+			if(this.node && !this.itemSource && this.capacity == -1){
+				output = c;
+			}else if(c.input == this) {
 				output = c;
 			}else
 				input = c;
 		}
-		else if(neighbours.size() == 1) {
+		else if(neighbours.size() == 2) {
 			if(output!=null){
-				if(c.node && !c.itemSource && c.capacity != 0l){return;}
+				if(this.node && !this.itemSource /*&& this.capacity == -1*/){
+					neighbours.remove(c);
+					return;
+				}
 				input = c;
-			}else
-			if(c.itemSource){ return; }//ha cistern
+			}else if(this.itemSource){ neighbours.remove(c); 	return;/*ha cistern*/ }
 			output = c;
 		}
 	}
