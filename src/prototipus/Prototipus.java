@@ -60,6 +60,7 @@ public class Prototipus {
 			case "flowWater":
 			case "sabotagePump":
 				//timer.Tick();
+				Prototipus.pumps.get(0).broken=true;
 				break;
 			default: {
 				char endChar = cmd[0].charAt(cmd[0].length() - 1);
