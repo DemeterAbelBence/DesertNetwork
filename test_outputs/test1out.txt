@@ -1,0 +1,74 @@
+Command execution failed!
+
+
+
+Expected:
+
+saboteur1 field: pipe1
+saboteur1 field: pump2
+
+
+pump1
+waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false
+input: null
+output: pipe1
+Players standing on this component:
+Neighbouring components:
+neighbour1: pipe1
+
+pump2
+waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false
+input: pipe1
+output: null
+Players standing on this component:
+player1: saboteur1
+Neighbouring components:
+neighbour1: pipe1
+
+pipe1
+leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false
+input: pump1
+output: pump2
+Players standing on this component:
+Neighbouring components:
+neighbour1: pump1
+neighbour2: pump2
+
+
+saboteur1 at component: pump2, stuckCounter: 0
+
+
+Given:
+
+saboteur1 field: pipe1
+saboteur1 field: pump2
+
+
+pump1
+waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false
+input: null
+output: pipe1
+Players standing on this component:
+Neighbouring components: 
+neighbour1: pipe1
+
+pump2
+waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false
+input: pipe1
+output: null
+Players standing on this component:
+player1: saboteur1
+Neighbouring components: 
+neighbour1: pipe1
+
+pipe1
+leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false
+input: pump1
+output: pump2
+Players standing on this component:
+Neighbouring components: 
+neighbour1: pump1
+neighbour2: pump2
+
+
+saboteur1 at component: pump2, stuckCounter: 0
