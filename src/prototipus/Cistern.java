@@ -30,4 +30,7 @@ public class Cistern extends Component implements Updateable {
 	
 	public void updateStatus() {
 	}
+
+	public void update(){
+	}
 }

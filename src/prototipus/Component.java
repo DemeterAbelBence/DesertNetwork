@@ -3,7 +3,7 @@ package prototipus;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
 //
 //
@@ -34,9 +34,9 @@ public abstract class Component implements Updateable{
 	protected int waterLevel = 0;
 	
 	public static final int counterPeriod = 10;
-	
-	private Component input;
-	private Component output;
+
+	protected Component input;
+	protected Component output;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	protected ArrayList<Component> neighbours = new ArrayList<Component>();
 	
@@ -49,6 +49,8 @@ public abstract class Component implements Updateable{
 	public abstract void punctured();
 	
 	public abstract void malfunction();
+
+	public abstract void update();
 	
 	public boolean addWater() {
 		if(waterLevel >= capacity)
@@ -138,10 +140,37 @@ public abstract class Component implements Updateable{
 		if(output != null && waterLevel > 0) {
 			boolean isOutputFull = output.isFull();
 			if(!isOutputFull) {
-				if(output.addWater())
-					this.takeWater();
+				update();
 			}
 		}
+	}
+
+	public void updateStatus() {
+		if(stickyCounter > 0)
+			decreaseStickyCounter();
+		if(slipperyCounter > 0)
+			decreaseSlipperyCounter();
+		if(punctureCounter > 0)
+			decreasePunctureCounter();
+		waterFlows();
+	}
+
+	public void decreaseStickyCounter(){
+		stickyCounter--;
+	}
+
+	public void decreaseSlipperyCounter(){
+		slipperyCounter--;
+	}
+
+	public void decreasePunctureCounter(){
+		punctureCounter--;
+	}
+
+	public boolean hasOutputComponent(){
+		if(output != null)
+			return true;
+		return false;
 	}
 	
 	public int getSlipperyCounter() {
@@ -170,7 +199,7 @@ public abstract class Component implements Updateable{
 	
 	public void resetPunctureCounter() {
 		Random random = new Random();
-		punctureCounter = random.nextInt(1, 11);
+		punctureCounter = random.nextInt(11)+1;
 	}
 	
 	public void setInput(Component input) {

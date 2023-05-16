@@ -45,6 +45,27 @@ public class Pipe extends Component {
 	public void punctured() {
 		setLeaks(true);
 	}
+
+	public void update(){
+		if(this.hasOutputComponent()){
+			if(!leaks) {
+				output.addWater();
+				takeWater();
+			}
+			else {
+				if(this.isFull()) {
+					leakedWater++;
+					takeWater();
+				}
+			}
+		}
+		else {
+			if(this.isFull()) {
+				leakedWater++;
+				takeWater();
+			}
+		}
+	}
 	
 	public void updateStatus() {
 		if(!leaks)
