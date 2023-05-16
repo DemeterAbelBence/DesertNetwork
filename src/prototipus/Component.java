@@ -3,7 +3,7 @@ package prototipus;
 import java.util.ArrayList;
 import java.util.Random;
 
-//import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 
 //
 //
@@ -34,7 +34,7 @@ public abstract class Component implements Updateable{
 	protected int waterLevel = 0;
 	
 	public static final int counterPeriod = 10;
-
+	
 	protected Component input;
 	protected Component output;
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -49,7 +49,6 @@ public abstract class Component implements Updateable{
 	public abstract void punctured();
 	
 	public abstract void malfunction();
-
 	public abstract void update();
 	
 	public boolean addWater() {
@@ -144,17 +143,17 @@ public abstract class Component implements Updateable{
 			}
 		}
 	}
-
+	
 	public void updateStatus() {
-		if(stickyCounter > 0)
+		/*if(stickyCounter > 0)
 			decreaseStickyCounter();
 		if(slipperyCounter > 0)
 			decreaseSlipperyCounter();
 		if(punctureCounter > 0)
-			decreasePunctureCounter();
+			decreasePunctureCounter();*/
 		waterFlows();
 	}
-
+	/*
 	public void decreaseStickyCounter(){
 		stickyCounter--;
 	}
@@ -165,7 +164,7 @@ public abstract class Component implements Updateable{
 
 	public void decreasePunctureCounter(){
 		punctureCounter--;
-	}
+	}*/
 
 	public boolean hasOutputComponent(){
 		if(output != null)
@@ -199,7 +198,7 @@ public abstract class Component implements Updateable{
 	
 	public void resetPunctureCounter() {
 		Random random = new Random();
-		punctureCounter = random.nextInt(11)+1;
+		punctureCounter = random.nextInt(1, 11);
 	}
 	
 	public void setInput(Component input) {
