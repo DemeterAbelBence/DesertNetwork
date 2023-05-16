@@ -319,5 +319,609 @@ public class PrototypeTest {
 		displayTestResult("test_outputs/test1out.txt", expectedOutput, output, success);
 		Assert.assertTrue(success);
 	}
+
+	@Test
+	public void PlayerMovestoSlippery() {
+		String[] input = readInputFile("input_files/test2in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"saboteur1 field: pipe1\n"
+				+ "saboteur1 makePipeSlippery pipe1\n"
+				+ "saboteur1 field: pump1\n"
+				+ "saboteur1 field: pipe1\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "player1: saboteur1\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pump2\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: true, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump1\n"
+				+ "output: pump2\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump1\n"
+				+ "neighbour2: pump2\n"
+				+ "\n"
+				+ "saboteur1 at component: pump1, stuckCounter: 0";
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test2out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void PickUpPump() {
+		String[] input = readInputFile("input_files/test3in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"repairman1 pickUpPump cistern1\n"
+				+ "repairman1 repairPipe cistern1\n"
+				+ "\n"
+				+ "cistern1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "player1: repairman1\n"
+				+ "Neighbouring components:\n"
+				+ "\n"
+				+ "repairman1 at component: cistern1, stuckCounter: 0, hasPump: true, pipeInHand: null";
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test3out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void PlaceDownPump() {
+		String[] input = readInputFile("input_files/test4in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"repairman1 pickUpPump cistern1\n"
+				+ "repairman1 field: pipe1\n"
+				+ "repairman1 placeDownPump pipe1\n"
+				+ "\n"
+				+ "cistern1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe2\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe2\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pump2\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: pipe2\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "neighbour2: pipe2\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump1\n"
+				+ "output: pump2\n"
+				+ "Players standing on this component:\n"
+				+ "player1: repairman1\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump1\n"
+				+ "neighbour2: pump2\n"
+				+ "\n"
+				+ "pipe2\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump2\n"
+				+ "output: cistern1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: cistern1\n"
+				+ "neighbour2: pump2\n"
+				+ "\n"
+				+ "repairman1 at component: pipe1, stuckCounter: 0, hasPump: false, pipeInHand: null";
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test4out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void PlaceDownPipe() {
+		String[] input = readInputFile("input_files/test5in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"repairman1 pickUpPipe from: cistern1, picked up: pipe2\n"
+				+ "repairman1 placeDownPipe cistern1\n"
+				+ "repairman1 field: pipe1\n"
+				+ "repairman1 field: pump1\n"
+				+ "repairman1 placeDownPipe pump1\n"
+				+ "\n"
+				+ "cistern1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "neighbour2: pipe2\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe2\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "player1: repairman1\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "neighbour2: pipe2\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump1\n"
+				+ "output: cistern1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump1\n"
+				+ "neighbour2: cistern1\n"
+				+ "\n"
+				+ "pipe2\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: cistern1\n"
+				+ "output: pump1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: cistern1\n"
+				+ "neighbour2: pump1\n"
+				+ "\n"
+				+ "repairman1 at component: pump1, stuckCounter: 0, hasPump: false, pipeInHand: null";
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test5out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void PickUpPipe() {
+		String[] input = readInputFile("input_files/test6in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"repairman1 pickUpPipe from: cistern1, picked up: pipe2\n"
+				+ "repairman1 placeDownPipe cistern1\n"
+				+ "repairman1 field: pipe1\n"
+				+ "repairman1 field: pump1\n"
+				+ "repairman1 placeDownPipe pump1\n"
+				+ "repairman1 pickUpPipe from: pump1, picked up: pipe1\n"
+				+ "repairman1 field: pipe2\n"
+				+ "repairman1 field: cistern1\n"
+				+ "repairman1 placeDownPipe cistern1\n"
+				+ "\n"
+				+ "cistern1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe2\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "player1: repairman1\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe2\n"
+				+ "neighbour2: pipe1\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe2\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe2\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: true\n"
+				+ "input: null\n"
+				+ "output: cistern1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: cistern1\n"
+				+ "\n"
+				+ "pipe2\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump1\n"
+				+ "output: cistern1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: cistern1\n"
+				+ "neighbour2: pump1\n"
+				+ "\n"
+				+ "repairman1 at component: cistern1, stuckCounter: 0, hasPump: false, pipeInHand: null";
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test6out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void RepairPipe() {
+		String[] input = readInputFile("input_files/test7in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"repairman1 repairPipe pipe1\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pump2\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump1\n"
+				+ "output: pump2\n"
+				+ "Players standing on this component:\n"
+				+ "player1: repairman1\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump1\n"
+				+ "neighbour2: pump2\n"
+				+ "\n"
+				+ "repairman1 at component: pipe1, stuckCounter: 0, hasPump: false, pipeInHand: null";
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test7out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void PipeSabotage() {
+		String[] input = readInputFile("input_files/test8in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"repairman1 sabotagePipe pipe1\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pump2\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: true\n"
+				+ "input: pump1\n"
+				+ "output: pump2\n"
+				+ "Players standing on this component:\n"
+				+ "player1: repairman1\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump1\n"
+				+ "neighbour2: pump2\n"
+				+ "\n"
+				+ "repairman1 at component: pipe1, stuckCounter: 0, hasPump: false, pipeInHand: null";
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test8out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void RepairPump() {
+		String[] input = readInputFile("input_files/test9in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"repairman1 repairPump pump1\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "player1: repairman1\n"
+				+ "Neighbouring components:\n"
+				+ "\n"
+				+ "repairman1 at component: pump1, stuckCounter: 0, hasPump: false, pipeInHand: null";
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test9out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void PumpInputOtputChange() {
+		String[] input = readInputFile("input_files/test10in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"pump2 changePumpOutput pipe1\n"
+				+ "pump2 changePumpInput pipe2\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pump2\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe2\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "player1: repairman1\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "neighbour2: pipe2\n"
+				+ "\n"
+				+ "pump3\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: pipe2\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe2\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump2\n"
+				+ "output: pump1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump1\n"
+				+ "neighbour2: pump2\n"
+				+ "\n"
+				+ "pipe2\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump3\n"
+				+ "output: pump2\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump2\n"
+				+ "neighbour2: pump3\n"
+				+ "\n"
+				+ "repairman1 at component: pump2, stuckCounter: 0, hasPump: false, pipeInHand: null";
+
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test10out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void WaterFlowsRepairMan() {
+		String[] input = readInputFile("input_files/test11in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"cistern1\n"
+				+ "waterLevel: 1, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe2\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe2\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 1, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: pipe2\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "neighbour2: pipe2\n"
+				+ "\n"
+				+ "spring1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 1, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: spring1\n"
+				+ "output: pump1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: spring1\n"
+				+ "neighbour2: pump1\n"
+				+ "\n"
+				+ "pipe2\n"
+				+ "leaked water: 0, waterLevel: 1, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump1\n"
+				+ "output: cistern1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump1\n"
+				+ "neighbour2: cistern1";
+
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test11out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void WaterFlowsSaboteur() {
+		String[] input = readInputFile("input_files/test12in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "spring1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 2, waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: true\n"
+				+ "input: spring1\n"
+				+ "output: pump1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: spring1\n"
+				+ "neighbour2: pump1";
+
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test12out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void PumpMalfunction() {
+		String[] input = readInputFile("input_files/test13in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: true, punctured: false\n"
+				+ "input: null\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n";
+
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test13out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void SaboteurMakesSlippery() {
+		String[] input = readInputFile("input_files/test14in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"saboteur1 makePipeSlippery pipe1\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pump2\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: true, sticky: false, broken: false, punctured: false\n"
+				+ "input: pump1\n"
+				+ "output: pump2\n"
+				+ "Players standing on this component:\n"
+				+ "player1: saboteur1\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump1\n"
+				+ "neighbour2: pump2\n"
+				+ "\n"
+				+ "saboteur1 at component: pipe1, stuckCounter: 0";
+
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test14out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
+
+	@Test
+	public void PlayerMakesSticky() {
+		String[] input = readInputFile("input_files/test15in.txt");
+		String[] output = executeCommands(input);
+
+		String s = 	"saboteur1 makePipeSticky pipe1\n"
+				+ "\n"
+				+ "pump1\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: null\n"
+				+ "output: pipe1\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pump2\n"
+				+ "waterLevel: 0, slippery: false, sticky: false, broken: false, punctured: false\n"
+				+ "input: pipe1\n"
+				+ "output: null\n"
+				+ "Players standing on this component:\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pipe1\n"
+				+ "\n"
+				+ "pipe1\n"
+				+ "leaked water: 0, waterLevel: 0, slippery: false, sticky: true, broken: false, punctured: false\n"
+				+ "input: pump1\n"
+				+ "output: pump2\n"
+				+ "Players standing on this component:\n"
+				+ "player1: saboteur1\n"
+				+ "Neighbouring components:\n"
+				+ "neighbour1: pump1\n"
+				+ "neighbour2: pump2\n"
+				+ "\n"
+				+ "saboteur1 at component: pipe1, stuckCounter: 0";
+
+
+		String[] expectedOutput = s.split("\n");
+		boolean success = Arrays.equals(expectedOutput, output);
+		displayTestResult("test_outputs/test15out.txt", expectedOutput, output, success);
+		Assert.assertTrue(success);
+	}
 	
 }

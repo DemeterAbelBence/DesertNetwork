@@ -1,0 +1,10 @@
+newMap
+springs 1
+pumps 1
+cisterns 0
+spring1 pump1 punctured
+done
+flowWater
+flowWater
+showMap
+showPlayers

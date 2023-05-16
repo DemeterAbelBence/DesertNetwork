@@ -1,0 +1,13 @@
+newMap
+springs 1
+pumps 1
+cisterns 1
+spring1 pump1
+pump1 cistern1
+done
+flowWater
+flowWater
+flowWater
+flowWater
+showMap
+showPlayers

@@ -1,0 +1,13 @@
+newMap
+springs 0
+pumps 2
+cisterns 0
+pump1 pump2
+saboteur pump1
+done
+saboteur1 moveTo pipe1
+saboteur1 makePipeSlippery
+saboteur1 moveTo pump1
+saboteur1 moveTo pipe1
+showMap
+showPlayers

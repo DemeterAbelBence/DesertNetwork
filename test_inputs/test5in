@@ -1,0 +1,14 @@
+newMap
+springs 0
+pumps 1
+cisterns 1
+pump1 cistern1
+repairman cistern1
+done
+repairman1 pickUpPipe new
+repairman1 placeDownPipe
+repairman1 moveTo pipe1
+repairman1 moveTo pump1
+repairman1 placeDownPipe
+showMap
+showPlayers

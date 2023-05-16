@@ -1,0 +1,10 @@
+newMap
+springs 0
+pumps 1
+cisterns 0
+repairman pump1
+done
+sabotagePump
+repairman1 repairPump
+showMap
+showPlayers

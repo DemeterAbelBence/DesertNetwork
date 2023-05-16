@@ -1,0 +1,9 @@
+newMap
+springs 0
+pumps 0
+cisterns 1
+repairman cistern1
+done
+repairman1 pickUpPump
+showMap
+showPlayers

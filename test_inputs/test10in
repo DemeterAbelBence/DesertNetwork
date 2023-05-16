@@ -1,0 +1,12 @@
+newMap
+springs 0
+pumps 3
+cisterns 0
+pump1 pump2
+pump2 pump3
+repairman pump2
+done
+repairman1 changePumpOutput pipe1
+repairman1 changePumpInput pipe2
+showMap
+showPlayers
