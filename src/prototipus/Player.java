@@ -27,18 +27,24 @@ public abstract class Player {
 	private void slips() {
 		ArrayList<Component> neighboursOfHostPipe = host.getNeighbours();
 		Random random = new Random();
-		setNewHost(neighboursOfHostPipe.get(random.nextInt(0, 2)));
+		int seged = random.nextInt(0, 2);
+		host.slipperyCounter=0;
+		if(neighboursOfHostPipe.size() >= seged)
+			setNewHost(neighboursOfHostPipe.get(0));
+		else setNewHost(neighboursOfHostPipe.get(seged));
 	}
 	
 	public void moveTo(Component dest) {
 		if(stuckCounter > 0)
 			return;
+		
 		boolean destCanBeSteppedOn = dest.canBeSteppedOn();
 		int destStickyUntil = dest.getStickyCounter();
 		int destSlipperyUntil = dest.getSlipperyCounter();
 		
 		if(destCanBeSteppedOn) {
 			if(destSlipperyUntil > 0) {
+				setNewHost(dest);
 				slips();
 				return;
 			}
