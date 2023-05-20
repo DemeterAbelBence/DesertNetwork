@@ -21,11 +21,9 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Graphics2D;
 public class Observer extends JFrame implements Updateable {
+	
+	
 	private Map observedMap;
-	
-	//GraphicsDevice device;
-	
-	
 
 	private MenuPanel menuPanel;
 	private GamePanel gamePanel;
@@ -64,6 +62,8 @@ public class Observer extends JFrame implements Updateable {
 		observedMap.repairmen.add(new RepairMan(new Pump()));
 		observedMap.repairmen.add(new RepairMan(new Pump()));
 		observedMap.saboteurs.add(new Saboteur(new Pump()));
+		observedMap.saboteurs.add(new Saboteur(new Pipe()));
+		observedMap.saboteurs.add(new Saboteur(new Pipe()));
 		observedMap.saboteurs.add(new Saboteur(new Pipe()));
 		setVisible(true);
 		menuPanel = new MenuPanel(this);
