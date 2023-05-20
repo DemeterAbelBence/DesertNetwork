@@ -55,6 +55,7 @@ public class GamePanel extends JPanel {
 		});
 		
 		System.out.println(getWidth());
+		
 		//observedMap.saboteurs.forEach(null);
 		//observedMap.repairmen.forEach(null);
 		//observedMap.pipes.forEach(null);
