@@ -22,12 +22,18 @@ public class GamePanel extends JPanel {
 		observer = o;
 		setBackground(Observer.colorFromRGB(242,210,169));
 
-		for(int i = 0; i < drawables.size(); ++i)
-			drawables.get(i).Move(new Vector2(i*100%1000,i++*150%600));
+		//for(int i = 0; i < drawables.size(); ++i)
+			//drawables.get(i).Move(new Vector2(i*50,i++*50));
 	}
 	
 	public static void addDrawable(Drawable drawable) {
 		drawables.add(drawable);
+	}
+	
+	public static Drawable getDrawable(int i) {
+		if(i < drawables.size())
+			return drawables.get(i);
+		return null;
 	}
 	
 	@Override

@@ -176,19 +176,19 @@ public class Map {
 			for(int i = 0; i < nrOfCisterns; ++i) 
 			{
 				Cistern newCistern = new Cistern();
-				GamePanel.addDrawable(new DrawableComponent(newCistern, new Vector2(0, 0), cisternImage));
+				GamePanel.addDrawable(new DrawableComponent(newCistern, new Vector2(1000, i*100), cisternImage));
 				components.add(newCistern);
 			}
 			for(int i = 0; i < nrOfSprings; ++i)
 			{
 				Spring newSpring = new Spring();
-				GamePanel.addDrawable(new DrawableComponent(newSpring, new Vector2(0, 0), springImage));
+				GamePanel.addDrawable(new DrawableComponent(newSpring, new Vector2(0, i * 100), springImage));
 				components.add(newSpring);
 			}
 			for(int i = 0; i < nrOfPumps; ++i)
 			{
 				Pump newPump = new Pump();
-				GamePanel.addDrawable(new DrawableComponent(newPump, new Vector2((i+1) * 100, i * 100), pumpImage));
+				GamePanel.addDrawable(new DrawableComponent(newPump, new Vector2((i+4) * 100, i * 100), pumpImage));
 				components.add(newPump);
 			}
 			for(int i = 0; i < nrOfPipes; ++i)
@@ -201,7 +201,7 @@ public class Map {
 					secondRandom = random.nextInt(components.size() - 1 - i);
 				} while (secondRandom == firstRandom);
 				newPipe.addNeighbour(components.get(secondRandom));
-				GamePanel.addDrawable(new DrawableComponent(newPipe, new Vector2(0, 0), null));
+				GamePanel.addDrawable(new DrawableComponent(newPipe, new Vector2(0, 0), null, GamePanel.getDrawable(firstRandom), GamePanel.getDrawable(secondRandom)));
 				components.add(newPipe);
 			}
 		} catch (IOException e) {

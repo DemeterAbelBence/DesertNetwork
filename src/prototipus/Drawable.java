@@ -19,4 +19,12 @@ public abstract class Drawable {
 		this.image = image;
 		this.coordinates = coordinates;
 	}
+	
+	public int getX() {
+		return coordinates.getX();
+	}
+	
+	public int getY() {
+		return coordinates.getY();
+	}
 }
