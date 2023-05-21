@@ -1,7 +1,10 @@
 package prototipus;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +35,7 @@ public abstract class Component implements Updateable{
 	protected int punctureCounter = 0;	
 	protected int capacity=-1;
 	protected int waterLevel = 0;
-	
+	protected Image sprite;
 	public static final int counterPeriod = 10;
 	
 	private Component input;
@@ -201,5 +204,10 @@ public abstract class Component implements Updateable{
 		for(int i = 0; i < neighbours.size(); ++i)
 			neighboursStatus += "neighbour" + (i + 1) + ": " + PrototypeTest.getComponentTypeAndIndex(neighbours.get(i)) + System.lineSeparator();
 		return status + playersStatus + neighboursStatus;
+	}
+
+	public Image getSprite() {
+	
+		return sprite;
 	}
 }

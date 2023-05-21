@@ -10,6 +10,10 @@ package prototipus;
 //
 //
 
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Cistern extends Component implements Updateable {
 	public Cistern() {
 		pumpPlaceable = false;
@@ -17,6 +21,12 @@ public class Cistern extends Component implements Updateable {
 		itemSource = true;
 		broken = false;
 		leaks = false;
+		try {
+			sprite = ImageIO.read(this.getClass().getResource("cistern.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void repaired() {

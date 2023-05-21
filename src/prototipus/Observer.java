@@ -42,33 +42,43 @@ public class Observer extends JFrame implements Updateable {
 		
 		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		observedMap.cisterns.add(new Cistern());
-		observedMap.cisterns.add(new Cistern());
-		observedMap.cisterns.add(new Cistern());
-		observedMap.cisterns.add(new Cistern());
-		observedMap.cisterns.add(new Cistern());
-		observedMap.cisterns.add(new Cistern());
-		observedMap.cisterns.add(new Cistern());
-		observedMap.cisterns.add(new Cistern());
-		observedMap.cisterns.add(new Cistern());
-		observedMap.springs.add(new Spring());
-		observedMap.springs.add(new Spring());
-		observedMap.springs.add(new Spring());
-		observedMap.pumps.add(new Pump());
-		observedMap.pumps.add(new Pump());
-		observedMap.pumps.add(new Pump());
-		observedMap.pumps.add(new Pump());
-		observedMap.pumps.add(new Pump());
-		observedMap.repairmen.add(new RepairMan(new Pump()));
-		observedMap.repairmen.add(new RepairMan(new Pump()));
-		observedMap.saboteurs.add(new Saboteur(new Pump()));
-		observedMap.saboteurs.add(new Saboteur(new Pipe()));
-		observedMap.saboteurs.add(new Saboteur(new Pipe()));
-		observedMap.saboteurs.add(new Saboteur(new Pipe()));
+		
+		observedMap.getComponents().add(new Cistern());
+		observedMap.getComponents().add(new Cistern());
+		observedMap.getComponents().add(new Spring());
+		observedMap.getComponents().add(new Spring());
+		observedMap.getComponents().add(new Pump());
+		observedMap.getComponents().add(new Pump());
+		observedMap.getComponents().add(new Pump());
+
+		Spring s = new Spring();
+		
+		Pump a = new Pump();
+		Pump b = new Pump();
+		Cistern c = new Cistern();
+		Pipe p = new Pipe();
+		Pipe p2 = new Pipe();
+		Pipe p3 = new Pipe();
+		p2.addNeighbour(s);
+		p2.addNeighbour(a);
+		p3.addNeighbour(c);
+		p3.addNeighbour(b);
+		p.addNeighbour(a);
+		p.addNeighbour(b);
+		observedMap.getComponents().add(s);
+		observedMap.getComponents().add(a);
+		observedMap.getComponents().add(b);
+		observedMap.getComponents().add(c);
+		observedMap.getComponents().add(p);
+		observedMap.getComponents().add(p2);
+		observedMap.getComponents().add(p3);
+		observedMap.getPlayers().add(new RepairMan(new Pump()));
+		observedMap.getPlayers().add(new RepairMan(new Pump()));
+		observedMap.getPlayers().add(new Saboteur(new Pump()));
+		observedMap.getPlayers().add(new Saboteur(new Pipe()));
 		setVisible(true);
 		menuPanel = new MenuPanel(this);
 		gamePanel = new GamePanel(this);
-		
 		add(gamePanel);
 		add(menuPanel);
 	
@@ -81,13 +91,6 @@ public class Observer extends JFrame implements Updateable {
 		
 		this.getContentPane().repaint();
 		this.getContentPane().revalidate();
-	
-
-		
-		
-		
-		
-		
 	}
 	
 

@@ -1,6 +1,9 @@
 package prototipus;
 
+import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 //
 //
@@ -26,6 +29,12 @@ public class Pump extends Component {
 		broken = false;
 		leaks = false;
 		this.capacity = capacity;
+		try {
+			sprite = ImageIO.read(getClass().getResource("pump.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public Pump() {
@@ -35,6 +44,12 @@ public class Pump extends Component {
 		broken = false;
 		leaks = false;
 		this.capacity = 10;
+		try {
+			sprite = ImageIO.read(getClass().getResource("pump.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void repaired() {

@@ -18,8 +18,8 @@ import java.util.List;
 
 
 public class Map {
-	private ArrayList<Component> components;
-	private ArrayList<Player> players;
+	private ArrayList<Component> components = new ArrayList<Component>();
+	private ArrayList<Player> players = new ArrayList<Player>();;
 	
 	public List<Spring> springs = new ArrayList<Spring>();
 	public List<Pump> pumps = new ArrayList<Pump>();
@@ -27,6 +27,8 @@ public class Map {
 	public List<Pipe> pipes = new ArrayList<Pipe>();
 	public List<Saboteur> saboteurs = new ArrayList<Saboteur>();
 	public List<RepairMan> repairmen = new ArrayList<RepairMan>();
+	
+	
 	
 	public int createNew(String[] inputCommands) {
 		int n = 0;
@@ -150,5 +152,13 @@ public class Map {
 	
 	public void mapInit() {
 		
+	}
+
+	public ArrayList<Component> getComponents() {
+		return components;
+	}
+
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 }
