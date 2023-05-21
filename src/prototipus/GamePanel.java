@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -14,31 +15,20 @@ import java.awt.Dimension;
 public class GamePanel extends JPanel {
 
 	Observer observer;
+	private static ArrayList<Drawable> drawables  = new ArrayList<Drawable>();
 	
-	class Vector2{
-		private int x;
-		private int y;
-		public Vector2() {x=0;y=0;}
-		public Vector2(int x,int y)
-		{
-			this.x = x; this.y = y;
-		}
-		public int getX() {return x;}
-		public void setX(int x) {this.x = x;}
-		public void setY(int y) {this.y = y;}
-		public int getY() {return y;}
-	}
-	
-	HashMap<Component, Vector2> nodePositions = new HashMap<Component, Vector2>();
 	public GamePanel(Observer o)
 	{
 		observer = o;
 		setBackground(Observer.colorFromRGB(242,210,169));
-		int i = 0;
-		for(var x : observer.getObservedMap().getComponents())
-			nodePositions.put(x,new Vector2(observer.getObservedMap().getComponents().indexOf(x)*100%1000,i++*150%600));
+
+		for(int i = 0; i < drawables.size(); ++i)
+			drawables.get(i).Move(new Vector2(i*100%1000,i++*150%600));
 	}
 	
+	public static void addDrawable(Drawable drawable) {
+		drawables.add(drawable);
+	}
 	
 	@Override
 	protected void paintComponent(Graphics g)
@@ -47,6 +37,10 @@ public class GamePanel extends JPanel {
 		//order still undecided
 		Graphics g2d = (Graphics2D)g;
 		
+		for(Drawable drawable : drawables) {
+			drawable.Draw(g2d);
+		}
+		/*
 		for(var x : observer.getObservedMap().getComponents())
 			if(x.getNode())
 			{
@@ -58,6 +52,7 @@ public class GamePanel extends JPanel {
 				g2d.drawLine(nodePositions.get(x.getNeighbours().get(0)).getX(), nodePositions.get(x.getNeighbours().get(0)).getY(),nodePositions.get(x.getNeighbours().get(1)).getX(),nodePositions.get(x.getNeighbours().get(1)).getY());
 				
 			}
+		*/
 		
 		System.out.println(getWidth());
 	}

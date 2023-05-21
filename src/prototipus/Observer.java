@@ -31,63 +31,24 @@ public class Observer extends JFrame implements Updateable {
 	public Observer(Map map)
 	{
 		//device = GraphicsEnvironment
-		
+		observedMap = map;
+		// feltolti a default map csoveivel, pumpaival, stb.
+		observedMap.makeDefaultMap(2, 3, 4, 5);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
-		observedMap = map;
-		
 		this.getContentPane().setLayout(null);
-		 //       .getLocalGraphicsEnvironment().getScreenDevices()[0];observedMap.cisterns.add(new Cistern());
-		
-		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
-		observedMap.getComponents().add(new Cistern());
-		observedMap.getComponents().add(new Cistern());
-		observedMap.getComponents().add(new Spring());
-		observedMap.getComponents().add(new Spring());
-		observedMap.getComponents().add(new Pump());
-		observedMap.getComponents().add(new Pump());
-		observedMap.getComponents().add(new Pump());
-
-		Spring s = new Spring();
-		
-		Pump a = new Pump();
-		Pump b = new Pump();
-		Cistern c = new Cistern();
-		Pipe p = new Pipe();
-		Pipe p2 = new Pipe();
-		Pipe p3 = new Pipe();
-		p2.addNeighbour(s);
-		p2.addNeighbour(a);
-		p3.addNeighbour(c);
-		p3.addNeighbour(b);
-		p.addNeighbour(a);
-		p.addNeighbour(b);
-		observedMap.getComponents().add(s);
-		observedMap.getComponents().add(a);
-		observedMap.getComponents().add(b);
-		observedMap.getComponents().add(c);
-		observedMap.getComponents().add(p);
-		observedMap.getComponents().add(p2);
-		observedMap.getComponents().add(p3);
-		observedMap.getPlayers().add(new RepairMan(new Pump()));
-		observedMap.getPlayers().add(new RepairMan(new Pump()));
-		observedMap.getPlayers().add(new Saboteur(new Pump()));
-		observedMap.getPlayers().add(new Saboteur(new Pipe()));
+		 //       .getLocalGraphicsEnvironment().getScreenDevices()[0];observedMap.cisterns.add(new Cistern());
 		setVisible(true);
+		
 		menuPanel = new MenuPanel(this);
 		gamePanel = new GamePanel(this);
 		add(gamePanel);
 		add(menuPanel);
 	
-		
 		gamePanel.setBounds(0,0,getWidth()/4*3,getHeight());
 		menuPanel.setBounds(gamePanel.getWidth(),0,getWidth()/4,getHeight());
-		
-		
-
 		
 		this.getContentPane().repaint();
 		this.getContentPane().revalidate();

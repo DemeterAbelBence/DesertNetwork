@@ -167,6 +167,12 @@ public abstract class Component implements Updateable{
 		return neighbours;
 	}
 	
+	public Component getNeighbour(int i) {
+		if(i < neighbours.size())
+			return neighbours.get(i);
+		return null;
+	}
+	
 	public boolean getItemSource() {
 		return itemSource;
 	}

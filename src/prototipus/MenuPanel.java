@@ -11,7 +11,6 @@ import java.awt.Graphics2D;
 import java.util.*;
 import java.awt.event.*;
 public class MenuPanel extends JPanel {
-
 	Observer observer;
 	//ArrayList<JButton> playerButtons = new ArrayList<JButton>();
 	Player focusedPlayer;
@@ -48,12 +47,9 @@ public class MenuPanel extends JPanel {
 				"neighbourPipe1","neighbourPipe2","neighbourPipe3","neighbourPipe4","neighbourPipe5","neighbourPipe6",
 		};
 		JList igen = new JList(s);
-	
 		
 		add(igen);
 		add(new JButton("Move to selected"));
-		
-		
 		
 		setVisible(true);
 	

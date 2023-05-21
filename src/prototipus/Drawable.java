@@ -1,20 +1,21 @@
 package prototipus;
 
+import java.awt.Graphics;
 import java.awt.Image;
 
 public abstract class Drawable {
 	Image image;
 	// Koordinatak
-	GamePanel.Vector2 coordinates;
+	Vector2 coordinates;
 	
-	public abstract void Draw();
+	public abstract void Draw(Graphics g);
 	
-	public void Move(GamePanel.Vector2 coordinates) {
+	public void Move(Vector2 coordinates) {
 		// ??
 		this.coordinates = coordinates;
 	}
 	
-	public Drawable(GamePanel.Vector2 coordinates, Image image) {
+	public Drawable(Vector2 coordinates, Image image) {
 		this.image = image;
 		this.coordinates = coordinates;
 	}

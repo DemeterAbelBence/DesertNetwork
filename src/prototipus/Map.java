@@ -1,7 +1,12 @@
 package prototipus;
 
+import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 //
 //
@@ -18,6 +23,7 @@ import java.util.List;
 
 
 public class Map {
+	Random random = new Random();
 	private ArrayList<Component> components = new ArrayList<Component>();
 	private ArrayList<Player> players = new ArrayList<Player>();;
 	
@@ -27,8 +33,7 @@ public class Map {
 	public List<Pipe> pipes = new ArrayList<Pipe>();
 	public List<Saboteur> saboteurs = new ArrayList<Saboteur>();
 	public List<RepairMan> repairmen = new ArrayList<RepairMan>();
-	
-	
+
 	
 	public int createNew(String[] inputCommands) {
 		int n = 0;
@@ -160,5 +165,53 @@ public class Map {
 
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	
+	public void makeDefaultMap(int nrOfCisterns, int nrOfSprings, int nrOfPumps, int nrOfPipes) {
+		try {
+			Image cisternImage = ImageIO.read(this.getClass().getResource("cistern.png"));
+			Image springImage = ImageIO.read(this.getClass().getResource("spring.png"));
+			Image pumpImage = ImageIO.read(this.getClass().getResource("pump.png"));
+
+			for(int i = 0; i < nrOfCisterns; ++i) 
+			{
+				Cistern newCistern = new Cistern();
+				GamePanel.addDrawable(new DrawableComponent(newCistern, new Vector2(0, 0), cisternImage));
+				components.add(newCistern);
+			}
+			for(int i = 0; i < nrOfSprings; ++i)
+			{
+				Spring newSpring = new Spring();
+				GamePanel.addDrawable(new DrawableComponent(newSpring, new Vector2(0, 0), springImage));
+				components.add(newSpring);
+			}
+			for(int i = 0; i < nrOfPumps; ++i)
+			{
+				Pump newPump = new Pump();
+				GamePanel.addDrawable(new DrawableComponent(newPump, new Vector2((i+1) * 100, i * 100), pumpImage));
+				components.add(newPump);
+			}
+			for(int i = 0; i < nrOfPipes; ++i)
+			{
+				Pipe newPipe = new Pipe();
+				int firstRandom = random.nextInt(components.size() - 1 - i);
+				newPipe.addNeighbour(components.get(firstRandom));
+				int secondRandom;
+				do {
+					secondRandom = random.nextInt(components.size() - 1 - i);
+				} while (secondRandom == firstRandom);
+				newPipe.addNeighbour(components.get(secondRandom));
+				GamePanel.addDrawable(new DrawableComponent(newPipe, new Vector2(0, 0), null));
+				components.add(newPipe);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		getPlayers().add(new RepairMan(new Pump()));
+		getPlayers().add(new RepairMan(new Pump()));
+		getPlayers().add(new Saboteur(new Pump()));
+		getPlayers().add(new Saboteur(new Pipe()));
+		
+		
 	}
 }
