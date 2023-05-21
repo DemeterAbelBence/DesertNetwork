@@ -59,8 +59,6 @@ public class GamePanel extends JPanel {
 				
 			}
 		*/
-		
-		System.out.println(getWidth());
 	}
 	
 	private Component findPlayersComponent(Player p)

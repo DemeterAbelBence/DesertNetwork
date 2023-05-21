@@ -22,7 +22,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Graphics2D;
 public class Observer extends JFrame implements Updateable {
 	
-	
 	private Map observedMap;
 
 	private MenuPanel menuPanel;
@@ -33,7 +32,7 @@ public class Observer extends JFrame implements Updateable {
 		//device = GraphicsEnvironment
 		observedMap = map;
 		// feltolti a default map csoveivel, pumpaival, stb.
-		observedMap.makeDefaultMap(2, 3, 4, 5);
+		observedMap.makeDefaultMap(2, 3, 4, 8);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);

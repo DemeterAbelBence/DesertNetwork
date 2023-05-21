@@ -18,6 +18,7 @@ public class MenuPanel extends JPanel {
 	JButton punctureButton = new JButton("Puncture pipe");
 	JButton slipperyButton = new JButton("Make pipe slippery");
 	JLabel playerNameLabel = new JLabel("Player 0");
+	
 	public MenuPanel(Observer o)
 	{
 		this.setLayout(new FlowLayout());

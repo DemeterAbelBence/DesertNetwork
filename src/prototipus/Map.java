@@ -211,7 +211,5 @@ public class Map {
 		getPlayers().add(new RepairMan(new Pump()));
 		getPlayers().add(new Saboteur(new Pump()));
 		getPlayers().add(new Saboteur(new Pipe()));
-		
-		
 	}
 }

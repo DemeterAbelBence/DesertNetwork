@@ -7,12 +7,14 @@ public abstract class Drawable {
 	Image image;
 	// Koordinatak
 	Vector2 coordinates;
+	static Observer observer;
 	
 	public abstract void Draw(Graphics g);
 	
 	public void Move(Vector2 coordinates) {
 		// ??
 		this.coordinates = coordinates;
+		observer.repaint();
 	}
 	
 	public Drawable(Vector2 coordinates, Image image) {
@@ -26,5 +28,9 @@ public abstract class Drawable {
 	
 	public int getY() {
 		return coordinates.getY();
+	}
+	
+	public static void setObserver(Observer o) {
+		observer = o;
 	}
 }

@@ -10,6 +10,7 @@ public class Prototipus {
 		Map testMap = new Map();
 		
 		Observer o = new Observer(testMap);
+		Drawable.setObserver(o);
 		
 		o.repaint();
 	}
