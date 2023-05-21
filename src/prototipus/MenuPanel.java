@@ -74,6 +74,7 @@ public class MenuPanel extends JPanel {
 		};
 		JList igen = new JList(s);
 		
+		
 		add(igen);
 		add(new JButton("Move to selected"));
 		
