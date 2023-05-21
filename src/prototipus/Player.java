@@ -71,7 +71,7 @@ public abstract class Player {
 	
 	public void makeSticky() {
 		boolean isHostNode = host.getNode();
-		if(!isHostNode) {
+		if(!isHostNode && host.slipperyCounter == 0) {
 			host.resetStickyCounter();
 		}
 	}

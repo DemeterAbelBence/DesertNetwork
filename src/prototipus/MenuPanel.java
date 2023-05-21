@@ -39,7 +39,33 @@ public class MenuPanel extends JPanel {
 			b.revalidate();
 		}
 			add(Box.createRigidArea(new Dimension(getWidth(),200)));
-			
+
+
+		slipperyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				boolean temp = focusedPlayer.host.getNode();
+				if(!temp && focusedPlayer.host.getSlipperyCounter() == 0){
+					focusedPlayer.host.resetSlipperyCounter();
+				}
+			}
+		});
+
+		punctureButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				focusedPlayer.sabotage();
+			}
+		});
+
+		stickyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				focusedPlayer.makeSticky();
+			}
+		});
+
+
 		add(slipperyButton);
 		add(punctureButton); 
 		add(stickyButton);
@@ -48,6 +74,7 @@ public class MenuPanel extends JPanel {
 				"neighbourPipe1","neighbourPipe2","neighbourPipe3","neighbourPipe4","neighbourPipe5","neighbourPipe6",
 		};
 		JList igen = new JList(s);
+		
 		
 		add(igen);
 		add(new JButton("Move to selected"));
