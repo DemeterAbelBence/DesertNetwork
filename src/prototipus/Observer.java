@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Image;
 import java.io.File;
@@ -26,6 +27,11 @@ public class Observer extends JFrame implements Updateable {
 
 	private MenuPanel menuPanel;
 	private GamePanel gamePanel;
+	
+	private static ArrayList<Drawable> drawables  = new ArrayList<Drawable>();
+	
+	private static HashMap<Player, Drawable> drawablePlayers = new HashMap<Player, Drawable>();
+	private static HashMap<Component, Drawable> drawableComponents = new HashMap<Component, Drawable>();
 	
 	public Observer(Map map)
 	{
@@ -53,8 +59,6 @@ public class Observer extends JFrame implements Updateable {
 		this.getContentPane().revalidate();
 	}
 	
-
-	
 	public void updateStatus()
 	{
 		repaint();
@@ -71,5 +75,30 @@ public class Observer extends JFrame implements Updateable {
 	public Map getObservedMap()
 	{
 		return observedMap;
+	}
+	
+	public static void addDrawablePlayer(Player player, Drawable drawable) {
+		drawables.add(drawable);
+		drawablePlayers.put(player, drawable);
+	}
+	
+	public static void addDrawableComponent(Component component, Drawable drawable) {
+		drawables.add(drawable);
+		drawableComponents.put(component, drawable);
+	}
+	
+	public static Drawable getDrawableOfPlayer(Player p) {
+		return drawablePlayers.get(p);
+	}
+	
+	public static Drawable getDrawableOfComponent(Component c) {
+		return drawableComponents.get(c);
+	}
+	
+	public void drawDrawables(Graphics g) {
+		Graphics g2d = (Graphics2D)g;
+		for(Drawable drawable : drawables) {
+			drawable.Draw(g2d);
+		}
 	}
 }

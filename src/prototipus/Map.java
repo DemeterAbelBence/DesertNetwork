@@ -24,8 +24,8 @@ import javax.imageio.ImageIO;
 
 public class Map {
 	Random random = new Random();
-	private ArrayList<Component> components = new ArrayList<Component>();
-	private ArrayList<Player> players = new ArrayList<Player>();;
+	private static ArrayList<Component> components = new ArrayList<Component>();
+	private static ArrayList<Player> players = new ArrayList<Player>();;
 	
 	public List<Spring> springs = new ArrayList<Spring>();
 	public List<Pump> pumps = new ArrayList<Pump>();
@@ -34,6 +34,20 @@ public class Map {
 	public List<Saboteur> saboteurs = new ArrayList<Saboteur>();
 	public List<RepairMan> repairmen = new ArrayList<RepairMan>();
 
+	static Image cisternImage;
+	static Image springImage;
+	static Image pumpImage;
+	
+	public Map() {
+		try {
+			cisternImage = ImageIO.read(this.getClass().getResource("cistern.png"));
+			springImage = ImageIO.read(this.getClass().getResource("spring.png"));
+			pumpImage = ImageIO.read(this.getClass().getResource("pump.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public int createNew(String[] inputCommands) {
 		int n = 0;
@@ -167,28 +181,34 @@ public class Map {
 		return players;
 	}
 	
+	public static void addPump(RepairMan repairman, Pump p) {
+		components.add(p);
+		Drawable drawableOfRepairman = Observer.getDrawableOfPlayer(repairman);
+		Observer.addDrawableComponent(p, new DrawableComponent(p, drawableOfRepairman.coordinates, pumpImage));
+	}
+	
+	public static void addPipe(Pipe p) {
+		components.add(p);
+		Observer.addDrawableComponent(p, new DrawableComponent(p));
+	}
+	
 	public void makeDefaultMap(int nrOfCisterns, int nrOfSprings, int nrOfPumps, int nrOfPipes) {
-		try {
-			Image cisternImage = ImageIO.read(this.getClass().getResource("cistern.png"));
-			Image springImage = ImageIO.read(this.getClass().getResource("spring.png"));
-			Image pumpImage = ImageIO.read(this.getClass().getResource("pump.png"));
-
 			for(int i = 0; i < nrOfCisterns; ++i) 
 			{
 				Cistern newCistern = new Cistern();
-				GamePanel.addDrawable(new DrawableComponent(newCistern, new Vector2(1000, i*100), cisternImage));
+				Observer.addDrawableComponent(newCistern, new DrawableComponent(newCistern, new Vector2(1000, i*100), cisternImage));
 				components.add(newCistern);
 			}
 			for(int i = 0; i < nrOfSprings; ++i)
 			{
 				Spring newSpring = new Spring();
-				GamePanel.addDrawable(new DrawableComponent(newSpring, new Vector2(0, i * 100), springImage));
+				Observer.addDrawableComponent(newSpring, new DrawableComponent(newSpring, new Vector2(0, i * 100), springImage));
 				components.add(newSpring);
 			}
 			for(int i = 0; i < nrOfPumps; ++i)
 			{
 				Pump newPump = new Pump();
-				GamePanel.addDrawable(new DrawableComponent(newPump, new Vector2((i+4) * 100, i * 100), pumpImage));
+				Observer.addDrawableComponent(newPump, new DrawableComponent(newPump, new Vector2((i+4) * 100, i * 100), pumpImage));
 				components.add(newPump);
 			}
 			for(int i = 0; i < nrOfPipes; ++i)
@@ -201,12 +221,9 @@ public class Map {
 					secondRandom = random.nextInt(components.size() - 1 - i);
 				} while (secondRandom == firstRandom);
 				newPipe.addNeighbour(components.get(secondRandom));
-				GamePanel.addDrawable(new DrawableComponent(newPipe, new Vector2(0, 0), null, GamePanel.getDrawable(firstRandom), GamePanel.getDrawable(secondRandom)));
+				Observer.addDrawableComponent(newPipe, new DrawableComponent(newPipe));
 				components.add(newPipe);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		getPlayers().add(new RepairMan(new Pump()));
 		getPlayers().add(new RepairMan(new Pump()));
 		getPlayers().add(new Saboteur(new Pump()));

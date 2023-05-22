@@ -26,6 +26,7 @@ public class RepairMan extends Player implements Updateable{
 		if(pipeInHand == null) {
 			Pipe newPipe = new Pipe();
 			pipeInHand = newPipe;
+			Map.addPipe(newPipe);
 		}
 	}
 	
@@ -81,6 +82,8 @@ public class RepairMan extends Player implements Updateable{
 				newPump.addNeighbour(newPipe);
 				PrototypeTest.addPump(newPump);
 				PrototypeTest.addPipe(newPipe);
+				Map.addPump(this, newPump);
+				Map.addPipe(newPipe);
 				hasPump = false;
 			}
 		}

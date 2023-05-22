@@ -5,18 +5,15 @@ import java.awt.Image;
 
 public class DrawableComponent extends Drawable{
 	Component component;
-	Drawable neighbour1, neighbour2;
 	
 	public DrawableComponent(Component component, Vector2 coordinates, Image image){
 		super(coordinates, image);
 		this.component = component;
 	}
 	
-	public DrawableComponent(Component component, Vector2 coordinates, Image image, Drawable n1, Drawable n2){
-		super(coordinates, image);
+	public DrawableComponent(Component component){
+		super(new Vector2(0, 0), null);
 		this.component = component;
-		neighbour1 = n1;
-		neighbour2 = n2;
 	}
 	
 	@Override
@@ -25,6 +22,13 @@ public class DrawableComponent extends Drawable{
 		if(component.getNode())
 			g.drawImage(image, coordinates.getX(), coordinates.getY(),null);
 		else  
-			g.drawLine(neighbour1.getX(), neighbour1.getY(), neighbour2.getX(), neighbour2.getY());
+		{
+			if(component.getNeighbour(0) != null && component.getNeighbour(1) != null) {
+				Drawable drawableOfNeighbour1 = Observer.getDrawableOfComponent(component.getNeighbour(0));
+				Drawable drawableOfNeighbour2 = Observer.getDrawableOfComponent(component.getNeighbour(1));
+				g.drawLine(drawableOfNeighbour1.getX(), drawableOfNeighbour1.getY(), 
+						drawableOfNeighbour2.getX(), drawableOfNeighbour2.getY());
+			}
+		}
 	}
 }

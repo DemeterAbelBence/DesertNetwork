@@ -15,7 +15,6 @@ import java.awt.Dimension;
 public class GamePanel extends JPanel {
 
 	Observer observer;
-	private static ArrayList<Drawable> drawables  = new ArrayList<Drawable>();
 	
 	public GamePanel(Observer o)
 	{
@@ -26,26 +25,12 @@ public class GamePanel extends JPanel {
 			//drawables.get(i).Move(new Vector2(i*50,i++*50));
 	}
 	
-	public static void addDrawable(Drawable drawable) {
-		drawables.add(drawable);
-	}
-	
-	public static Drawable getDrawable(int i) {
-		if(i < drawables.size())
-			return drawables.get(i);
-		return null;
-	}
-	
 	@Override
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		//order still undecided
-		Graphics g2d = (Graphics2D)g;
-		
-		for(Drawable drawable : drawables) {
-			drawable.Draw(g2d);
-		}
+		observer.drawDrawables(g);
 		/*
 		for(var x : observer.getObservedMap().getComponents())
 			if(x.getNode())
