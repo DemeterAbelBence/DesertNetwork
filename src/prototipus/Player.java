@@ -23,7 +23,7 @@ public abstract class Player {
 	protected int stuckCounter;
 	public final int stuckTime = 10;
 	protected Component host;
-	
+	public abstract void makeSlippery();
 	private void slips() {
 		ArrayList<Component> neighboursOfHostPipe = host.getNeighbours();
 		Random random = new Random();
@@ -33,6 +33,7 @@ public abstract class Player {
 			setNewHost(neighboursOfHostPipe.get(0));
 		else setNewHost(neighboursOfHostPipe.get(seged));
 	}
+
 	
 	public void moveTo(Component dest) {
 		if(stuckCounter > 0)

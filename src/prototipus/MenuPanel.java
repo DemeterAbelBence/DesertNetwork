@@ -44,24 +44,26 @@ public class MenuPanel extends JPanel {
 		slipperyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boolean temp = focusedPlayer.host.getNode();
-				if(!temp && focusedPlayer.host.getSlipperyCounter() == 0){
-					focusedPlayer.host.resetSlipperyCounter();
-				}
+				focusedPlayer.makeSlippery();
+				observer.repaint();
 			}
 		});
 
 		punctureButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				focusedPlayer.sabotage();
+				observer.repaint();
 			}
 		});
 
 		stickyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				focusedPlayer.makeSticky();
+				observer.repaint();
 			}
 		});
 
@@ -71,13 +73,24 @@ public class MenuPanel extends JPanel {
 		add(stickyButton);
 		focusedPlayer = observer.getObservedMap().getPlayers().get(0);
 		String[] s = {
-				"neighbourPipe1","neighbourPipe2","neighbourPipe3","neighbourPipe4","neighbourPipe5","neighbourPipe6",
+				"neighbour1","neighbour2","neighbour3","neighbour4","neighbour5","neighbour6",
 		};
-		JList igen = new JList(s);
+		JList jl = new JList(s);
 		
 		
-		add(igen);
-		add(new JButton("Move to selected"));
+		add(jl);
+		JButton move = new JButton("Move to selected");
+		move.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!jl.isSelectionEmpty()){
+					int idx = jl.getSelectedIndex();
+					focusedPlayer.moveTo(focusedPlayer.host.neighbours.get(idx));
+					observer.repaint();
+				}
+			}
+		});
+		add(move);
 		
 		setVisible(true);
 	
@@ -90,6 +103,7 @@ public class MenuPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			focusedPlayer = ((PlayerButton)e.getSource()).getPlayer();
 			playerNameLabel.setText("Player" + ((PlayerButton)e.getSource()).getId());
+			observer.repaint();
 		}
 		
 	}

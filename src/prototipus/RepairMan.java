@@ -101,7 +101,7 @@ public class RepairMan extends Player implements Updateable{
 			setPipeInHand(null);
 		}
 	}
-	
+	public void makeSlippery(){}
 	public void setPipeInHand(Pipe pipe) {
 		pipeInHand = pipe;
 	}

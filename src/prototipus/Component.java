@@ -212,6 +212,7 @@ public abstract class Component implements Updateable{
 		return status + playersStatus + neighboursStatus;
 	}*/
 
+
 	public Image getSprite() {
 	
 		return sprite;
