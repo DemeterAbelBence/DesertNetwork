@@ -80,8 +80,8 @@ public class RepairMan extends Player implements Updateable{
 				newPipe.addNeighbour(otherEndPump);
 				newPipe.addNeighbour(newPump);
 				newPump.addNeighbour(newPipe);
-				PrototypeTest.addPump(newPump);
-				PrototypeTest.addPipe(newPipe);
+				//PrototypeTest.addPump(newPump);
+				//PrototypeTest.addPipe(newPipe);
 				Map.addPump(this, newPump);
 				Map.addPipe(newPipe);
 				hasPump = false;
@@ -110,8 +110,8 @@ public class RepairMan extends Player implements Updateable{
 		return pipeInHand;
 	}
 	
-	public String toString() {
+	/*public String toString() {
 		return super.toString() + ", hasPump: " + hasPump + ", pipeInHand: "
 	+ PrototypeTest.getComponentTypeAndIndex(pipeInHand);
-	}
+	}*/
 }

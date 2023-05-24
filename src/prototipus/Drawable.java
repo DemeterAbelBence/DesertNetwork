@@ -33,4 +33,5 @@ public abstract class Drawable {
 	public static void setObserver(Observer o) {
 		observer = o;
 	}
+	public Vector2 getCoordinates() {return coordinates;}
 }

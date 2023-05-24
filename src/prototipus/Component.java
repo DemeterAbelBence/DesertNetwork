@@ -196,7 +196,7 @@ public abstract class Component implements Updateable{
 		return !node;
 	}
 	
-	public String toString() {
+	/*public String toString() {
 		String status = "waterLevel: " + waterLevel + ", slippery: " + (slipperyCounter != 0) 
 				+ ", sticky: " + (stickyCounter != 0) + ", broken: " 
 				+ broken + ", punctured: " + leaks + System.lineSeparator()
@@ -210,7 +210,7 @@ public abstract class Component implements Updateable{
 		for(int i = 0; i < neighbours.size(); ++i)
 			neighboursStatus += "neighbour" + (i + 1) + ": " + PrototypeTest.getComponentTypeAndIndex(neighbours.get(i)) + System.lineSeparator();
 		return status + playersStatus + neighboursStatus;
-	}
+	}*/
 
 	public Image getSprite() {
 	
