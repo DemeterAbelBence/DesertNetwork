@@ -185,6 +185,7 @@ public class Map {
 		{
 
 			while ((line = bufferedReader.readLine()) != null) {
+				System.out.println(line);
 				result = line.split(" ");
 					switch (result[0]) {
 						case "cistern":
@@ -250,7 +251,7 @@ public class Map {
 								default: r1 = new RepairMan(springs.get(0)); break;
 							}
 							players.add(r1);
-							Observer.addDrawablePlayer(r1, new DrawablePlayer(r1, Observer.getDrawableOfComponent(r1.host).getCoordinates(), repairManImage));
+							//Observer.addDrawablePlayer(r1, new DrawablePlayer(r1, Observer.getDrawableOfComponent(r1.host).getCoordinates(), repairManImage));
 							break;
 						case "saboteur":
 							Player s1;
@@ -264,7 +265,7 @@ public class Map {
 								default: s1 = new RepairMan(cisterns.get(0)); break;
 							}
 							players.add(s1);
-							Observer.addDrawablePlayer(s1, new DrawablePlayer(s1, Observer.getDrawableOfComponent(s1.host).getCoordinates(), saboteurImage));
+							//Observer.addDrawablePlayer(s1, new DrawablePlayer(s1, Observer.getDrawableOfComponent(s1.host).getCoordinates(), saboteurImage));
 							break;
 					}
 			}

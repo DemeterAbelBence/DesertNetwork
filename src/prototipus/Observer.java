@@ -34,8 +34,8 @@ public class Observer extends JFrame implements Updateable {
 		//device = GraphicsEnvironment
 		observedMap = map;
 		// feltolti a default map csoveivel, pumpaival, stb.
-		observedMap.makeDefaultMap(2, 3, 4, 8);
-		//observedMap.mapInit();
+		//observedMap.makeDefaultMap(2, 3, 4, 8);
+		observedMap.mapInit();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
