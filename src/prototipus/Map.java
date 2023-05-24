@@ -1,7 +1,7 @@
 package prototipus;
 
 import java.awt.Image;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -37,7 +37,9 @@ public class Map {
 	static Image cisternImage;
 	static Image springImage;
 	static Image pumpImage;
-	
+	static Image repairManImage;
+	static Image saboteurImage;
+
 	public Map() {
 		try {
 			cisternImage = ImageIO.read(this.getClass().getResource("cistern.png"));
@@ -168,9 +170,105 @@ public class Map {
 		}
 		return n;
 	}
-	
+
+
 	public void mapInit() {
-		
+		//beolvas adott fajlbol
+		File file = new File("map1.txt");
+
+		String line;
+		String[] result = new String[4];
+		try (
+				FileInputStream fileInputStream = new FileInputStream(file);
+				InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);)
+		{
+
+			while ((line = bufferedReader.readLine()) != null) {
+				result = line.split(" ");
+					switch (result[0]) {
+						case "cistern":
+							Cistern newCistern = new Cistern();
+							Observer.addDrawableComponent(newCistern, new DrawableComponent(newCistern, new Vector2(Integer.parseInt(result[1]), Integer.parseInt(result[2])), cisternImage));
+							components.add(newCistern);
+							cisterns.add(newCistern);
+							break;
+						case "spring":
+							Spring newSpring = new Spring();
+							Observer.addDrawableComponent(newSpring, new DrawableComponent(newSpring, new Vector2(Integer.parseInt(result[1]), Integer.parseInt(result[2])), springImage));
+							components.add(newSpring);
+							springs.add(newSpring);
+							break;
+						case "pump":
+							Pump newPump = new Pump();
+							Observer.addDrawableComponent(newPump, new DrawableComponent(newPump, new Vector2(Integer.parseInt(result[1]), Integer.parseInt(result[2])), pumpImage));
+							components.add(newPump);
+							pumps.add(newPump);
+							break;
+
+						case "pipe":
+							Pipe newPipe = new Pipe();
+							for (int i = 1; i < 3; i++) {
+								String n = result[i].substring(0, result[i].length() - 1);
+								int num = Integer.parseInt(result[i].substring(result[i].length() - 1));
+
+								switch (n) {
+									case "pump":
+										newPipe.addNeighbour(pumps.get(num));
+										pumps.get(num).addNeighbour(newPipe);
+										break;
+									case "cistern":
+										newPipe.addNeighbour(cisterns.get(num));
+										cisterns.get(num).addNeighbour(newPipe);
+										break;
+									case "spring":
+										newPipe.addNeighbour(springs.get(num));
+										springs.get(num).addNeighbour(newPipe);
+										break;
+								}
+							}
+							 if(!result[3].equals("-") ){
+								 switch(result[3]){
+									 case "punctured": newPipe.punctured(); break;
+									 case "slippery": newPipe.resetSlipperyCounter(); break;
+									 case "sticky": newPipe.resetStickyCounter(); break;
+								 }
+							 }
+							Observer.addDrawableComponent(newPipe, new DrawableComponent(newPipe));
+							components.add(newPipe);
+							pipes.add(newPipe);
+							break;
+						case "repairman":
+							Player r1;
+							String host = result[2].substring(0, result[2].length() - 1);
+							int num = Integer.parseInt(result[2].substring(result[2].length() - 1));
+							switch(host){
+								case "pump": r1 = new RepairMan(pumps.get(num)); break;
+								case "spring": r1 = new RepairMan(springs.get(num)); break;
+								case "cistern": r1 = new RepairMan(cisterns.get(num)); break;
+								case "pipe": r1 = new RepairMan(pipes.get(num)); break;
+								default: r1 = new RepairMan(springs.get(0)); break;
+							}
+							players.add(r1);
+							Observer.addDrawablePlayer(r1, new DrawablePlayer(r1, Observer.getDrawableOfComponent(r1.host).getCoordinates(), repairManImage));
+							break;
+						case "saboteur":
+							Player s1;
+							String host1 = result[2].substring(0, result[2].length() - 1);
+							int num1 = Integer.parseInt(result[2].substring(result[2].length() - 1));
+							switch(host1){
+								case "pump": s1 = new RepairMan(pumps.get(num1)); break;
+								case "spring": s1 = new RepairMan(springs.get(num1)); break;
+								case "cistern": s1 = new RepairMan(cisterns.get(num1)); break;
+								case "pipe": s1 = new RepairMan(pipes.get(num1)); break;
+								default: s1 = new RepairMan(cisterns.get(0)); break;
+							}
+							players.add(s1);
+							Observer.addDrawablePlayer(s1, new DrawablePlayer(s1, Observer.getDrawableOfComponent(s1.host).getCoordinates(), saboteurImage));
+							break;
+					}
+			}
+		}catch (IOException e) {}
 	}
 
 	public ArrayList<Component> getComponents() {

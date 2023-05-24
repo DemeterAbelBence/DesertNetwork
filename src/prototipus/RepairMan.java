@@ -1,6 +1,7 @@
 package prototipus;
 
 import java.util.List;
+import org.junit.jupiter.api.*;
 
 //
 //
@@ -80,8 +81,8 @@ public class RepairMan extends Player implements Updateable{
 				newPipe.addNeighbour(otherEndPump);
 				newPipe.addNeighbour(newPump);
 				newPump.addNeighbour(newPipe);
-				PrototypeTest.addPump(newPump);
-				PrototypeTest.addPipe(newPipe);
+				//PrototypeTest1.addPump(newPump);
+				//PrototypeTest1.addPipe(newPipe);
 				Map.addPump(this, newPump);
 				Map.addPipe(newPipe);
 				hasPump = false;
@@ -110,8 +111,8 @@ public class RepairMan extends Player implements Updateable{
 		return pipeInHand;
 	}
 	
-	public String toString() {
-		return super.toString() + ", hasPump: " + hasPump + ", pipeInHand: "
-	+ PrototypeTest.getComponentTypeAndIndex(pipeInHand);
-	}
+	/*public String toString() {
+		return super.toString() + ", hasPump: " + hasPump + ", pipeInHand: ";
+	+ PrototypeTest1.getComponentTypeAndIndex(pipeInHand);
+	}*/
 }

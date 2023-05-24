@@ -22,7 +22,7 @@ import java.util.Random;
 public abstract class Player {
 	protected int stuckCounter;
 	public final int stuckTime = 10;
-	protected Component host;
+	public Component host;
 	
 	private void slips() {
 		ArrayList<Component> neighboursOfHostPipe = host.getNeighbours();

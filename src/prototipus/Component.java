@@ -6,7 +6,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 //
 //
@@ -196,21 +196,21 @@ public abstract class Component implements Updateable{
 		return !node;
 	}
 	
-	public String toString() {
+	/*public String toString() {
 		String status = "waterLevel: " + waterLevel + ", slippery: " + (slipperyCounter != 0) 
 				+ ", sticky: " + (stickyCounter != 0) + ", broken: " 
 				+ broken + ", punctured: " + leaks + System.lineSeparator()
-				+ "input: " + PrototypeTest.getComponentTypeAndIndex(input)
-				+ System.lineSeparator() + "output: " + PrototypeTest.getComponentTypeAndIndex(output)
+				+ "input: " + PrototypeTest1.getComponentTypeAndIndex(input)
+				+ System.lineSeparator() + "output: " + PrototypeTest1.getComponentTypeAndIndex(output)
 				+ System.lineSeparator();
 		String playersStatus = "Players standing on this component:" + System.lineSeparator();
 		for(int i = 0; i < players.size(); ++i)
-			playersStatus += "player" + (i + 1) + ": " + PrototypeTest.getPlayerTypeAndIndex(players.get(i)) + System.lineSeparator();
+			playersStatus += "player" + (i + 1) + ": " + PrototypeTest1.getPlayerTypeAndIndex(players.get(i)) + System.lineSeparator();
 		String neighboursStatus = "Neighbouring components: " + System.lineSeparator();
 		for(int i = 0; i < neighbours.size(); ++i)
-			neighboursStatus += "neighbour" + (i + 1) + ": " + PrototypeTest.getComponentTypeAndIndex(neighbours.get(i)) + System.lineSeparator();
+			neighboursStatus += "neighbour" + (i + 1) + ": " + PrototypeTest1.getComponentTypeAndIndex(neighbours.get(i)) + System.lineSeparator();
 		return status + playersStatus + neighboursStatus;
-	}
+	}*/
 
 	public Image getSprite() {
 	
