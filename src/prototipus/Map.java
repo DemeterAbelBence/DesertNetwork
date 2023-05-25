@@ -45,6 +45,8 @@ public class Map {
 			cisternImage = ImageIO.read(this.getClass().getResource("cistern.png"));
 			springImage = ImageIO.read(this.getClass().getResource("spring.png"));
 			pumpImage = ImageIO.read(this.getClass().getResource("pump.png"));
+			repairManImage = ImageIO.read(this.getClass().getResource("repairMan.png"));
+			saboteurImage = ImageIO.read(this.getClass().getResource("saboteur.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -335,9 +337,16 @@ public class Map {
 			Observer.addDrawableComponent(newPipe, new DrawableComponent(newPipe));
 			components.add(newPipe);
 		}
-		getPlayers().add(new RepairMan(new Pump()));
-		getPlayers().add(new RepairMan(new Pump()));
-		getPlayers().add(new Saboteur(new Pump()));
-		getPlayers().add(new Saboteur(new Pipe()));
+
+		//Playerek rákerülnek előre kiválasztott komponensre
+		getPlayers().add(new RepairMan(components.get(0)));
+		getPlayers().add(new RepairMan(components.get(1)));
+		getPlayers().add(new Saboteur(components.get(3)));
+		getPlayers().add(new Saboteur(components.get(10)));
+
+		Observer.addDrawablePlayer(getPlayers().get(0), new DrawablePlayer(getPlayers().get(0),new Vector2(),repairManImage));
+		Observer.addDrawablePlayer(getPlayers().get(1),new DrawablePlayer(getPlayers().get(1),new Vector2(),repairManImage));
+		Observer.addDrawablePlayer(getPlayers().get(2),new DrawablePlayer(getPlayers().get(2),new Vector2(),saboteurImage));
+		Observer.addDrawablePlayer(getPlayers().get(3),new DrawablePlayer(getPlayers().get(3),new Vector2(),saboteurImage));
 	}
 }

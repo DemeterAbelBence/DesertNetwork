@@ -8,7 +8,9 @@ public abstract class Drawable {
 	// Koordinatak
 	Vector2 coordinates;
 	static Observer observer;
-	
+
+	//Hogy a közepére kerüljön a node-nak a player
+	final static int spriteOffset = 16;
 	public abstract void Draw(Graphics g);
 	
 	public void Move(Vector2 coordinates) {

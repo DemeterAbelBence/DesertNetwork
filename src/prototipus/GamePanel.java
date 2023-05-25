@@ -29,7 +29,7 @@ public class GamePanel extends JPanel {
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		//order still undecided
+
 		observer.drawDrawables(g);
 		/*
 		for(var x : observer.getObservedMap().getComponents())
@@ -45,10 +45,11 @@ public class GamePanel extends JPanel {
 			}
 		*/
 	}
-	
-	private Component findPlayersComponent(Player p)
+
+
+	/*private Component findPlayersComponent(Player p)
 	{
 		return observer.getObservedMap().getComponents().stream().filter(x -> p.getHost().equals(x)).findFirst().orElse(null);
-	}
+	}*/
 
 }
