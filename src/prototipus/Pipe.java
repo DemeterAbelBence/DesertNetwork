@@ -74,7 +74,11 @@ public class Pipe extends Component {
 	public void setLeaks(boolean value) {
 		leaks = value;
 	}
-	
+
+	public boolean getLeaks()
+	{
+		return leaks;
+	}
 	public String toString() {
 		return "leaked water: " + leakedWater + ", " + super.toString() + System.lineSeparator();
 	}

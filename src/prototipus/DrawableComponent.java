@@ -1,7 +1,6 @@
 package prototipus;
 
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 
 public class DrawableComponent extends Drawable{
 	Component component;
@@ -24,10 +23,13 @@ public class DrawableComponent extends Drawable{
 		else  
 		{
 			if(component.getNeighbour(0) != null && component.getNeighbour(1) != null) {
+
+				g.setColor(((Pipe)component).getLeaks() ?Color.red : (component.isFull() ? Color.BLUE : Color.BLACK));
 				Drawable drawableOfNeighbour1 = Observer.getDrawableOfComponent(component.getNeighbour(0));
 				Drawable drawableOfNeighbour2 = Observer.getDrawableOfComponent(component.getNeighbour(1));
 				g.drawLine(drawableOfNeighbour1.getX(), drawableOfNeighbour1.getY(), 
 						drawableOfNeighbour2.getX(), drawableOfNeighbour2.getY());
+
 			}
 		}
 	}
