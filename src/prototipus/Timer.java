@@ -16,11 +16,61 @@ import java.util.ArrayList;
 
 
 
-public class Timer {
+public class Timer implements Runnable {
 	private ArrayList<Updateable> updateables;
-	
+	private Thread gameThread;
+	private final int TPS = 1; //Tick Per Second
+
+	public Timer(Map map)
+	{
+		updateables = new ArrayList<Updateable>();
+		for (Updateable item:
+			 map.getComponents()) {
+			updateables.add(item);
+		}
+		for (Updateable item:
+			 map.getPlayers()) {
+			updateables.add(item);
+		}
+	}
 	public void tick() {
 		for(Updateable updateable:updateables)
 			updateable.updateStatus();
+
+		System.out.println("Tick!");
+	}
+
+	public void startTimer()
+	{
+		gameThread = new Thread(this);
+		gameThread.start();
+	}
+
+	@Override
+	public void run() {
+		double tpsToTime = 1000000000/TPS;
+		double nextFrame = System.nanoTime() + tpsToTime;
+		while(gameThread != null)
+		{
+			tick();
+
+			double remainingTime =  nextFrame - System.nanoTime();
+
+
+			//This is to eliminate some small and rare bug LMAO
+			if(remainingTime <0)
+				remainingTime = 0;
+
+
+			try {
+				Thread.sleep((long)remainingTime/1000000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			nextFrame += tpsToTime;
+		}
+
 	}
 }

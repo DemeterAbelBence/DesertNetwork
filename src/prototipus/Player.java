@@ -19,7 +19,7 @@ import java.util.Random;
 
 
 
-public abstract class Player {
+public abstract class Player implements Updateable{
 	protected int stuckCounter;
 	public final int stuckTime = 10;
 	protected Component host;
