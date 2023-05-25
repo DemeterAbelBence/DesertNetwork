@@ -41,10 +41,8 @@ public class Observer extends JFrame implements Updateable {
 		observedMap.makeDefaultMap(2, 3, 4, 8);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setUndecorated(true);
 		this.getContentPane().setLayout(null);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		 //       .getLocalGraphicsEnvironment().getScreenDevices()[0];observedMap.cisterns.add(new Cistern());
+		this.setBounds(EXIT_ON_CLOSE, ABORT, 1600, 600);
 		setVisible(true);
 		
 		menuPanel = new MenuPanel(this);

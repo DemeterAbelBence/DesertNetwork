@@ -178,7 +178,6 @@ public class Map {
 		return n;
 	}
 
-
 	public void mapInit() {
 		//beolvas adott fajlbol
 		File file = new File("map1.txt");
@@ -300,6 +299,7 @@ public class Map {
 		Observer.addDrawableComponent(p, new DrawableComponent(p, drawableOfRepairman.coordinates, pumpImage));
 	}
 
+	
 	public static void addPipe(Pipe p) {
 		components.add(p);
 		Observer.addDrawableComponent(p, new DrawableComponent(p));
@@ -309,19 +309,19 @@ public class Map {
 		for(int i = 0; i < nrOfCisterns; ++i)
 		{
 			Cistern newCistern = new Cistern();
-			Observer.addDrawableComponent(newCistern, new DrawableComponent(newCistern, new Vector2(1000, i*100), cisternImage));
+			Observer.addDrawableComponent(newCistern, new DrawableComponent(newCistern, new Vector2(900, i*100 + 100), cisternImage));
 			components.add(newCistern);
 		}
 		for(int i = 0; i < nrOfSprings; ++i)
 		{
 			Spring newSpring = new Spring();
-			Observer.addDrawableComponent(newSpring, new DrawableComponent(newSpring, new Vector2(0, i * 100), springImage));
+			Observer.addDrawableComponent(newSpring, new DrawableComponent(newSpring, new Vector2(50, i * 100 + 100), springImage));
 			components.add(newSpring);
 		}
 		for(int i = 0; i < nrOfPumps; ++i)
 		{
 			Pump newPump = new Pump();
-			Observer.addDrawableComponent(newPump, new DrawableComponent(newPump, new Vector2((i+4) * 100, i * 100), pumpImage));
+			Observer.addDrawableComponent(newPump, new DrawableComponent(newPump, new Vector2((i+4) * 100, i * 100 + 100), pumpImage));
 			components.add(newPump);
 		}
 		for(int i = 0; i < nrOfPipes; ++i)
@@ -334,6 +334,7 @@ public class Map {
 				secondRandom = random.nextInt(components.size() - 1 - i);
 			} while (secondRandom == firstRandom);
 			newPipe.addNeighbour(components.get(secondRandom));
+			components.get(secondRandom).addNeighbour(newPipe);
 			Observer.addDrawableComponent(newPipe, new DrawableComponent(newPipe));
 			components.add(newPipe);
 		}
