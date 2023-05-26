@@ -40,4 +40,8 @@ public class Cistern extends Component implements Updateable {
 	
 	public void updateStatus() {
 	}
+	
+	public String toString() {
+		return "Cistern";
+	}
 }

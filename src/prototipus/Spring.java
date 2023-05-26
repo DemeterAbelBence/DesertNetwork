@@ -46,4 +46,8 @@ public class Spring extends Component implements Updateable{
 		for(Component neighbour : neighbours) 
 			neighbour.addWater();
 	}
+	
+	public String toString() {
+		return "Sring";
+	}
 }

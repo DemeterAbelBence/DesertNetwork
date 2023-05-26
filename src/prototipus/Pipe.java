@@ -80,6 +80,6 @@ public class Pipe extends Component {
 		return leaks;
 	}
 	public String toString() {
-		return "leaked water: " + leakedWater + ", " + super.toString() + System.lineSeparator();
+		return "Pipe";
 	}
 }

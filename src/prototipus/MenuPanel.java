@@ -28,12 +28,8 @@ public class MenuPanel extends JPanel implements Updateable{
 		
 		String[] result = new String[length];
 			
-		for(int i = 0; i < length; ++i) {
-			if(c.getNeighbour(i).getNode())
-				result[i] = "node" + i;
-			else
-				result[i] = "pipe" + i;
-		}
+		for(int i = 0; i < length; ++i) 
+			result[i] = c.getNeighbours().get(i).toString() + i;
 		
 		return result;
 	}
@@ -136,14 +132,14 @@ public class MenuPanel extends JPanel implements Updateable{
 	@Override
 	public void updateStatus() {
 
-
 			DefaultListModel model = (DefaultListModel) jl.getModel();
 			int index = jl.getSelectedIndex();
 
 			model.clear();
 
-			model.addAll(focusedPlayer.getHost().getNeighbours());
-
+			String[] neighbours = hostComponentNeighbours(focusedPlayer);
+			for(String n : neighbours)
+				model.addElement(n);
 
 			jl.setSelectedIndex(index);
 

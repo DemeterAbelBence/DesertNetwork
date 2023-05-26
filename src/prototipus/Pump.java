@@ -69,4 +69,8 @@ public class Pump extends Component {
 		if(!broken)
 			waterFlows();
 	}
+	
+	public String toString() {
+		return "Pump";
+	}
 }
