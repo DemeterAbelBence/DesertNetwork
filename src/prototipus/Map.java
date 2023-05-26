@@ -329,6 +329,8 @@ public class Map {
 			Pipe newPipe = new Pipe();
 			int firstRandom = random.nextInt(components.size() - 1 - i);
 			newPipe.addNeighbour(components.get(firstRandom));
+			components.get(firstRandom).addNeighbour(newPipe);
+			
 			int secondRandom;
 			do {
 				secondRandom = random.nextInt(components.size() - 1 - i);
