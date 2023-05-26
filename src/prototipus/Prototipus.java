@@ -11,8 +11,8 @@ public class Prototipus {
 		Observer o = new Observer(testMap);
 		Drawable.setObserver(o);
 		
-		o.repaint();
-        Timer t = new Timer(testMap);
+		//o.repaint();
+        Timer t = new Timer(o);
         t.startTimer();
 	}
 }

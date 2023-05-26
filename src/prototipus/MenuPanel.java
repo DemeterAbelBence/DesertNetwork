@@ -14,10 +14,13 @@ public class MenuPanel extends JPanel implements Updateable{
 	Observer observer;
 	//ArrayList<JButton> playerButtons = new ArrayList<JButton>();
 	Player focusedPlayer;
+	Player lastFocusedPlayer;
 	JButton stickyButton = new JButton("Stick pipe");
 	JButton punctureButton = new JButton("Puncture pipe");
 	JButton slipperyButton = new JButton("Make pipe slippery");
 	JLabel playerNameLabel = new JLabel("Player 0");
+
+	JList jl;
 	
 	private String[] hostComponentNeighbours(Player p) {
 		Component c = p.getHost();
@@ -88,7 +91,10 @@ public class MenuPanel extends JPanel implements Updateable{
 		
 		focusedPlayer = observer.getObservedMap().getPlayers().get(0);
 		String[] s = hostComponentNeighbours(focusedPlayer);
-		JList jl = new JList(s);
+		DefaultListModel listModel = new DefaultListModel();
+		listModel.addAll(0,List.of(s));
+		 jl = new JList(listModel);
+
 		add(jl);
 		
 		JButton move = new JButton("Move to selected");
@@ -130,6 +136,21 @@ public class MenuPanel extends JPanel implements Updateable{
 	@Override
 	public void updateStatus() {
 		// TODO Auto-generated method stub
-		
+
+		//kurva player melyik az
+		//if(!focusedPlayer.equals(lastFocusedPlayer))
+		//{
+
+			DefaultListModel model = (DefaultListModel) jl.getModel();
+
+			//Jlistben faszért van a régi
+			model.clear();
+			//Na geci most meg üres lett
+			model.addAll(focusedPlayer.getHost().getNeighbours());
+			System.out.println(focusedPlayer.getHost().getNeighbour(0));
+		//}
+
+		//Magyarország előre megy, nem hátra
+		lastFocusedPlayer = focusedPlayer;
 	}
 }

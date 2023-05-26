@@ -99,4 +99,9 @@ public class Observer extends JFrame implements Updateable {
 			drawable.Draw(g2d);
 		}
 	}
+
+	public MenuPanel getMenuPanel()
+	{
+		return menuPanel;
+	}
 }

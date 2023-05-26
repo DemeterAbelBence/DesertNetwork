@@ -21,17 +21,19 @@ public class Timer implements Runnable {
 	private Thread gameThread;
 	private final int TPS = 1; //Tick Per Second
 
-	public Timer(Map map)
+	public Timer(Observer observer)
 	{
 		updateables = new ArrayList<Updateable>();
 		for (Updateable item:
-			 map.getComponents()) {
+				observer.getObservedMap().getComponents()) {
 			updateables.add(item);
 		}
 		for (Updateable item:
-			 map.getPlayers()) {
+				observer.getObservedMap().getPlayers()) {
 			updateables.add(item);
 		}
+		updateables.add(observer);
+		updateables.add(observer.getMenuPanel());
 	}
 	public void tick() {
 		for(Updateable updateable:updateables)

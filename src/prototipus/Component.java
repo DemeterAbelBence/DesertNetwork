@@ -76,6 +76,7 @@ public abstract class Component implements Updateable{
 	
 	public void addNeighbour(Component c) {
 		neighbours.add(c);
+		System.out.println("Adding neighbour | Node=" + node);
 		if(neighbours.size() == 1) {
 			//ha spring lenne
 			if(this.node && !this.itemSource && this.capacity == -1){
@@ -96,12 +97,13 @@ public abstract class Component implements Updateable{
 			output = c;
 		}
 	}
-	
+
 	public void removeNeighbour(Component c) {
+		System.out.println("Adding neighbour | Node=" + node);
 		if(c == output) {
 			output = null;
 		}
-		if(c == input) 
+		if(c == input)
 		{
 			if(!node) {//csorol van szo, aminek levesszulk az egyik veget
 				input = output;

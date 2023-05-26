@@ -14,6 +14,8 @@ public class DrawablePlayer extends Drawable{
 	
 	@Override
 	public void Draw(Graphics g) {
+
+		//TODO ha van idő: Egy komponensen több player legyen látható
 		if(player.host.getNode()){
 			Move(Observer.getDrawableOfComponent(player.getHost()).getCoordinates().plus(new Vector2(spriteOffset)));
 		}
