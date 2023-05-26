@@ -32,6 +32,8 @@ public abstract class Drawable {
 		return coordinates.getY();
 	}
 	
+	public Image getImage() { return image; }
+	
 	public static void setObserver(Observer o) {
 		observer = o;
 	}

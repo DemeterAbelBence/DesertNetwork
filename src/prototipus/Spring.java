@@ -16,8 +16,6 @@ import javax.imageio.ImageIO;
 //
 
 
-
-
 public class Spring extends Component implements Updateable{
 	public Spring() {
 		pumpPlaceable = false;
