@@ -135,22 +135,19 @@ public class MenuPanel extends JPanel implements Updateable{
 
 	@Override
 	public void updateStatus() {
-		// TODO Auto-generated method stub
 
-		//kurva player melyik az
-		//if(!focusedPlayer.equals(lastFocusedPlayer))
-		//{
 
 			DefaultListModel model = (DefaultListModel) jl.getModel();
+			int index = jl.getSelectedIndex();
 
-			//Jlistben faszért van a régi
 			model.clear();
-			//Na geci most meg üres lett
-			model.addAll(focusedPlayer.getHost().getNeighbours());
-			System.out.println(focusedPlayer.getHost().getNeighbour(0));
-		//}
 
-		//Magyarország előre megy, nem hátra
+			model.addAll(focusedPlayer.getHost().getNeighbours());
+
+
+			jl.setSelectedIndex(index);
+
+
 		lastFocusedPlayer = focusedPlayer;
 	}
 }
