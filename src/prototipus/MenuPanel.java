@@ -204,13 +204,6 @@ public class MenuPanel extends JPanel implements Updateable{
 		}
 		
 	}
-/*	
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-		
-	}
-	*/
 
 	@Override
 	public void updateStatus() {

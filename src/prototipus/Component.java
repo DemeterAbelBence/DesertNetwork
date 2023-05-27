@@ -175,6 +175,8 @@ public abstract class Component implements Updateable{
 		return null;
 	}
 	
+	public ArrayList<Player> getPlayers() { return players; }
+	
 	public boolean getItemSource() {
 		return itemSource;
 	}

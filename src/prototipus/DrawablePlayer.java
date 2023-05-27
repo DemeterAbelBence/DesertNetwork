@@ -17,7 +17,19 @@ public class DrawablePlayer extends Drawable{
 
 		//TODO ha van idő: Egy komponensen több player legyen látható
 		if(player.host.getNode()){
-			Move(Observer.getDrawableOfComponent(player.getHost()).getCoordinates().plus(new Vector2(spriteOffset)));
+			Component host = player.getHost();
+			Drawable hostDrawable = Observer.getDrawableOfComponent(host);
+			Vector2 hostPosition = hostDrawable.getCoordinates();
+
+			int nrPlayers = host.getPlayers().size();
+			
+			if(nrPlayers == 1) {
+				Vector2 newPosition = hostPosition.plus(new Vector2(spriteOffset));
+				Move(newPosition);
+			}else {
+				if(host.getPlayers().get(1) == player)
+					Move(hostPosition);
+			}
 		}
 		else{
 			Drawable drawableOfNeighbour1 = Observer.getDrawableOfComponent(player.getHost().getNeighbour(0));
