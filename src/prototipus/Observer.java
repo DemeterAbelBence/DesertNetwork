@@ -40,16 +40,28 @@ public class Observer extends JFrame implements Updateable {
 		// feltolti a default map csoveivel, pumpaival, stb.
 		//observedMap.makeDefaultMap(2, 3, 4, 8);
 		
-		String str= "cistern 100 100\n"
+		String str1= "cistern 100 100 repairMan\n"
 				+ "cistern 100 300 repairMan\n"
-				+ "pump 400 100\n"
+				+ "pump 400 50\n"
 				+ "pump 500 200\n"
-				+ "pump 400 300\n"
-				+ "spring 700 100\n"
-				+ "spring 700 300\n" 
+				+ "pump 400 350\n"
+				+ "spring 700 100 saboteur\n"
+				+ "spring 700 300 saboteur\n" 
 				+ "done\n";
-		String[] inputCommands = str.split("\n");
-		observedMap.createFromCommands(inputCommands);
+		
+		String str2= "0 3\n"
+				+ "1 4\n"
+				+ "2 3\n"
+				+ "4 3\n"
+				+ "4 5\n"
+				+ "3 5\n"
+				+ "4 6\n"
+				+ "done\n";
+		
+		String[] nodeCommands = str1.split("\n");
+		String[] edgeCommands = str2.split("\n");
+
+		observedMap.createFromCommands(nodeCommands, edgeCommands);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
@@ -70,6 +82,9 @@ public class Observer extends JFrame implements Updateable {
 	
 	public void updateStatus()
 	{
+		drawables.clear();
+		drawables.addAll(drawableComponents.values());
+		drawables.addAll(drawablePlayers.values());
 		repaint();
 	}
 	

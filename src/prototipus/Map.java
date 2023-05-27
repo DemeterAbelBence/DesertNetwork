@@ -19,9 +19,6 @@ import javax.imageio.ImageIO;
 //
 //
 
-
-
-
 public class Map {
 	Random random = new Random();
 	private static ArrayList<Component> components = new ArrayList<Component>();
@@ -53,67 +50,103 @@ public class Map {
 		}
 	}
 
-	public void createFromCommands(String[] inputCommands) {
-			for(int i = 0; !inputCommands[i].equals("done"); ++i) {
-		
-				//command variables
-				String line = inputCommands[i];
-				String[] cmd = line.split(" ");
-				
-				//new Component position
-				int X = Integer.parseInt(cmd[1]);
-				int Y = Integer.parseInt(cmd[2]);
-				Vector2 position = new Vector2(X, Y);
-				
-				//result
-				Component newComponent = null;
-				DrawableComponent newDc = null;
-				
-				switch (cmd[0]) {
-					case "spring":
-						newComponent = new Spring();
-						newDc = new DrawableComponent(newComponent, position, springImage);
-						break;
-						
-					case "pump":
-						newComponent = new Pump();
-						newDc = new DrawableComponent(newComponent, position, pumpImage);
-						break;
-					case "cistern":
-						newComponent = new Cistern();
-						newDc = new DrawableComponent(newComponent, position, cisternImage);
-						break;			
-				}
-				
-				if(newComponent != null && newDc != null) {
-					Observer.addDrawableComponent(newComponent, newDc);
-					components.add(newComponent);
+	private void createNodes(String[] inputCommands) {
+		for(int i = 0; !inputCommands[i].equals("done"); ++i) {
+			
+			//command variables
+			String line = inputCommands[i];
+			String[] cmd = line.split(" ");
+			
+			//new Component position
+			int X = Integer.parseInt(cmd[1]);
+			int Y = Integer.parseInt(cmd[2]);
+			Vector2 position = new Vector2(X, Y);
+			
+			//result
+			Component newComponent = null;
+			DrawableComponent newDc = null;
+			
+			switch (cmd[0]) {
+				case "spring":
+					newComponent = new Spring();
+					newDc = new DrawableComponent(newComponent, position, springImage);
+					break;
 					
-					if(cmd.length > 3) {
-						DrawablePlayer newDp = null;
-						Player newPlayer = null;
-						
-						if(cmd[3].equals("repairMan")) {
-							newPlayer = new RepairMan(newComponent);
-							newComponent.addPlayer(newPlayer);
-							Vector2 playerPos = newDc.getCoordinates();
-							newDp = new DrawablePlayer(newPlayer, playerPos, repairManImage);
-						}
-						if(cmd[3].equals("saboteur")) {
-							newPlayer = new Saboteur(newComponent);
-							newComponent.addPlayer(newPlayer);
-							Vector2 playerPos = newDc.getCoordinates();
-							newDp = new DrawablePlayer(newPlayer, playerPos, saboteurImage);
-						}
-						if(newDp != null && newPlayer != null) {
-							Observer.addDrawablePlayer(newPlayer, newDp);
-							players.add(newPlayer);
-						}
-					}	
-				}
+				case "pump":
+					newComponent = new Pump();
+					newDc = new DrawableComponent(newComponent, position, pumpImage);
+					break;
+				case "cistern":
+					newComponent = new Cistern();
+					newDc = new DrawableComponent(newComponent, position, cisternImage);
+					break;			
 			}
 			
+			if(newComponent != null && newDc != null) {
+				Observer.addDrawableComponent(newComponent, newDc);
+				components.add(newComponent);
+				
+				if(cmd.length > 3) {
+					DrawablePlayer newDp = null;
+					Player newPlayer = null;
+					
+					if(cmd[3].equals("repairMan")) {
+						newPlayer = new RepairMan(newComponent);
+						newComponent.addPlayer(newPlayer);
+						Vector2 playerPos = newDc.getCoordinates();
+						newDp = new DrawablePlayer(newPlayer, playerPos, repairManImage);
+					}
+					if(cmd[3].equals("saboteur")) {
+						newPlayer = new Saboteur(newComponent);
+						newComponent.addPlayer(newPlayer);
+						Vector2 playerPos = newDc.getCoordinates();
+						newDp = new DrawablePlayer(newPlayer, playerPos, saboteurImage);
+					}
+					if(newDp != null && newPlayer != null) {
+						Observer.addDrawablePlayer(newPlayer, newDp);
+						players.add(newPlayer);
+					}
+				}	
+			}
 		}
+	
+	}
+
+	private void createEdges(String[] inputCommands) {
+		ArrayList<Component> pipes = new ArrayList<Component>();
+		
+		for(int i = 0; !inputCommands[i].equals("done"); ++i) {
+			
+			//command variables
+			String line = inputCommands[i];
+			String[] cmd = line.split(" ");
+			
+			//new Component position
+			int index1 = Integer.parseInt(cmd[0]);
+			int index2 = Integer.parseInt(cmd[1]);
+			
+			if(index1 >= 0 && index1 < components.size() &&
+					index2 >= 0 && index2 < components.size()) {
+				
+				Pipe p = new Pipe();
+				p.addNeighbour(components.get(index1));
+				p.addNeighbour(components.get(index2));
+				components.get(index1).addNeighbour(p);
+				components.get(index2).addNeighbour(p);
+				
+				pipes.add(p);
+				
+				DrawableComponent d = new DrawableComponent(p);
+				Observer.addDrawableComponent(p, d);
+			}
+		}
+		components.addAll(pipes);
+	}
+	
+	public void createFromCommands(String[] nodeCommands, String[] edgeCommands) {
+			createNodes(nodeCommands);
+			createEdges(edgeCommands);
+	}
 	
 	public int createNew(String[] inputCommands) {
 		int n = 0;
@@ -239,7 +272,6 @@ public class Map {
 		}
 		return n;
 	}
-
 
 	public void mapInit() {
 		//beolvas adott fajlbol

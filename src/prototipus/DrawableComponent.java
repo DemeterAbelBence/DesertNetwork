@@ -30,12 +30,13 @@ public class DrawableComponent extends Drawable{
 				Drawable drawableOfNeighbour1 = Observer.getDrawableOfComponent(component.getNeighbour(0));
 				Drawable drawableOfNeighbour2 = Observer.getDrawableOfComponent(component.getNeighbour(1));
 				
+				//settin pipe thickness
 				Graphics2D g2d = (Graphics2D) g;
 				float thickness = 5.0f; // Desired thickness
 	            Stroke oldStroke = g2d.getStroke();
 	            g2d.setStroke(new BasicStroke(thickness));
 
-				
+	            //coordinates of player on pipe
 	            int imageWidth1 = drawableOfNeighbour1.getImage().getWidth(observer);
 	            int imageHeight1 = drawableOfNeighbour1.getImage().getHeight(observer);
 	            int imageWidth2 = drawableOfNeighbour2.getImage().getWidth(observer);

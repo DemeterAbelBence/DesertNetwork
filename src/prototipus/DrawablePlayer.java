@@ -23,6 +23,7 @@ public class DrawablePlayer extends Drawable{
 
 			int nrPlayers = host.getPlayers().size();
 			
+			//avoiding player image collision
 			if(nrPlayers == 1) {
 				Vector2 newPosition = hostPosition.plus(new Vector2(spriteOffset));
 				Move(newPosition);
