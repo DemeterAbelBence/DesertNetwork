@@ -15,7 +15,7 @@ public class MenuPanel extends JPanel implements Updateable{
 	//ArrayList<JButton> playerButtons = new ArrayList<JButton>();
 	Player focusedPlayer;
 	Player lastFocusedPlayer;
-	JButton stickyButton = new JButton("Stick pipe");
+	JButton stickyButton = new JButton("Sticky pipe");
 	JButton punctureButton = new JButton("Puncture pipe");
 	JButton slipperyButton = new JButton("Make pipe slippery");
 	JLabel playerNameLabel = new JLabel("Player 0");
@@ -105,7 +105,90 @@ public class MenuPanel extends JPanel implements Updateable{
 			}
 		});
 		add(move);
-		
+
+		JButton brepair = new JButton("Repair");
+		brepair.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				focusedPlayer.host.repaired();
+				observer.repaint();
+			}
+		});
+
+		add(brepair);
+
+		JButton bpickpump = new JButton("PickupPump");
+		bpickpump.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				focusedPlayer.pickUpPump();
+				observer.repaint();
+			}
+		});
+		add(bpickpump);
+
+		JButton bplacedownPump = new JButton("PlacedownPump");
+		bplacedownPump.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				focusedPlayer.placeDownPump();
+				observer.repaint();
+			}
+		});
+		add(bplacedownPump);
+
+		JButton bplacepipe = new JButton("Place Pipe");
+		JButton bpickPipe = new JButton("Pick Pipe");
+
+		bplacepipe.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				focusedPlayer.placeDownPipe();
+				observer.repaint();
+			}
+		});
+		bpickPipe.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!jl.isSelectionEmpty()) {
+					int idx = jl.getSelectedIndex();
+					if(!focusedPlayer.host.getNode()) return;
+					Pipe p = (Pipe) focusedPlayer.host.neighbours.get(idx);
+					focusedPlayer.pickUpPipe(p);
+					observer.repaint();
+				}
+			}
+		});
+
+		add(bpickPipe); add(bplacepipe);
+
+		JButton bchangeinput = new JButton("ChangeInput");
+		JButton bchangeoutput = new JButton("ChangeOutput");
+		bchangeinput.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!jl.isSelectionEmpty()){
+					int idx = jl.getSelectedIndex();
+					focusedPlayer.changePumpInput(focusedPlayer.host.neighbours.get(idx));
+					observer.repaint();
+				}
+			}
+		});
+		bchangeoutput.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!jl.isSelectionEmpty()){
+					int idx = jl.getSelectedIndex();
+					focusedPlayer.changePumpOutput(focusedPlayer.host.neighbours.get(idx));
+					observer.repaint();
+				}
+			}
+		});
+
+		add(bchangeinput); add(bchangeoutput);
+
+
+
 		setVisible(true);
 	
 	}

@@ -25,4 +25,9 @@ public class Saboteur extends Player implements Updateable{
 			host.resetSlipperyCounter();
 		}
 	}
+	public void repair(){}
+	public void pickUpPipe(Pipe pipe){}
+	public void pickUpPump(){}
+	public void placeDownPump(){}
+	public void placeDownPipe(){}
 }

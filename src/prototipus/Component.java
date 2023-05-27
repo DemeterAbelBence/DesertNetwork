@@ -88,12 +88,12 @@ public abstract class Component implements Updateable{
 		}
 		else if(neighbours.size() == 2) {
 			if(output!=null){
-				if(this.node && !this.itemSource /*&& this.capacity == -1*/){
-					neighbours.remove(c);
-					return;
+				if(this.node && !this.itemSource && this.capacity > -1){
+					//neighbours.remove(c);
+					input = c;
 				}
-				input = c;
-			}else if(this.itemSource){ neighbours.remove(c); 	return;/*ha cistern*/ }
+				//input = c;
+			}else if(this.itemSource){  	return;/*ha cistern*/ }
 			output = c;
 		}
 	}

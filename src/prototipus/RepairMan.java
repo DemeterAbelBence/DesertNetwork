@@ -91,7 +91,20 @@ public class RepairMan extends Player implements Updateable{
 	
 	public void placeDownPipe() {
 		boolean standingOnNode = host.getNode();
+		if(pipeInHand == null) return;
 		if(standingOnNode) {
+			//ellenőrzi hogy ciszternán állunk-e
+			//ellenőrzi hogy ciszternára akarjuk-e lerakni
+			//ha mindkettő igaz, nem engedi
+			if (host.itemSource && pipeInHand.countNeighbours() == 1 && pipeInHand.getNeighbour(0).itemSource) {
+				return;
+			}
+			//mint ciszternánál, csak forrásra ellenőriz
+			if(host.capacity == -1 && !host.itemSource){
+				if(pipeInHand.countNeighbours() == 1 && !pipeInHand.getNeighbour(0).itemSource && pipeInHand.getNeighbour(0).capacity ==-1){
+					return;
+				}
+			}
 			host.addNeighbour(pipeInHand);
 			pipeInHand.addNeighbour(host);
 		}

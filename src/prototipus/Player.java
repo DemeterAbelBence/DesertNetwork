@@ -23,6 +23,16 @@ public abstract class Player implements Updateable{
 	protected int stuckCounter;
 	public final int stuckTime = 10;
 	protected Component host;
+
+	//absztrakt függvények
+
+	public abstract void repair();
+	public abstract void pickUpPipe(Pipe pipe);
+	public abstract void pickUpPump();
+	public abstract void placeDownPump();
+	public abstract void placeDownPipe();
+
+
 	public abstract void makeSlippery();
 	private void slips() {
 		ArrayList<Component> neighboursOfHostPipe = host.getNeighbours();
@@ -57,12 +67,12 @@ public abstract class Player implements Updateable{
 	}
 	
 	public void changePumpInput(Component input) {
-		if(host.getNode())
+		if(host.getNode() && host.capacity > 0)
 			host.setInput(input);
 	}
 	
 	public void changePumpOutput(Component output) {
-		if(host.getNode())
+		if(host.getNode() && host.capacity > 0)
 			host.setOutput(output);
 	}
 	
