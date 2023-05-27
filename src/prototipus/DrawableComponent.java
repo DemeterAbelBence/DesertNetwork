@@ -5,6 +5,8 @@ import java.awt.*;
 public class DrawableComponent extends Drawable{
 	Component component;
 	
+	public DrawableComponent() { super(); }
+	
 	public DrawableComponent(Component component, Vector2 coordinates, Image image){
 		super(coordinates, image);
 		this.component = component;

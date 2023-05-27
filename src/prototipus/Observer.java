@@ -38,7 +38,18 @@ public class Observer extends JFrame implements Updateable {
 		//device = GraphicsEnvironment
 		observedMap = map;
 		// feltolti a default map csoveivel, pumpaival, stb.
-		observedMap.makeDefaultMap(2, 3, 4, 8);
+		//observedMap.makeDefaultMap(2, 3, 4, 8);
+		
+		String str= "cistern 100 100\n"
+				+ "cistern 100 300 repairMan\n"
+				+ "pump 400 100\n"
+				+ "pump 500 200\n"
+				+ "pump 400 300\n"
+				+ "spring 700 100\n"
+				+ "spring 700 300\n" 
+				+ "done\n";
+		String[] inputCommands = str.split("\n");
+		observedMap.createFromCommands(inputCommands);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);

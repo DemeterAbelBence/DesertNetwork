@@ -53,11 +53,73 @@ public class Map {
 		}
 	}
 
+	public void createFromCommands(String[] inputCommands) {
+			for(int i = 0; !inputCommands[i].equals("done"); ++i) {
+		
+				//command variables
+				String line = inputCommands[i];
+				String[] cmd = line.split(" ");
+				
+				//new Component position
+				int X = Integer.parseInt(cmd[1]);
+				int Y = Integer.parseInt(cmd[2]);
+				Vector2 position = new Vector2(X, Y);
+				
+				//result
+				Component newComponent = null;
+				DrawableComponent newDc = null;
+				
+				switch (cmd[0]) {
+					case "spring":
+						newComponent = new Spring();
+						newDc = new DrawableComponent(newComponent, position, springImage);
+						break;
+						
+					case "pump":
+						newComponent = new Pump();
+						newDc = new DrawableComponent(newComponent, position, pumpImage);
+						break;
+					case "cistern":
+						newComponent = new Cistern();
+						newDc = new DrawableComponent(newComponent, position, cisternImage);
+						break;			
+				}
+				
+				if(newComponent != null && newDc != null) {
+					Observer.addDrawableComponent(newComponent, newDc);
+					components.add(newComponent);
+					
+					if(cmd.length > 3) {
+						DrawablePlayer newDp = null;
+						Player newPlayer = null;
+						
+						if(cmd[3].equals("repairMan")) {
+							newPlayer = new RepairMan(newComponent);
+							newComponent.addPlayer(newPlayer);
+							Vector2 playerPos = newDc.getCoordinates();
+							newDp = new DrawablePlayer(newPlayer, playerPos, repairManImage);
+						}
+						if(cmd[3].equals("saboteur")) {
+							newPlayer = new Saboteur(newComponent);
+							newComponent.addPlayer(newPlayer);
+							Vector2 playerPos = newDc.getCoordinates();
+							newDp = new DrawablePlayer(newPlayer, playerPos, saboteurImage);
+						}
+						if(newDp != null && newPlayer != null) {
+							Observer.addDrawablePlayer(newPlayer, newDp);
+							players.add(newPlayer);
+						}
+					}	
+				}
+			}
+			
+		}
+	
 	public int createNew(String[] inputCommands) {
 		int n = 0;
 		for(int j = 0; !inputCommands[j].equals("done"); ++j) {
 			n++;
-
+	
 			String line = inputCommands[j];
 			String[] cmd = line.split(" ");
 			switch (cmd[0]) {
@@ -70,7 +132,7 @@ public class Map {
 						Observer.addDrawableComponent(newSpring, new DrawableComponent(newSpring, new Vector2(0, i * 100), springImage));
 						components.add(newSpring);
 					}
-
+	
 					break;
 				case "pumps":
 					pumps.clear();
@@ -132,7 +194,7 @@ public class Map {
 				default: {
 					if(cmd[0].equals("newMap"))
 						break;
-
+	
 					char endChar = cmd[0].charAt(cmd[0].length() - 1);
 					String componentType;
 					Pipe newPipe = new Pipe();
@@ -177,6 +239,7 @@ public class Map {
 		}
 		return n;
 	}
+
 
 	public void mapInit() {
 		//beolvas adott fajlbol
@@ -299,7 +362,6 @@ public class Map {
 		Observer.addDrawableComponent(p, new DrawableComponent(p, drawableOfRepairman.coordinates, pumpImage));
 	}
 
-	
 	public static void addPipe(Pipe p) {
 		components.add(p);
 		Observer.addDrawableComponent(p, new DrawableComponent(p));

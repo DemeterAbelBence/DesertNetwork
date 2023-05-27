@@ -18,6 +18,11 @@ public class MenuPanel extends JPanel implements Updateable{
 	JButton stickyButton = new JButton("Sticky pipe");
 	JButton punctureButton = new JButton("Puncture pipe");
 	JButton slipperyButton = new JButton("Make pipe slippery");
+	JButton bplacepipe = new JButton("Place Pipe");
+	JButton bpickPipe = new JButton("Pick Pipe");
+	JButton bchangeinput = new JButton("ChangeInput");
+	JButton bchangeoutput = new JButton("ChangeOutput");
+
 	JLabel playerNameLabel = new JLabel("Player 0");
 
 	JList jl;
@@ -56,6 +61,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		add(Box.createRigidArea(new Dimension(getWidth(),200)));
 
 
+		//---------------------------//
 		slipperyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -63,7 +69,9 @@ public class MenuPanel extends JPanel implements Updateable{
 				observer.repaint();
 			}
 		});
-
+		add(slipperyButton);
+		
+		//---------------------------//		
 		punctureButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -72,7 +80,9 @@ public class MenuPanel extends JPanel implements Updateable{
 				observer.repaint();
 			}
 		});
+		add(punctureButton);
 
+		//---------------------------//
 		stickyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -80,19 +90,17 @@ public class MenuPanel extends JPanel implements Updateable{
 				observer.repaint();
 			}
 		});
-
-		add(slipperyButton);
-		add(punctureButton); 
 		add(stickyButton);
 		
+		//---------------------------//
 		focusedPlayer = observer.getObservedMap().getPlayers().get(0);
 		String[] s = hostComponentNeighbours(focusedPlayer);
 		DefaultListModel listModel = new DefaultListModel();
 		listModel.addAll(0,List.of(s));
 		 jl = new JList(listModel);
-
 		add(jl);
 		
+		//---------------------------//
 		JButton move = new JButton("Move to selected");
 		move.addActionListener(new ActionListener() {
 			@Override
@@ -106,6 +114,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		});
 		add(move);
 
+		//---------------------------//
 		JButton brepair = new JButton("Repair");
 		brepair.addActionListener(new ActionListener() {
 			@Override
@@ -114,9 +123,9 @@ public class MenuPanel extends JPanel implements Updateable{
 				observer.repaint();
 			}
 		});
-
 		add(brepair);
 
+		//---------------------------//
 		JButton bpickpump = new JButton("PickupPump");
 		bpickpump.addActionListener(new ActionListener() {
 			@Override
@@ -127,6 +136,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		});
 		add(bpickpump);
 
+		//---------------------------//
 		JButton bplacedownPump = new JButton("PlacedownPump");
 		bplacedownPump.addActionListener(new ActionListener() {
 			@Override
@@ -136,10 +146,8 @@ public class MenuPanel extends JPanel implements Updateable{
 			}
 		});
 		add(bplacedownPump);
-
-		JButton bplacepipe = new JButton("Place Pipe");
-		JButton bpickPipe = new JButton("Pick Pipe");
-
+		
+		//---------------------------//
 		bplacepipe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -147,6 +155,9 @@ public class MenuPanel extends JPanel implements Updateable{
 				observer.repaint();
 			}
 		});
+		add(bplacepipe);
+		
+		//---------------------------//
 		bpickPipe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -159,11 +170,9 @@ public class MenuPanel extends JPanel implements Updateable{
 				}
 			}
 		});
+		add(bpickPipe);	
 
-		add(bpickPipe); add(bplacepipe);
-
-		JButton bchangeinput = new JButton("ChangeInput");
-		JButton bchangeoutput = new JButton("ChangeOutput");
+		//---------------------------//
 		bchangeinput.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -174,6 +183,9 @@ public class MenuPanel extends JPanel implements Updateable{
 				}
 			}
 		});
+		add(bchangeinput);
+		
+		//---------------------------//
 		bchangeoutput.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -184,10 +196,7 @@ public class MenuPanel extends JPanel implements Updateable{
 				}
 			}
 		});
-
-		add(bchangeinput); add(bchangeoutput);
-
-
+		add(bchangeoutput);
 
 		setVisible(true);
 	

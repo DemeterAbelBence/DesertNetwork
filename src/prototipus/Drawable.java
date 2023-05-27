@@ -19,6 +19,8 @@ public abstract class Drawable {
 		observer.repaint();
 	}
 	
+	public Drawable() {}
+	
 	public Drawable(Vector2 coordinates, Image image) {
 		this.image = image;
 		this.coordinates = coordinates;
@@ -31,6 +33,10 @@ public abstract class Drawable {
 	public int getY() {
 		return coordinates.getY();
 	}
+	
+	public void setX(int x) { this.coordinates.setX(x); }
+	
+	public void setY(int y) { this.coordinates.setY(y); }
 	
 	public Image getImage() { return image; }
 	
