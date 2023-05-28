@@ -37,7 +37,7 @@ public abstract class Player implements Updateable{
 	private void slips() {
 		ArrayList<Component> neighboursOfHostPipe = host.getNeighbours();
 		Random random = new Random();
-		int seged = random.nextInt(0, 2);
+		int seged = random.nextInt(2);
 		host.slipperyCounter=0;
 		if(neighboursOfHostPipe.size() >= seged)
 			setNewHost(neighboursOfHostPipe.get(0));

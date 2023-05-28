@@ -39,6 +39,11 @@ public class Cistern extends Component implements Updateable {
 	}
 	
 	public void updateStatus() {
+
+	}
+
+	public void waterFlows() {
+		addWater();
 	}
 	
 	public String toString() {

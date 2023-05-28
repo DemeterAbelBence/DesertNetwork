@@ -37,9 +37,9 @@ public abstract class Component implements Updateable{
 	protected int waterLevel = 0;
 	protected Image sprite;
 	public static final int counterPeriod = 10;
-	
-	private Component input;
-	private Component output;
+
+	protected Component input;
+	protected Component output;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	protected ArrayList<Component> neighbours = new ArrayList<Component>();
 	
@@ -140,13 +140,13 @@ public abstract class Component implements Updateable{
 	}
 	
 	public void waterFlows() {
-		if(output != null && waterLevel > 0) {
+		/*if(output != null && waterLevel > 0) {
 			boolean isOutputFull = output.isFull();
 			if(!isOutputFull) {
 				if(output.addWater())
 					this.takeWater();
 			}
-		}
+		}*/
 	}
 	
 	public int getSlipperyCounter() {
@@ -183,7 +183,7 @@ public abstract class Component implements Updateable{
 	
 	public void resetPunctureCounter() {
 		Random random = new Random();
-		punctureCounter = random.nextInt(1, 11);
+		punctureCounter = random.nextInt(10)+1;
 	}
 	
 	public void setInput(Component input) {

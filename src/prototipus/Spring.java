@@ -41,8 +41,13 @@ public class Spring extends Component implements Updateable{
 	}
 	
 	public void updateStatus() {
-		for(Component neighbour : neighbours) 
-			neighbour.addWater();
+		for(Component neighbour : neighbours)
+			if(!neighbour.isFull())
+				neighbour.waterFlows();
+	}
+
+	public void waterFlows() {
+
 	}
 	
 	public String toString() {

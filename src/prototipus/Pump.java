@@ -64,10 +64,19 @@ public class Pump extends Component {
 	}
 	
 	public void updateStatus() {
-		if(random.nextInt(100) < 2) // 2% esely
+		if (output != null && waterLevel > 0 && !broken) {
+			boolean isOutputFull = output.isFull();
+			if (!isOutputFull) {
+				output.waterFlows();
+				this.takeWater();
+			}
+		}
+		if(random.nextInt(100) < 5) // 5% esely
 			malfunction();
-		if(!broken)
-			waterFlows();
+	}
+
+	public void waterFlows() {
+		addWater();
 	}
 	
 	public String toString() {
