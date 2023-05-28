@@ -82,4 +82,14 @@ public class Pipe extends Component {
 	public String toString() {
 		return "Pipe";
 	}
+
+	public boolean isSticky()
+	{
+		return stickyCounter > 0;
+	}
+
+	public boolean isSlippery()
+	{
+		return slipperyCounter > 0;
+	}
 }

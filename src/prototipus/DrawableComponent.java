@@ -25,8 +25,30 @@ public class DrawableComponent extends Drawable{
 		else  
 		{
 			if(component.getNeighbour(0) != null && component.getNeighbour(1) != null) {
+				Color pipeColor = Color.BLACK;
+				Pipe pipe = (Pipe)component;
+				if(pipe.getLeaks())
+					if(pipe.isSticky())
+						pipeColor = Color.orange;
+					else if(pipe.isSlippery())
+						pipeColor = Color.getHSBColor(58,32,79);
+					else
+						pipeColor = Color.red;
+				else if(pipe.isFull())
+					if(pipe.isSticky())
+						pipeColor = Color.green;
+					else if(pipe.isSlippery())
+						pipeColor = Color.cyan;
+					else
+						pipeColor = Color.blue;
+				else
+					if(pipe.isSticky())
+					pipeColor = Color.yellow;
+				else if(pipe.isSlippery())
+					pipeColor = Color.getHSBColor(75,100,100);
 
-				g.setColor(((Pipe)component).getLeaks() ?Color.red : (component.isFull() ? Color.BLUE : Color.BLACK));
+
+				g.setColor(pipeColor);
 				Drawable drawableOfNeighbour1 = Observer.getDrawableOfComponent(component.getNeighbour(0));
 				Drawable drawableOfNeighbour2 = Observer.getDrawableOfComponent(component.getNeighbour(1));
 				
