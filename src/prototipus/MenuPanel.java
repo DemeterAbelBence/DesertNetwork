@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.*;
 import java.awt.event.*;
+/**A menü kirajzolásáért felelős osztály*/
 public class MenuPanel extends JPanel implements Updateable{
 	Observer observer;
 	//ArrayList<JButton> playerButtons = new ArrayList<JButton>();
@@ -26,7 +27,10 @@ public class MenuPanel extends JPanel implements Updateable{
 	JLabel playerNameLabel = new JLabel("Player 0");
 
 	JList jl;
-	
+
+	/**Adott játékos szomszédjainak visszaadása String tömbként
+	 * @param p: az adott játékos
+	 * @return String[]*/
 	private String[] hostComponentNeighbours(Player p) {
 		Component c = p.getHost();
 		int length = c.getNeighbours().size();
@@ -38,7 +42,9 @@ public class MenuPanel extends JPanel implements Updateable{
 		
 		return result;
 	}
-	
+
+	/**Az osztály paraméteres konstruktora
+	 * @param o: a játékért felelős Observer*/
 	public MenuPanel(Observer o)
 	{
 		this.setLayout(new FlowLayout());
@@ -62,6 +68,7 @@ public class MenuPanel extends JPanel implements Updateable{
 
 
 		//---------------------------//
+		/**Implementálja, hogy az adott gomb csúszóssá tegye a csövet.*/
 		slipperyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -71,7 +78,8 @@ public class MenuPanel extends JPanel implements Updateable{
 		});
 		add(slipperyButton);
 		
-		//---------------------------//		
+		//---------------------------//
+		/**Implementálja, hogy az adott gomb kilyukassza a csövet.*/
 		punctureButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -83,6 +91,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		add(punctureButton);
 
 		//---------------------------//
+		/**implementálja, hogy az adott gomb ragadóssá tegye a csövet*/
 		stickyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -102,6 +111,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		
 		//---------------------------//
 		JButton move = new JButton("Move to selected");
+		/**Implementálja, hogy a játékos gombnyomásra a kiválasztott mezőre lépjen.*/
 		move.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -116,6 +126,7 @@ public class MenuPanel extends JPanel implements Updateable{
 
 		//---------------------------//
 		JButton brepair = new JButton("Repair");
+		/**Implementálja, hogy a játékos megjavítson gombnyomásra egy elromlott/kilyukadt elemet*/
 		brepair.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -127,6 +138,7 @@ public class MenuPanel extends JPanel implements Updateable{
 
 		//---------------------------//
 		JButton bpickpump = new JButton("PickupPump");
+		/**Implementálja, hogy felvegyen a játékos gombnyomásra egy pumpát.*/
 		bpickpump.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -138,6 +150,7 @@ public class MenuPanel extends JPanel implements Updateable{
 
 		//---------------------------//
 		JButton bplacedownPump = new JButton("PlacedownPump");
+		/**Implementálja, hogy egy játékos lerakjon gombnyomásra egy pumpát*/
 		bplacedownPump.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -148,6 +161,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		add(bplacedownPump);
 		
 		//---------------------------//
+		/**Implementálja, hogy a játékos letegyen gombnyomásra egy csövet.*/
 		bplacepipe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -158,6 +172,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		add(bplacepipe);
 		
 		//---------------------------//
+		/**Implementálja, hogy egy játékos felvegyen egy csövet gombnyomásra. (Nem ciszternánál kiválasztott elemet)*/
 		bpickPipe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -173,6 +188,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		add(bpickPipe);	
 
 		//---------------------------//
+		/**Implementálja, hogy egy pumpának megváltozzon a bemenete gombnyomásra kiválasztott elemre*/
 		bchangeinput.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -186,6 +202,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		add(bchangeinput);
 		
 		//---------------------------//
+		/**Implementálja, hogy egy pumpának gombnyomásra megváltozzon a kimenete kiválasztott elemre.*/
 		bchangeoutput.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -201,7 +218,8 @@ public class MenuPanel extends JPanel implements Updateable{
 		setVisible(true);
 	
 	}
-	
+
+	/**Implementálja, hogy adott gomb megnyomásakor az aktuális játékos megváltozzon.*/
 	class PlayerButtonListener implements ActionListener
 	{
 
@@ -213,7 +231,8 @@ public class MenuPanel extends JPanel implements Updateable{
 		}
 		
 	}
-	
+
+	/**Változáskor frissíti a megjelenő szomszédlistát.*/
 	@Override
 	public void updateStatus() {
 

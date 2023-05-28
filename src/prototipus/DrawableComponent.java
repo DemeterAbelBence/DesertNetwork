@@ -2,21 +2,31 @@ package prototipus;
 
 import java.awt.*;
 
+/**A komponensek rajzolásához való osztály.*/
 public class DrawableComponent extends Drawable{
 	Component component;
-	
+
+	/**Az osztály paraméter nélküli konstruktora.*/
 	public DrawableComponent() { super(); }
-	
+
+	/**Az osztály paraméteres konstruktora.
+	 * @param component: a komponens aminek a kirajzolható megfelelője
+	 * @param coordinates: koordináták a kirajzoláshoz
+	 * @param image: kép a kirajzoláshoz*/
 	public DrawableComponent(Component component, Vector2 coordinates, Image image){
 		super(coordinates, image);
 		this.component = component;
 	}
-	
+
+	/**Az osztály másik paraméteres konstruktora.
+	 * @param component: a komponens amit ki kell rajzolnia*/
 	public DrawableComponent(Component component){
 		super(new Vector2(0, 0), null);
 		this.component = component;
 	}
-	
+
+	/**A rajzolást elvégző függvény.
+	 * @param g: rajzoláshoz való Graphics*/
 	@Override
 	public void Draw(Graphics g) {
 		// TODO

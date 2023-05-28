@@ -18,7 +18,7 @@ import java.util.Random;
 
 
 
-
+/**A játékban szereplő játékosok megvalósítására való osztály.*/
 public abstract class Player implements Updateable{
 	protected int stuckCounter;
 	public final int stuckTime = 10;
@@ -34,6 +34,8 @@ public abstract class Player implements Updateable{
 
 
 	public abstract void makeSlippery();
+
+	/**A játékos megcsúszik és véletlenszerűen egy szomszédos mezőre kerül.*/
 	private void slips() {
 		ArrayList<Component> neighboursOfHostPipe = host.getNeighbours();
 		Random random = new Random();
@@ -44,7 +46,8 @@ public abstract class Player implements Updateable{
 		else setNewHost(neighboursOfHostPipe.get(seged));
 	}
 
-	
+	/**Adott mezőre lép a játékos ha ez lehetséges.
+	 * @param dest: célmező ahová lépni szeretne*/
 	public void moveTo(Component dest) {
 		if(stuckCounter > 0)
 			return;
@@ -65,46 +68,60 @@ public abstract class Player implements Updateable{
 			setNewHost(dest);
 		}
 	}
-	
+
+	/**Egy pumpa bemenetének megváltoztatása.
+	 * @param input: bemenetnek szánt komponens*/
 	public void changePumpInput(Component input) {
 		if(host.getNode() && host.capacity > 0)
 			host.setInput(input);
 	}
-	
+
+	/**Egy pumpa kimenetének megváltoztatása.
+	 * @param output: kimenetnek szánt komponens*/
 	public void changePumpOutput(Component output) {
 		if(host.getNode() && host.capacity > 0)
 			host.setOutput(output);
 	}
-	
+
+	/**Cső (amin áll) kilukasztására.*/
 	public void sabotage() {
 		host.punctured();
 	}
-	
+
+	/**Cső (ain áll) csúszóssá tétele*/
 	public void makeSticky() {
 		boolean isHostNode = host.getNode();
 		if(!isHostNode && host.slipperyCounter == 0) {
 			host.resetStickyCounter();
 		}
 	}
-	
+
+	/**Játékos host mezőjének átállítása.
+	 * @param dest: célmezőnek szánt komponens*/
 	public void setNewHost(Component dest) {
 		host.removePlayer(this);
 		dest.addPlayer(this);
 		host = dest;
 	}
-	
+
+	/**Az odaragadási számláló csökkentése.*/
 	public void updateStatus() {
 		decreaseStuckCounter();
 	}
-	
+
+	/**Játékos stringesítése.
+	 * @return String*/
 	public String toString() {
 		return "stuckCounter: " + stuckCounter;
 	}
-	
+
+	/**Azon komponens visszaadása amin a játékos áll.
+	 * @return Component*/
 	public Component getHost() {
 		return host;
 	}
-	
+
+	/**Ragadóssági számláló csökkentése, ha az nagyobb mint 0.*/
 	public void decreaseStuckCounter() {
 		if(stuckCounter > 0)
 			stuckCounter --;

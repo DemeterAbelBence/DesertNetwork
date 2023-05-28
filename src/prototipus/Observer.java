@@ -21,6 +21,7 @@ import javax.swing.SpringLayout;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Graphics2D;
+/**A játék egészének egybefogásáért, kezeléséért felelős osztály.*/
 public class Observer extends JFrame implements Updateable {
 
 	private Map observedMap;
@@ -37,7 +38,8 @@ public class Observer extends JFrame implements Updateable {
 	private int saboteurScore = 0;
 
 
-
+/**Az osztály konstruktora.
+ * @param map: a játékhoz való pálya térképe*/
 	public Observer(Map map)
 	{
 		//device = GraphicsEnvironment
@@ -85,6 +87,7 @@ public class Observer extends JFrame implements Updateable {
 		this.getContentPane().revalidate();
 	}
 
+	/**Változáskor újrarajzolja a képernyőt.*/
 	public void updateStatus()
 	{
 		saboteurScore = countLeakedWater();
@@ -97,6 +100,11 @@ public class Observer extends JFrame implements Updateable {
 		repaint();
 	}
 
+	/**Színt képez három számból.
+	 * @param r: piros színkomponens
+	 * @param g: zöld színkomponens
+	 * @param b: kék színkomponens
+	 * @return Color*/
 	public static Color colorFromRGB(int r, int g, int b)
 	{
 		float[] f = new float[3];
@@ -105,6 +113,8 @@ public class Observer extends JFrame implements Updateable {
 		return Color.getHSBColor(f[0], f[1], f[2]);
 	}
 
+	/**Összeszámolja a pályán összesen kifolyt vízmennyiséget.
+	 * @return int*/
 	public int countLeakedWater()
 	{
 		int sum = 0;
@@ -113,6 +123,8 @@ public class Observer extends JFrame implements Updateable {
 		return sum;
 	}
 
+	/**Megszámolja, hogy mennyi víz van a ciszternákban.
+	 * @return int*/
 	public int countCityWater()
 	{
 		//This uses the fact that Springs have a 0 waterLevel
@@ -122,30 +134,46 @@ public class Observer extends JFrame implements Updateable {
 				sum += item.getWaterLevel();
 		return sum;
 	}
-	
+
+	/**Visszaadja a játéktérképet.
+	 * @return Map*/
 	public Map getObservedMap()
 	{
 		return observedMap;
 	}
-	
+
+	/**Hozzáad egy játékost, kirajzolható verzióval együtt.
+	 * @param player: a játékos
+	 * @param drawable: a játékos kirajzolható verziója*/
 	public static void addDrawablePlayer(Player player, Drawable drawable) {
 		drawables.add(drawable);
 		drawablePlayers.put(player, drawable);
 	}
-	
+
+	/**Hozzáad egy komponenst, kirajzolható verzióval együtt.
+	 * @param component: a kompnens
+	 * @param drawable: a komponens kirajzolható verziója*/
 	public static void addDrawableComponent(Component component, Drawable drawable) {
 		drawables.add(drawable);
 		drawableComponents.put(component, drawable);
 	}
-	
+
+	/**Egy játékosnak megmondja a hozzá tartozó kirajzolható verzióját.
+	 * @param p: játékos
+	 * @return Drawable*/
 	public static Drawable getDrawableOfPlayer(Player p) {
 		return drawablePlayers.get(p);
 	}
-	
+
+	/**Egy komponensnek megadja a hozzá tartozó kirjzolható verzióját.
+	 * @param c: a komponens
+	 * @return Drawable*/
 	public static Drawable getDrawableOfComponent(Component c) {
 		return drawableComponents.get(c);
 	}
-	
+
+	/**A kirajzolható elemek kirajzolása.
+	 * @param g: kirajzoláshoz való Grahpics*/
 	public void drawDrawables(Graphics g) {
 		Graphics g2d = (Graphics2D)g;
 		for(Drawable drawable : drawables) {
@@ -153,15 +181,21 @@ public class Observer extends JFrame implements Updateable {
 		}
 	}
 
+	/**Visszaadja a felhasznált menü-t
+	 * @return MenuPanel*/
 	public MenuPanel getMenuPanel()
 	{
 		return menuPanel;
 	}
 
+	/**Visszaadja a szabotőrök pontszámát
+	 * @return int*/
 	public int getSaboteurScore() {
 		return saboteurScore;
 	}
 
+	/**Visszaadja a szerelők pontszámát
+	 * @return int*/
 	public int getRepairManScore() {
 		return  repairManScore;
 	}

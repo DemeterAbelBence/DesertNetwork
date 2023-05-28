@@ -11,8 +11,14 @@ package prototipus;
 //
 //
 
+
+/**A cső funkcióinak megvalósítására, megadja, hogy adott csőrész lukas-e, illetve a csőrész
+* áthelyezésére is lehetőséget biztosít.*/
 public class Pipe extends Component {
-	
+
+	/** Az osztály paraméteres konstruktora, az attribútumok alapértékét
+	 *állítja be, a capacity értéke a megadott paraméter lesz.
+	 * @param capacity: beállítandó kapacitás*/
 	public Pipe(int capacity) {
 		pumpPlaceable = true;
 		node = false;
@@ -21,7 +27,9 @@ public class Pipe extends Component {
 		leaks = false;
 		this.capacity = capacity;
 	}
-	
+
+	/**Az osztály paraméter nélküli konstruktora, az attribútumok alapértékét állítja
+	 *be, a capacity értéke automatikusan 10 lesz.*/
 	public Pipe() {
 		pumpPlaceable = true;
 		node = false;
@@ -30,19 +38,24 @@ public class Pipe extends Component {
 		leaks = false;
 		this.capacity = 10;
 	}
-	
+	/** Beállítja, hogy a cső már nem lukas, megjavult. Az osztály ősének
+	 *leaks attribútumát hamisra állítja és meghívja a setPunctureCounter függvényt.
+	 */
 	public void repaired() {
 		setLeaks(false);
 		resetPunctureCounter();
 	}
-	
+	/**Nem tartozik hozzá implementáció, a függvény törzse üres.*/
 	public void malfunction() {
 	}
-	
+
+	/**Beállítja, hogy a cső lyukas, kilyukasztották. Az osztály ősének
+	 *leaks attribútumát igazra állítja.*/
 	public void punctured() {
 		setLeaks(true);
 	}
-	
+
+	/**A víz folyatásáért az outputon, illetve az extra tulajdonságok (csúszós, ragadós, stb) update-eléséért felelős*/
 	public void updateStatus() {
 		if (output != null && waterLevel > 0 && !leaks) {
 			boolean isOutputFull = output.isFull();
@@ -60,42 +73,58 @@ public class Pipe extends Component {
 		decreasePunctureCounter();
 	}
 
+	/**A vízfolyásért felelős.*/
 	public void waterFlows() {
 			addWater();
 	}
-	
+
+	/**Hogyha a slipperyCounter attribútum értéke
+	 *nagyobb mint 0, akkor eggyel csökkenti azt.*/
 	public void decreaseSlipperyCounter() {
 		if(slipperyCounter > 0)
 			slipperyCounter --;
 	}
-	
+
+	/**Hogyha a stickyCounter attribútum értéke nagyobb
+	 *mint 0, akkor eggyel csökkenti azt.*/
 	public void decreaseStickyCounter() {
 		if(stickyCounter > 0)
 			stickyCounter --;
 	}
-	
+	/**Hogyha a punctureCounter attribútum értéke
+	 *nagyobb mint 0, akkor eggyel csökkenti azt.*/
 	public void decreasePunctureCounter() {
 		if(punctureCounter > 0)
 			punctureCounter --;
 	}
-	
+	/**A leaks attribútum értéket beállítja a paraméterként
+	 *kapott értékre.
+	 * @param value: beállítandó érték*/
 	public void setLeaks(boolean value) {
 		leaks = value;
 	}
 
+	/**Visszaadja a leaks attribútum értékét
+	 * @return boolean*/
 	public boolean getLeaks()
 	{
 		return leaks;
 	}
+	/**Visszaadja az osztályt stringesítve.
+	 * @return String*/
 	public String toString() {
 		return "Pipe";
 	}
 
+	/**Visszaadja, hogy a cső ragadós-e.
+	 * @return boolean*/
 	public boolean isSticky()
 	{
 		return stickyCounter > 0;
 	}
 
+	/**Visszaadja, hogy egy cső csúszós-e.
+	 * @return boolean*/
 	public boolean isSlippery()
 	{
 		return slipperyCounter > 0;

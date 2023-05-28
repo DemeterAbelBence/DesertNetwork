@@ -12,22 +12,31 @@ package prototipus;
 
 
 
-
+/**A játékosi funkciókon kívül a szabotőrök megvalósítására való osztály.*/
 public class Saboteur extends Player implements Updateable{
+	/**Az osztály konstuktora.
+	 * @param position: a komponens amin  szerelő áll*/
 	public Saboteur(Component position) {
 		host = position;
 		host.addPlayer(this);
 	}
-	
+
+	/**Cső csúszóssá tétele (amin áll).*/
 	public void makeSlippery() {
 		boolean isHostNode = host.getNode();
 		if(!isHostNode) {
 			host.resetSlipperyCounter();
 		}
 	}
+	/**Üres függvény nincsen implementációja.*/
 	public void repair(){}
+	/**Üres függvény, nincsen implemetációja.
+	 * @param pipe: felvevendő cső lenne*/
 	public void pickUpPipe(Pipe pipe){}
+	/**Üres függvény nincsen implementációja.*/
 	public void pickUpPump(){}
+	/**Üres függvény nincsen implementációja.*/
 	public void placeDownPump(){}
+	/**Üres függvény nincsen implementációja.*/
 	public void placeDownPipe(){}
 }

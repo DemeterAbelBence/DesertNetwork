@@ -13,15 +13,22 @@ import java.util.List;
 //
 //
 
+/**A játékbeli szerelő funkcióinak megvalósítására. Segítségével lehet áthelyezni a
+ *pumpákat illetve a csöveket, illetve ezeket az objektumokat lehet vele megjavítani, ha
+ *elromlottak, a játékos funkcióin kívül.*/
 public class RepairMan extends Player implements Updateable{
 	private boolean hasPump;
 	private Pipe pipeInHand;
-	
+
+	/**Az osztály konstruktora.
+	 * @param position: a komponensen amin áll a szerelő*/
 	public RepairMan(Component position) {
 		host = position;
 		position.addPlayer(this);
 	}
-	
+
+	/**A ciszternánál új cső felvétele, ha ez lehetséges. Ekkor új cső
+	 *generálódik a szerelő kezébe.*/
 	private void obtainNewPipe() {
 		if(pipeInHand == null) {
 			Pipe newPipe = new Pipe();
@@ -29,7 +36,8 @@ public class RepairMan extends Player implements Updateable{
 			Map.addPipe(newPipe);
 		}
 	}
-	
+	/**Cső felvétele pumpánál (inkább lekapcsolásnak nevezhető).
+	 * @param pipe: A lekapcsolandó cső*/
 	private void detachPipeFromNode(Pipe pipe) {
 		List<Component> pipeEnds = pipe.getNeighbours();
 		Component end1 = pipeEnds.get(0);
@@ -43,11 +51,14 @@ public class RepairMan extends Player implements Updateable{
 		
 		pipeInHand = pipe;
 	}
-	
+
+	/**A mező megjavítása, amin a szerelő áll.*/
 	public void repair() {
 		host.repaired();
 	}
-	
+
+	/**Adott cső felvétele.
+	 * @param pipe: a felvevendő cső*/
 	public void pickUpPipe(Pipe pipe) {
 		boolean isHostNode = host.getNode();
 		boolean isHostItemSource = host.getItemSource();
@@ -56,14 +67,16 @@ public class RepairMan extends Player implements Updateable{
 		else if(isHostNode && isHostItemSource)
 			obtainNewPipe();
 	}
-	
+
+	/**Pumpa felvétele.*/
 	public void pickUpPump() {
 		boolean standingOnItemSource = host.getItemSource();
 		if(standingOnItemSource) {
 			hasPump = true;
 		}
 	}
-	
+
+	/**Pumpa letétele (csak csövön állva lehetséges!).*/
 	public void placeDownPump() {
 		if(hasPump) {
 			boolean isPumpPlaceableOnHost = host.getPumpPlaceable();
@@ -88,7 +101,8 @@ public class RepairMan extends Player implements Updateable{
 			}
 		}
 	}
-	
+
+	/**Cső letétele (csak csomóponton állva lehetséges).*/
 	public void placeDownPipe() {
 		boolean standingOnNode = host.getNode();
 		if(pipeInHand == null) return;
@@ -114,11 +128,16 @@ public class RepairMan extends Player implements Updateable{
 			setPipeInHand(null);
 		}
 	}
+	/**Üres függvény, nincsen implementációja.*/
 	public void makeSlippery(){}
+	/**Beállítja az adott csövet a szerelő kezében lévő csőnek.
+	 * @param pipe: a felvevendő cső*/
 	public void setPipeInHand(Pipe pipe) {
 		pipeInHand = pipe;
 	}
-	
+
+	/**Visszaadja a szerelő kezében található csövet.
+	 * @return Pipe*/
 	public Pipe getPipeInHand() {
 		return pipeInHand;
 	}

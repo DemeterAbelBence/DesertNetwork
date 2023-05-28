@@ -13,7 +13,9 @@ package prototipus;
 
 
 
-
+/**Léptethető objektumok közös interfésze. Minden léptethető osztálynak
+ *implementálnia kell ezt az interfészt.*/
 interface Updateable {
+	/**Függvény felüldefiniálásra.*/
 	void updateStatus();
 }

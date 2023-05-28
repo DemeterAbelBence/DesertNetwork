@@ -19,6 +19,9 @@ import javax.imageio.ImageIO;
 
 
 
+/**A játékbeli pumpa fő funkcióinak megvalósítására, mely a következőket jelenti:
+ *pumpa működőképességének feljegyzése, a pumpa beállítása (ki- és bemenet
+ *egyaránt).*/
 public class Pump extends Component {
 	private Random random = new Random();
 	
@@ -36,7 +39,8 @@ public class Pump extends Component {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**Az osztály konstukrtora.*/
 	public Pump() {
 		pumpPlaceable = false;
 		node = true;
@@ -51,18 +55,22 @@ public class Pump extends Component {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**A pumpa megjavítása.*/
 	public void repaired() {
 		broken = false;
 	}
-	
+
+	/**A pumpa elromlása.*/
 	public void malfunction() {
 		broken = true;
 	}
-	
+
+	/**Üres függvény, nincs implementációja.*/
 	public void punctured() {
 	}
-	
+
+	/**Az outputon a víz folyatásáért, illetve a pumpa elromlásáért felelős.*/
 	public void updateStatus() {
 		if (output != null && waterLevel > 0 && !broken) {
 			boolean isOutputFull = output.isFull();
@@ -75,10 +83,13 @@ public class Pump extends Component {
 			malfunction();
 	}
 
+	/**A víz folyásáért felelős.*/
 	public void waterFlows() {
 		addWater();
 	}
-	
+
+	/**Az osztály szövegesítésére.
+	 * @return String*/
 	public String toString() {
 		return "Pump";
 	}

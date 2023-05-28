@@ -15,8 +15,9 @@ import javax.imageio.ImageIO;
 //
 //
 
-
+/**A játékbeli forrás megjelenítője, a vízfolyás folyamatának megkezdésére alkalmas.*/
 public class Spring extends Component implements Updateable{
+	/**Az osztály konstuktora.*/
 	public Spring() {
 		pumpPlaceable = false;
 		node = true;
@@ -30,27 +31,34 @@ public class Spring extends Component implements Updateable{
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**Üres függvény, nincs implementációja.*/
 	public void repaired() {
 	}
-	
+
+	/**Üres függvény, nincsen implementációja.*/
 	public void malfunction() {
 	}
-	
+
+	/**Üres függvény ninsen implementációja.*/
 	public void punctured() {
 	}
-	
+
+	/**Az összes szomszédjában való víz folyatására alkalmas függvény.*/
 	public void updateStatus() {
 		for(Component neighbour : neighbours)
 			if(!neighbour.isFull())
 				neighbour.waterFlows();
 	}
 
+	/**Üres függvény, nincsen implementációja.*/
 	public void waterFlows() {
 
 	}
-	
+
+	/**Az osztály szövegesítése.
+	 * @return String*/
 	public String toString() {
-		return "Sring";
+		return "Spring";
 	}
 }

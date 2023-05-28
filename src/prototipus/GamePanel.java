@@ -14,10 +14,13 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 
 
+/**A pálya megjelenítéséért felelős osztály.*/
 public class GamePanel extends JPanel {
 
 	Observer observer;
-	
+
+	/**Az osztály konstruktora.
+	 * @param o: az observer amin keresztül a vltozásokat kezeljük*/
 	public GamePanel(Observer o)
 	{
 		observer = o;
@@ -26,7 +29,9 @@ public class GamePanel extends JPanel {
 		//for(int i = 0; i < drawables.size(); ++i)
 			//drawables.get(i).Move(new Vector2(i*50,i++*50));
 	}
-	
+
+	/**Bekeretezi a kiválasztott játékost a láthatóságért
+	 * @param g: a kirajzoláshoz való Graphics*/
 	private void outlineFocusedPlayer(Graphics g) {
 		//player to outline
 		Player p = observer.getMenuPanel().focusedPlayer;
@@ -45,7 +50,9 @@ public class GamePanel extends JPanel {
 		g.setColor(Color.orange);
 		g.fillRect(outlinePosition.getX(), outlinePosition.getY(), w + 2*delta, h + 2*delta);
 	}
-	
+
+	/**Bekeretezi a kiválasztott komponenst az átláthatóságért.
+	 * @param g: a kirajzoláshoz való Graphics*/
 	private void outlineSelectedComponent(Graphics g) {
 		//getting selected index
 		int index = observer.getMenuPanel().jl.getSelectedIndex();
@@ -107,12 +114,16 @@ public class GamePanel extends JPanel {
 		}
 	}
 
+	/**A pontok kirajzolása.
+	 * @param g: a kirajzoláshoz való Graphics*/
 	public void displayScores(Graphics g)
 	{
 		g.drawString("Saboteur score: " + observer.getSaboteurScore(), 20,20);
 		g.drawString("RepairMan score: " + observer.getRepairManScore(), 20,40);
 
 	}
+	/**Egy komponens kirajzolása.
+	 * @param g: a kirajzoláshoz való Graphics*/
 	@Override
 	protected void paintComponent(Graphics g)
 	{

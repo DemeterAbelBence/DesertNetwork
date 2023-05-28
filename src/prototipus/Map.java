@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 //
 //
 
+/**A pálya kialakítására, és tárolására alkalmas osztály.*/
 public class Map {
 	Random random = new Random();
 	private static ArrayList<Component> components = new ArrayList<Component>();
@@ -37,6 +38,7 @@ public class Map {
 	static Image repairManImage;
 	static Image saboteurImage;
 
+	/**Az osztály konstruktora.*/
 	public Map() {
 		try {
 			cisternImage = ImageIO.read(this.getClass().getResource("cistern.png"));
@@ -147,7 +149,10 @@ public class Map {
 			createNodes(nodeCommands);
 			createEdges(edgeCommands);
 	}
-	
+
+	/**Új pálya generálására alkalmas függvény.
+	 * @param inputCommands: A beadott parancsok tömbje
+	 * @return int*/
 	public int createNew(String[] inputCommands) {
 		int n = 0;
 		for(int j = 0; !inputCommands[j].equals("done"); ++j) {
@@ -273,6 +278,7 @@ public class Map {
 		return n;
 	}
 
+	/**Pálya beolvasása fájlból.*/
 	public void mapInit() {
 		//beolvas adott fajlbol
 		File file = new File("map1.txt");
@@ -380,25 +386,36 @@ public class Map {
 		}catch (IOException e) {}
 	}
 
+	/**Visszaadja a komponensek listáját
+	 * @return ArrayList<Component>*/
 	public ArrayList<Component> getComponents() {
 		return components;
 	}
 
+	/**Visszaadja a játékosok listáját
+	 * @return ArrayList<Player>*/
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 
+	/**Pumpa hozzáadása a pályához.
+	 * @param repairman: a szerelő aki hozzáadja a pumpát a pályához
+	 * @param p: a hozzáadandó pumpa*/
 	public static void addPump(RepairMan repairman, Pump p) {
 		components.add(p);
 		Drawable drawableOfRepairman = Observer.getDrawableOfPlayer(repairman);
 		Observer.addDrawableComponent(p, new DrawableComponent(p, drawableOfRepairman.coordinates, pumpImage));
 	}
 
+	/**Cső hozzáadása pályához
+	 * @param p: a hozzáadandó cső*/
 	public static void addPipe(Pipe p) {
 		components.add(p);
 		Observer.addDrawableComponent(p, new DrawableComponent(p));
 	}
 
+	/**Alaptérkép generálása
+	 * */
 	public void makeDefaultMap(int nrOfCisterns, int nrOfSprings, int nrOfPumps, int nrOfPipes) {
 		for(int i = 0; i < nrOfCisterns; ++i)
 		{

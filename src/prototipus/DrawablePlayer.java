@@ -3,15 +3,21 @@ package prototipus;
 import java.awt.Graphics;
 import java.awt.Image;
 
+/**Játékos kirajzolásához való osztály.*/
 public class DrawablePlayer extends Drawable{
 	Player player;
 
-
+/**Az osztály paraméteres konstruktora.
+ * @param player: kirajzolandó játékos
+ * @param coordinates: a koordináták (kirajzolás helye)
+ * @param image: képe a kirajzoláshoz*/
 	public DrawablePlayer(Player player, Vector2 coordinates, Image image){
 		super(coordinates, image);
 		this.player = player;
 	}
-	
+
+	/**Kirajzolás függvénye
+	 * @param g: A kirajzoláshoz való Graphics*/
 	@Override
 	public void Draw(Graphics g) {
 

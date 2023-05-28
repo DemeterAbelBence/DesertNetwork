@@ -15,12 +15,14 @@ import java.util.ArrayList;
 
 
 
-
+/**Az idő megjelenítésének megvalósítására való osztály.*/
 public class Timer implements Runnable {
 	private ArrayList<Updateable> updateables;
 	private Thread gameThread;
 	private final int TPS = 1; //Tick Per Second
 
+	/**Az osztály konstruktora.
+	 * @param observer: a játék összehangolásához*/
 	public Timer(Observer observer)
 	{
 		updateables = new ArrayList<Updateable>();
@@ -35,6 +37,7 @@ public class Timer implements Runnable {
 		updateables.add(observer);
 		updateables.add(observer.getMenuPanel());
 	}
+	/**Az időzítő léptető függvénye, ez lépteti az összes léptetendő objektumot.*/
 	public void tick() {
 		for(Updateable updateable:updateables)
 			updateable.updateStatus();
@@ -42,12 +45,14 @@ public class Timer implements Runnable {
 		System.out.println("Tick!");
 	}
 
+	/**Az időzítő elindítása.*/
 	public void startTimer()
 	{
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
 
+	/**Az időzítő futtatására.*/
 	@Override
 	public void run() {
 		double tpsToTime = 1000000000/TPS;

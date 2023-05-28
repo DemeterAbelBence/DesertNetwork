@@ -21,7 +21,8 @@ import org.junit.jupiter.api.Test;
 
 
 
-
+/**Absztrakt osztály, melyet minden vízvezetékbeli elem kiterjeszt. Ezen elemek alap
+ funkcionalitásait biztosítja, létrehozza a kapcsolatot a Playerek és a vízvezeték elemei között.**/
 public abstract class Component implements Updateable{
 	protected boolean pumpPlaceable;
 	protected boolean node;
@@ -41,8 +42,12 @@ public abstract class Component implements Updateable{
 	protected Component input;
 	protected Component output;
 	private ArrayList<Player> players = new ArrayList<Player>();
+	/**A komponens szomszédainak objektumaira
+	 *mutató referenciák tömbje. Ezeknek típusát nem ismeri, hiszen Component típusú
+	 *objektumként ismeri őket.**/
 	protected ArrayList<Component> neighbours = new ArrayList<Component>();
-	
+
+	/** Az osztály konstruktora.**/
 	public Component() {
 	}
 	
@@ -52,19 +57,25 @@ public abstract class Component implements Updateable{
 	public abstract void punctured();
 	
 	public abstract void malfunction();
-	
+
+	/**A waterLevel attribútum értékének megnövelése, ha lehetséges
+	 * @return boolean: lehetséges volt-e a művelet*/
 	public boolean addWater() {
 		if(waterLevel >= capacity)
 			return false;
 		waterLevel += 1;
 		return true;
 	}
-	
+
+	/**A waterLevel attribútum értékének csökkentése eggyel.*/
 	public void takeWater() {
 		waterLevel -= 1;
 	}
 	
 	//publikus fuggvenyek
+	/** Logikai értékkel tér vissza, ami igaz, hogy ha jelenleg
+	 *léphet új játékos a komponensre, és hamis, hogyha nem.
+	 * @return boolean: rá lehet-e lépni*/
 	public boolean canBeSteppedOn() {
 		int playerCount = countPlayers();
 		if(node)
@@ -73,7 +84,11 @@ public abstract class Component implements Updateable{
 			return true;
 		return false;
 	}
-	
+
+	/**Hozzáadja ezen komponens szomszédainak
+	 *listájához a c Komponenst.
+	 *Beállítja az input-output-ot
+	 * @params c: szomszédokhoz hozzáadandó komponens*/
 	public void addNeighbour(Component c) {
 		neighbours.add(c);
 		System.out.println("Adding neighbour | Node=" + node);
@@ -98,6 +113,9 @@ public abstract class Component implements Updateable{
 		}
 	}
 
+	/**Törli a c Komponenst ezen komponens
+	 *szomszédainak listájából, hogy ha benne van.
+	 * @param c: szomszédok közül kitörlendő elem*/
 	public void removeNeighbour(Component c) {
 		System.out.println("Adding neighbour | Node=" + node);
 		if(c == output) {
@@ -114,31 +132,47 @@ public abstract class Component implements Updateable{
 		}
 		neighbours.remove(c);
 	}
-	
+
+	/**Rálépteti a komponensre a p játékost, tehát az innentől
+	 *kezdve rajta tartózkodik, amí el nem lép innen
+	 * @param p: ide lépő játékos*/
 	public void addPlayer(Player p) {
 		players.add(p);
 	}
-	
+
+	/** Lelépteti a p játékost ezen komponensről.
+	 * @param p: leléptetendő játékos*/
 	public void removePlayer(Player p) {
 		players.remove(p);
 	}
-	
+
+	/**Visszatér a komponensen tarózkodó játékosok számával.
+	 * @return int*/
 	public int countPlayers() {
 		return players.size();
 	}
-	
+
+	/**Visszatér a komponens szomszédainak számával.
+	 * @return int*/
 	public int countNeighbours() {
 		return neighbours.size();
 	}
-	
+
+	/** Logikai értékkel tér vissza, ami igaz, hogy ha jelenleg a
+	 komponens meg van telve vízzel, és hamis, hogyha még van benne üres hely, és tud
+	 fogadni vizet a bemenetéről.
+	 @return boolean*/
 	public boolean isFull() {
 		return waterLevel >= capacity;
 	}
-	
+
+	/**Visszaadja, hogy a komponens csomópont-e
+	 * @return boolean*/
 	public boolean getNode() {
 		return node;
 	}
-	
+
+	/**Felüldefiniálandó függvény, nem csinál semmit (leszármazottak implementálják.*/
 	public void waterFlows() {
 		/*if(output != null && waterLevel > 0) {
 			boolean isOutputFull = output.isFull();
@@ -148,58 +182,82 @@ public abstract class Component implements Updateable{
 			}
 		}*/
 	}
-	
+
+	/**Visszaadja a slipperyCounter értékét
+	 * @return int*/
 	public int getSlipperyCounter() {
 		return slipperyCounter;
 	}
-	
+
+	/**Visszaállítja a slipperyCounter értékét az alapértékre.*/
 	public void resetSlipperyCounter() {
 		slipperyCounter = counterPeriod;
 	}
-	
+
+	/**Visszaadja a stickyCounter értékét.
+	 * @return int*/
 	public int getStickyCounter() {
 		return stickyCounter;
 	}
-	
+
+	/**Visszaállítja a stickyCounter értékét az alapértékre.*/
 	public void resetStickyCounter() {
 		stickyCounter = counterPeriod;
 	}
-	
+
+	/**Visszaadja a szomszédok listáját.
+	 * @return ArrayList<Component>*/
 	public ArrayList<Component> getNeighbours(){
 		return neighbours;
 	}
-	
+
+	/**Visszaadja az adott indexű szomszédot.
+	 * @param i: keresett index
+	 * @return Component*/
 	public Component getNeighbour(int i) {
 		if(i < neighbours.size())
 			return neighbours.get(i);
 		return null;
 	}
-	
+
+	/**Visszaadja a rajta álló játékosok listáját.
+	 * @return ArrayList<Player>*/
 	public ArrayList<Player> getPlayers() { return players; }
-	
+
+	/**Visszaadja az itemSource értékét.
+	 * @return boolean*/
 	public boolean getItemSource() {
 		return itemSource;
 	}
-	
+
+	/**Beállítja a punctureCounter értékét egy random számra*/
 	public void resetPunctureCounter() {
 		Random random = new Random();
 		punctureCounter = random.nextInt(10)+1;
 	}
-	
+
+	/**Beállítja az input értékét.
+	 * @param input: beállítandó érték*/
 	public void setInput(Component input) {
 		if(neighbours.contains(input) && this.output != input)
 			this.input = input;
 	}
-	
+
+	/**Beállítja az output értékét
+	 * @param output: a beállítandó érték*/
 	public void setOutput(Component output) {
 		if(neighbours.contains(output) && this.input != output)
 			this.output = output;
 	}
-	
+
+	/**Visszaadja, hogy lerakható-e a pumpa adott komponensre
+	 * @return boolean*/
 	public boolean getPumpPlaceable() {
 		return !node;
 	}
 
+	/**Visszaadja az eddig adott komponensnél elfolyt víz mennyiségét
+	 * @return int*/
 	public int getLeakedWater() { return leakedWater;}
 	
 	/*public String toString() {
