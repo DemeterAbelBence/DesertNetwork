@@ -28,7 +28,7 @@ public abstract class Component implements Updateable{
 	protected boolean itemSource;
 	protected boolean broken;
 	protected boolean leaks;
-	protected int leakedWater;
+	protected int leakedWater = 0;
 	
 	protected int stickyCounter = 0;
 	protected int slipperyCounter = 0;
@@ -132,7 +132,7 @@ public abstract class Component implements Updateable{
 	}
 	
 	public boolean isFull() {
-		return waterLevel == capacity;
+		return waterLevel >= capacity;
 	}
 	
 	public boolean getNode() {
@@ -199,6 +199,8 @@ public abstract class Component implements Updateable{
 	public boolean getPumpPlaceable() {
 		return !node;
 	}
+
+	public int getLeakedWater() { return leakedWater;}
 	
 	/*public String toString() {
 		String status = "waterLevel: " + waterLevel + ", slippery: " + (slipperyCounter != 0) 
@@ -220,5 +222,9 @@ public abstract class Component implements Updateable{
 	public Image getSprite() {
 	
 		return sprite;
+	}
+
+	public int getWaterLevel() {
+		return waterLevel;
 	}
 }

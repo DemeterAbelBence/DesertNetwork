@@ -106,14 +106,21 @@ public class GamePanel extends JPanel {
 			g.drawLine(x0, y0, x1, y1);
 		}
 	}
-	
+
+	public void displayScores(Graphics g)
+	{
+		g.drawString("Saboteur score: " + observer.getSaboteurScore(), 20,20);
+		g.drawString("RepairMan score: " + observer.getRepairManScore(), 20,40);
+
+	}
 	@Override
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-
+		displayScores(g);
 		outlineFocusedPlayer(g);
 		outlineSelectedComponent(g);
 		observer.drawDrawables(g);
+
 	}
 }

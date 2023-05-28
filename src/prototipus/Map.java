@@ -418,13 +418,12 @@ public class Map {
 			Observer.addDrawableComponent(newPump, new DrawableComponent(newPump, new Vector2((i+4) * 100, i * 100 + 100), pumpImage));
 			components.add(newPump);
 		}
-		for(int i = 0; i < nrOfPipes; ++i)
-		{
+		for(int i = 0; i < nrOfPipes; ++i) {
 			Pipe newPipe = new Pipe();
 			int firstRandom = random.nextInt(components.size() - 1 - i);
 			newPipe.addNeighbour(components.get(firstRandom));
 			components.get(firstRandom).addNeighbour(newPipe);
-			
+
 			int secondRandom;
 			do {
 				secondRandom = random.nextInt(components.size() - 1 - i);
@@ -434,7 +433,6 @@ public class Map {
 			Observer.addDrawableComponent(newPipe, new DrawableComponent(newPipe));
 			components.add(newPipe);
 		}
-
 		//Playerek rákerülnek előre kiválasztott komponensre
 		getPlayers().add(new RepairMan(components.get(0)));
 		getPlayers().add(new RepairMan(components.get(1)));

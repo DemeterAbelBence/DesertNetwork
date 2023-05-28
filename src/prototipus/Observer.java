@@ -22,33 +22,38 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Graphics2D;
 public class Observer extends JFrame implements Updateable {
-	
+
 	private Map observedMap;
 
 	private MenuPanel menuPanel;
 	private GamePanel gamePanel;
-	
-	private static ArrayList<Drawable> drawables  = new ArrayList<Drawable>();
-	
+
+	private static ArrayList<Drawable> drawables = new ArrayList<Drawable>();
+
 	private static HashMap<Player, Drawable> drawablePlayers = new HashMap<Player, Drawable>();
 	private static HashMap<Component, Drawable> drawableComponents = new HashMap<Component, Drawable>();
-	
+
+	private int repairManScore = 0;
+	private int saboteurScore = 0;
+
+
+
 	public Observer(Map map)
 	{
 		//device = GraphicsEnvironment
 		observedMap = map;
 		// feltolti a default map csoveivel, pumpaival, stb.
 		//observedMap.makeDefaultMap(2, 3, 4, 8);
-		
+
 		String str1= "cistern 100 100 repairMan\n"
 				+ "cistern 100 300 repairMan\n"
 				+ "pump 400 50\n"
 				+ "pump 500 200\n"
 				+ "pump 400 350\n"
 				+ "spring 700 100 saboteur\n"
-				+ "spring 700 300 saboteur\n" 
+				+ "spring 700 300 saboteur\n"
 				+ "done\n";
-		
+
 		String str2= "0 3\n"
 				+ "1 4\n"
 				+ "2 3\n"
@@ -57,44 +62,65 @@ public class Observer extends JFrame implements Updateable {
 				+ "3 5\n"
 				+ "4 6\n"
 				+ "done\n";
-		
+
 		String[] nodeCommands = str1.split("\n");
 		String[] edgeCommands = str2.split("\n");
 
 		observedMap.createFromCommands(nodeCommands, edgeCommands);
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		this.setBounds(EXIT_ON_CLOSE, ABORT, 1600, 600);
 		setVisible(true);
-		
+
 		menuPanel = new MenuPanel(this);
 		gamePanel = new GamePanel(this);
 		add(gamePanel);
 		add(menuPanel);
-	
+
 		gamePanel.setBounds(0,0,getWidth()/4*3,getHeight());
 		menuPanel.setBounds(gamePanel.getWidth(),0,getWidth()/4,getHeight());
-		
+
 		this.getContentPane().repaint();
 		this.getContentPane().revalidate();
 	}
-	
+
 	public void updateStatus()
 	{
+		saboteurScore = countLeakedWater();
+		repairManScore = countCityWater();
+
 		drawables.clear();
 		drawables.addAll(drawableComponents.values());
 		drawables.addAll(drawablePlayers.values());
-		
+
 		repaint();
 	}
-	
+
 	public static Color colorFromRGB(int r, int g, int b)
 	{
 		float[] f = new float[3];
 		Color.RGBtoHSB(r, g, b, f);
-		
+
 		return Color.getHSBColor(f[0], f[1], f[2]);
+	}
+
+	public int countLeakedWater()
+	{
+		int sum = 0;
+		for(Component item : observedMap.getComponents())
+			sum += item.getLeakedWater();
+		return sum;
+	}
+
+	public int countCityWater()
+	{
+		//This uses the fact that Springs have a 0 waterLevel
+		int sum = 0;
+		for(Component item : observedMap.getComponents())
+			if(item.getNode() && item.getItemSource())
+				sum += item.getWaterLevel();
+		return sum;
 	}
 	
 	public Map getObservedMap()
@@ -130,5 +156,13 @@ public class Observer extends JFrame implements Updateable {
 	public MenuPanel getMenuPanel()
 	{
 		return menuPanel;
+	}
+
+	public int getSaboteurScore() {
+		return saboteurScore;
+	}
+
+	public int getRepairManScore() {
+		return  repairManScore;
 	}
 }
