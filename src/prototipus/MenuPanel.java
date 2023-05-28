@@ -213,20 +213,25 @@ public class MenuPanel extends JPanel implements Updateable{
 		}
 		
 	}
-
+	
 	@Override
 	public void updateStatus() {
 
-			DefaultListModel model = (DefaultListModel) jl.getModel();
-			int index = jl.getSelectedIndex();
+		//updating host neighbour list
+		//-----------------
+		DefaultListModel model = (DefaultListModel) jl.getModel();
+		int index = jl.getSelectedIndex();
 
-			model.clear();
+		model.clear();
 
-			String[] neighbours = hostComponentNeighbours(focusedPlayer);
-			for(String n : neighbours)
-				model.addElement(n);
+		String[] neighbours = hostComponentNeighbours(focusedPlayer);
+		for(String n : neighbours)
+			model.addElement(n);
+		//-----------------
+		
+		
 
-			jl.setSelectedIndex(index);
+		jl.setSelectedIndex(index);
 
 
 		lastFocusedPlayer = focusedPlayer;

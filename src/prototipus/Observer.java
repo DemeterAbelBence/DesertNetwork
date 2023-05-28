@@ -85,6 +85,7 @@ public class Observer extends JFrame implements Updateable {
 		drawables.clear();
 		drawables.addAll(drawableComponents.values());
 		drawables.addAll(drawablePlayers.values());
+		
 		repaint();
 	}
 	
