@@ -34,6 +34,11 @@ public class Cistern extends Component implements Updateable {
 			e.printStackTrace();
 		}
 	}
+
+	public boolean isFull() {
+		return false;
+	}
+
 	/**Nem tartozik hozzá implementáció, a függvény törzse üres.**/
 	public void repaired() {
 	}
