@@ -138,9 +138,7 @@ public class Map {
 					c.setOutput(output);
 				}
 			}
-			
 		}
-			
 	}
 
 	private void createNodes(String[] inputCommands) throws Exception {
