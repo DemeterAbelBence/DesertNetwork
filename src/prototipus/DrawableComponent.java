@@ -44,7 +44,7 @@ public class DrawableComponent extends Drawable{
 						pipeColor = Color.getHSBColor(58,32,79);
 					else
 						pipeColor = Color.red;
-				else if(pipe.isFull())
+				else if(pipe.getWaterLevel() > 0)
 					if(pipe.isSticky())
 						pipeColor = Color.green;
 					else if(pipe.isSlippery())

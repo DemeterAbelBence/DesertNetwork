@@ -61,7 +61,7 @@ public abstract class Component implements Updateable{
 	/**A waterLevel attribútum értékének megnövelése, ha lehetséges
 	 * @return boolean: lehetséges volt-e a művelet*/
 	public boolean addWater() {
-		if(waterLevel >= capacity)
+		if(waterLevel >= capacity && capacity != -1)
 			return false;
 		waterLevel += 1;
 		return true;

@@ -27,6 +27,7 @@ public class Cistern extends Component implements Updateable {
 		itemSource = true;
 		broken = false;
 		leaks = false;
+		waterLevel = 0;
 		try {
 			sprite = ImageIO.read(this.getClass().getResource("cistern.png"));
 		} catch (IOException e) {
@@ -53,7 +54,7 @@ public class Cistern extends Component implements Updateable {
 
 	/**A vízfolyásért felelős függvény*/
 	public void waterFlows() {
-		addWater();
+		this.addWater();
 	}
 	/**Ciszterna String-esítése
 	 * @return String*/
