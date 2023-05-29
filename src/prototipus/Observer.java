@@ -39,8 +39,9 @@ public class Observer extends JFrame implements Updateable {
 
 
 /**Az osztály konstruktora.
- * @param map: a játékhoz való pálya térképe*/
-	public Observer(Map map)
+ * @param map: a játékhoz való pálya térképe
+ * @throws Exception */
+	public Observer(Map map) throws Exception
 	{
 		//device = GraphicsEnvironment
 		observedMap = map;
@@ -68,7 +69,11 @@ public class Observer extends JFrame implements Updateable {
 		String[] nodeCommands = str1.split("\n");
 		String[] edgeCommands = str2.split("\n");
 
-		observedMap.createFromCommands(nodeCommands, edgeCommands);
+		try {
+			observedMap.createFromCommands(nodeCommands, edgeCommands);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
