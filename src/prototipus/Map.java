@@ -54,56 +54,6 @@ public class Map {
 
 	private void initializeComponentIOInterface() throws Exception {
 		for(Component c: components) {
-			/*//it is enought to handle the node components to set input/output for all components
-			if(c.getNode()) {
-				//first neighbour data
-				Component neighbour0 = c.getNeighbour(0); 
-				Drawable nd0 = Observer.getDrawableOfComponent(neighbour0);
-				//component drawable
-				Drawable d = Observer.getDrawableOfComponent(c);
-				
-				//in this case pumps
-				if(c.countNeighbours() > 1) {
-					//secong neighbour data
-					Component neighbour1 = c.getNeighbour(1);
-					Drawable nd1 = Observer.getDrawableOfComponent(neighbour1);
-					
-					//first neighbour is before, second neighbour is after the component  
-					if(nd0.getX() < d.getX() && nd1.getX() > d.getX()) {
-						c.setOutput(neighbour0);
-						neighbour0.setInput(c);
-						
-						c.setInput(neighbour1);
-						neighbour1.setOutput(c);
-					}
-					
-					//first neighbour is after, second neighbour is before the component
-					if(nd0.getX() >= d.getX() && nd1.getX() <= d.getX()) {
-						c.setInput(neighbour0);
-						neighbour0.setOutput(c);
-						
-						c.setOutput(neighbour1);
-						neighbour1.setInput(c);
-					}
-				}else {
-					if(c.countNeighbours() == 0)
-						throw new Exception("Node without neighbours not allowed!");
-					
-					
-					//neighbour is before the component  
-					if(nd0.getX() < d.getX()) {
-						c.setOutput(neighbour0);
-						neighbour0.setInput(c);
-					}
-					
-					
-					//neighbour is after the component
-					if(nd0.getX() >= d.getX()) {
-						c.setInput(neighbour0);
-						neighbour0.setOutput(c);
-					}
-				}
-			}*/
 			int neighbourCount = c.countNeighbours();
 			if(!c.getNode()) {
 				if(neighbourCount == 0)
@@ -128,8 +78,8 @@ public class Map {
 				if(neighbourCount > 1) {
 					int index1 = new Random().nextInt(neighbourCount);
 					
-					int index2 = 69;
-					while(index1 != index2)
+					int index2 = index1;
+					while(index1 == index2)
 						index2 = new Random().nextInt(neighbourCount);
 					
 					Component output = c.getNeighbour(index1);
