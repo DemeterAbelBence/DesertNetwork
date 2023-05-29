@@ -208,7 +208,8 @@ public class MenuPanel extends JPanel implements Updateable{
 			public void actionPerformed(ActionEvent e) {
 				if(!jl.isSelectionEmpty()){
 					int idx = jl.getSelectedIndex();
-					focusedPlayer.changePumpOutput(focusedPlayer.host.neighbours.get(idx));
+					Component c = focusedPlayer.getHost().getNeighbours().get(idx);
+					focusedPlayer.changePumpOutput(c);
 					observer.repaint();
 				}
 			}

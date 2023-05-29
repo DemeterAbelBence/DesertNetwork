@@ -54,7 +54,7 @@ public class Map {
 
 	private void initializeComponentIOInterface() throws Exception {
 		for(Component c: components) {
-			//it is enought to handle the node components to set input/output for all components
+			/*//it is enought to handle the node components to set input/output for all components
 			if(c.getNode()) {
 				//first neighbour data
 				Component neighbour0 = c.getNeighbour(0); 
@@ -103,8 +103,44 @@ public class Map {
 						neighbour0.setOutput(c);
 					}
 				}
+			}*/
+			int neighbourCount = c.countNeighbours();
+			if(!c.getNode()) {
+				if(neighbourCount == 0)
+					throw new Exception("Node without neighbours not allowed!");
+				
+				Component neighbour0 = c.getNeighbour(0); 
+				Drawable nd0 = Observer.getDrawableOfComponent(neighbour0);
+				
+				Component neighbour1 = c.getNeighbour(1); 
+				Drawable nd1 = Observer.getDrawableOfComponent(neighbour1);
+				
+				boolean tmp = nd0.getX() < nd1.getX();
+				
+				if(tmp) {
+					c.setOutput(neighbour0);
+					c.setInput(neighbour1);
+				}else {
+					c.setOutput(neighbour1);
+					c.setInput(neighbour0);
+				}
+			}else {
+				if(neighbourCount > 1) {
+					int index1 = new Random().nextInt(neighbourCount);
+					
+					int index2 = 69;
+					while(index1 != index2)
+						index2 = new Random().nextInt(neighbourCount);
+					
+					Component output = c.getNeighbour(index1);
+					Component input = c.getNeighbour(index2);
+					c.setInput(input);
+					c.setOutput(output);
+				}
 			}
+			
 		}
+			
 	}
 
 	private void createNodes(String[] inputCommands) throws Exception {
@@ -194,10 +230,10 @@ public class Map {
 				Component neighbour1 = components.get(index1); 
 				Component neighbour2 = components.get(index2); 
 				
-				p.addNeighbour(neighbour1);
-				p.addNeighbour(neighbour2);
-				neighbour1.addNeighbour(p);
-				neighbour2.addNeighbour(p);
+				p.getNeighbours().add(neighbour1);
+				p.getNeighbours().add(neighbour2);
+				neighbour1.getNeighbours().add(p);
+				neighbour2.getNeighbours().add(p);
 				
 				pipes.add(p);
 				
@@ -233,9 +269,8 @@ public class Map {
 				if(pipeMiddle != null) {
 					DrawableComponent d = new DrawableComponent(p, pipeMiddle, null);
 					Observer.addDrawableComponent(p, d);
-				}else {
-					throw new Exception("Pipe middle not found!");
-				}
+				}else throw new Exception("Pipe middle not found!");
+				
 			}
 		}
 		components.addAll(pipes);

@@ -72,15 +72,19 @@ public abstract class Player implements Updateable{
 	/**Egy pumpa bemenetének megváltoztatása.
 	 * @param input: bemenetnek szánt komponens*/
 	public void changePumpInput(Component input) {
-		if(host.getNode() && host.capacity > 0)
+		if(host.getNode() && host.capacity > 0) {
 			host.setInput(input);
+			input.setOutput(host);
+		}
 	}
 
 	/**Egy pumpa kimenetének megváltoztatása.
 	 * @param output: kimenetnek szánt komponens*/
 	public void changePumpOutput(Component output) {
-		if(host.getNode() && host.capacity > 0)
+		if(host.getNode() && host.capacity > 0) {
 			host.setOutput(output);
+			output.setInput(host);
+		}
 	}
 
 	/**Cső (amin áll) kilukasztására.*/
