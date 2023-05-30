@@ -143,6 +143,10 @@ public class Observer extends JFrame implements Updateable {
 		for(Component item : observedMap.getComponents())
 			if(item.getNode() && item.getItemSource())
 				sum += item.getWaterLevel();
+				/*for(int i = 0; i < item.getNeighbours().size(); i++){
+					if(!item.getNeighbour(i).getNode() && item.getNeighbour(i).getWaterLevel() > 0 && !item.getNeighbour(i).leaks)
+						sum++;
+				}*/
 		return sum;
 	}
 
@@ -187,9 +191,12 @@ public class Observer extends JFrame implements Updateable {
 	 * @param g: kirajzoláshoz való Grahpics*/
 	public void drawDrawables(Graphics g) {
 		Graphics g2d = (Graphics2D)g;
-		for(Drawable drawable : drawables) {
-			drawable.Draw(g2d);
-		}
+		try{
+			for(Drawable drawable : drawables) {
+				drawable.Draw(g2d);
+			}
+		}catch(Exception e){}
+
 	}
 
 	/**Visszaadja a felhasznált menü-t

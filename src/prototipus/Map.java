@@ -48,7 +48,7 @@ public class Map {
 			saboteurImage = ImageIO.read(this.getClass().getResource("saboteur.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -76,14 +76,15 @@ public class Map {
 				}
 			}else {
 				if(neighbourCount > 1) {
-					int index1 = new Random().nextInt(neighbourCount);
+					/*int index1 = new Random().nextInt(neighbourCount);
 					
 					int index2 = index1;
 					while(index1 == index2)
 						index2 = new Random().nextInt(neighbourCount);
-					
 					Component output = c.getNeighbour(index1);
-					Component input = c.getNeighbour(index2);
+					Component input = c.getNeighbour(index2);*/
+					Component input = c.getNeighbour(neighbourCount-1);
+					Component output = c.getNeighbour(0);
 					c.setInput(input);
 					c.setOutput(output);
 				}

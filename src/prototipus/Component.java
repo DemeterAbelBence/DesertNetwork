@@ -68,8 +68,8 @@ public abstract class Component implements Updateable{
 
 	/**A waterLevel attribútum értékének csökkentése eggyel.*/
 	public void takeWater() {
-		if(waterLevel > 1)
-			waterLevel -= 1;
+		if(this.waterLevel > 0);
+		waterLevel -= 1;
 	}
 	
 	//publikus fuggvenyek
@@ -240,16 +240,28 @@ public abstract class Component implements Updateable{
 
 	/**Beállítja az input értékét.
 	 * @param input: beállítandó érték*/
-	public void setInput(Component input) {
-		if(neighbours.contains(input) && this.output != input)
+	public boolean setInput(Component input) {
+		if(neighbours.contains(input)){
+			if(this.output == input && this.getNode()) return false;
 			this.input = input;
+			System.out.println("SetInput");
+			return true;
+		}
+		return false;
 	}
 
 	/**Beállítja az output értékét
 	 * @param output: a beállítandó érték*/
-	public void setOutput(Component output) {
-		if(neighbours.contains(output) && this.input != output)
+	public boolean setOutput(Component output) {
+
+		if(neighbours.contains(output) && this.input != output){
+			if(this.input == output && this.getNode()) return false;
+			System.out.println("SetOutput");
 			this.output = output;
+			return true;
+		}
+		return false;
+
 	}
 
 	/**Visszaadja, hogy lerakható-e a pumpa adott komponensre

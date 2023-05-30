@@ -73,8 +73,15 @@ public abstract class Player implements Updateable{
 	 * @param input: bemenetnek szánt komponens*/
 	public void changePumpInput(Component input) {
 		if(host.getNode()) {
-			host.setInput(input);
-			input.setOutput(host);
+
+			if(host.setInput(input)){
+				if(input.getOutput() != host){
+					input.input = input.output;
+					input.output = host;
+				}
+			}
+			//input.setOutput(host);
+
 		}
 	}
 
@@ -82,8 +89,15 @@ public abstract class Player implements Updateable{
 	 * @param output: kimenetnek szánt komponens*/
 	public void changePumpOutput(Component output) {
 		if(host.getNode()) {
+			System.out.println("changePumpOutput");
 			host.setOutput(output);
-			output.setInput(host);
+			//output.setInput(host);
+			/*if(host.setOutput(output)){
+				if(output.getInput() != host){
+					output.output = output.input;
+					output.input = host;
+				}
+			}*/
 		}
 	}
 
