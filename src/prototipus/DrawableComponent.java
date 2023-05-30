@@ -62,7 +62,7 @@ public class DrawableComponent extends Drawable{
 				Drawable drawableOfNeighbour1 = Observer.getDrawableOfComponent(component.getNeighbour(0));
 				Drawable drawableOfNeighbour2 = Observer.getDrawableOfComponent(component.getNeighbour(1));
 				
-				//settin pipe thickness
+				//setting pipe thickness
 				Graphics2D g2d = (Graphics2D) g;
 				float thickness = 5.0f; // Desired thickness
 	            Stroke oldStroke = g2d.getStroke();

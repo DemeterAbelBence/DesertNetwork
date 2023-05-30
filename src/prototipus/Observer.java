@@ -50,27 +50,27 @@ public class Observer extends JFrame implements Updateable {
 
 		String str1= "cistern 100 100 repairMan\n"
 				+ "cistern 100 300 repairMan\n"
-				//+ "pump 400 50\n"
+				+ "pump 400 50\n"
 				+ "pump 500 200\n"
-				//+ "pump 400 350\n"
+				+ "pump 400 350\n"
 				+ "spring 700 100 saboteur\n"
 				+ "spring 700 300 saboteur\n"
 				+ "done\n";
 
-		/*String str2= "0 3\n"
+		String str2= "0 3\n"
 				+ "1 4\n"
 				+ "2 3\n"
 				+ "4 3\n"
 				+ "4 5\n"
 				+ "3 5\n"
 				+ "4 6\n"
-				+ "done\n";*/
+				+ "done\n";
 		
-		String str2= "0 2\n"
+		/*String str2= "0 2\n"
 				+ "1 2\n"
 				+ "3 2\n"
 				+ "4 2\n"
-				+ "done\n";
+				+ "done\n";*/
 
 		String[] nodeCommands = str1.split("\n");
 		String[] edgeCommands = str2.split("\n");

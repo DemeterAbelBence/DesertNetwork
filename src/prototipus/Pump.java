@@ -32,12 +32,6 @@ public class Pump extends Component {
 		broken = false;
 		leaks = false;
 		this.capacity = capacity;
-		try {
-			sprite = ImageIO.read(getClass().getResource("pump.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**Az osztály konstukrtora.*/
@@ -48,12 +42,6 @@ public class Pump extends Component {
 		broken = false;
 		leaks = false;
 		this.capacity = 10;
-		try {
-			sprite = ImageIO.read(getClass().getResource("pump.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**A pumpa megjavítása.*/

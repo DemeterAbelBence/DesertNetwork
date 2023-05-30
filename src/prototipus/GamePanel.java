@@ -29,6 +29,45 @@ public class GamePanel extends JPanel {
 		//for(int i = 0; i < drawables.size(); ++i)
 			//drawables.get(i).Move(new Vector2(i*50,i++*50));
 	}
+	
+	private Vector2 getArrowPoint(Vector2 A, Vector2 B, double arrowAngle) {
+		
+		/* TODO
+		 * valami fancy matek ami
+		 * elforgat a cso kozeppontja korul
+		 * egy pontot
+		 */
+		
+		return null;
+	}
+	
+	private void displayPipeOrientation(Graphics g) { 
+		ArrayList<Component> components = observer.getObservedMap().getComponents();
+		
+		
+		for(Component c : components) {
+			if(!c.getNode()) {
+				Component input = c.getInput();
+				Component output = c.getOutput();
+				DrawableComponent inputD = (DrawableComponent) observer.getDrawableOfComponent(input);
+				DrawableComponent outputD = (DrawableComponent) observer.getDrawableOfComponent(output);
+				DrawableComponent pipeD = (DrawableComponent) observer.getDrawableOfComponent(c);
+				
+				Vector2 inputPosition = inputD.getCoordinates();
+				Vector2 outputPosition = outputD.getCoordinates();
+				Vector2 pipeMiddle = pipeD.getCoordinates();	
+				
+				Vector2 arrowPoint1 = getArrowPoint(pipeMiddle, inputPosition, Math.PI / 4);
+				Vector2 arrowPoint2 = getArrowPoint(pipeMiddle, inputPosition, -Math.PI / 4);
+				
+				g.drawLine(arrowPoint1.getX(), arrowPoint1.getY(),
+						pipeMiddle.getX(), pipeMiddle.getY());
+				
+				g.drawLine(arrowPoint2.getX(), arrowPoint2.getY(),
+						pipeMiddle.getX(), pipeMiddle.getY());
+			}
+		}
+	}
 
 	/**Bekeretezi a kiválasztott játékost a láthatóságért
 	 * @param g: a kirajzoláshoz való Graphics*/

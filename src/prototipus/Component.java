@@ -36,7 +36,6 @@ public abstract class Component implements Updateable{
 	protected int punctureCounter = 0;	
 	protected int capacity=-1;
 	protected int waterLevel = 0;
-	protected Image sprite;
 	public static final int counterPeriod = 10;
 
 	protected Component input;
@@ -275,13 +274,11 @@ public abstract class Component implements Updateable{
 			neighboursStatus += "neighbour" + (i + 1) + ": " + PrototypeTest.getComponentTypeAndIndex(neighbours.get(i)) + System.lineSeparator();
 		return status + playersStatus + neighboursStatus;
 	}*/
-
-
-	public Image getSprite() {
 	
-		return sprite;
-	}
-
+	public Component getInput() {return input;}
+	
+	public Component getOutput() {return output;}
+	
 	public int getWaterLevel() {
 		return waterLevel;
 	}

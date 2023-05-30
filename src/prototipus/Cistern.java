@@ -27,13 +27,6 @@ public class Cistern extends Component implements Updateable {
 		itemSource = true;
 		broken = false;
 		leaks = false;
-		waterLevel = 0;
-		try {
-			sprite = ImageIO.read(this.getClass().getResource("cistern.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public boolean isFull() {

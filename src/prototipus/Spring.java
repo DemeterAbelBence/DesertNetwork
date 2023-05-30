@@ -24,12 +24,6 @@ public class Spring extends Component implements Updateable{
 		itemSource = false;
 		broken = false;
 		leaks = false;
-		try {
-			sprite = ImageIO.read(this.getClass().getResource("spring.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**Üres függvény, nincs implementációja.*/
