@@ -60,22 +60,16 @@ public class Timer implements Runnable {
 		while(gameThread != null)
 		{
 			tick();
-
 			double remainingTime =  nextFrame - System.nanoTime();
-
-
 			//This is to eliminate some small and rare bug LMAO
 			if(remainingTime <0)
 				remainingTime = 0;
 
-
 			try {
 				Thread.sleep((long)remainingTime/1000000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 			nextFrame += tpsToTime;
 		}
 

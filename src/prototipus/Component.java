@@ -68,7 +68,8 @@ public abstract class Component implements Updateable{
 
 	/**A waterLevel attribútum értékének csökkentése eggyel.*/
 	public void takeWater() {
-		waterLevel -= 1;
+		if(waterLevel > 1)
+			waterLevel -= 1;
 	}
 	
 	//publikus fuggvenyek
@@ -170,6 +171,8 @@ public abstract class Component implements Updateable{
 	public boolean getNode() {
 		return node;
 	}
+	
+	public int getCapacity() { return capacity; }
 
 	/**Felüldefiniálandó függvény, nem csinál semmit (leszármazottak implementálják.*/
 	public void waterFlows() {

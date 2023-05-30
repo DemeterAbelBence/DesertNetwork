@@ -10,7 +10,6 @@ public class Prototipus {
 	 * @throws Exception */
 	public static void main(String[] args) throws Exception {
 		Map testMap = new Map();
-		
 		Observer o = null;
 		
 		try{
@@ -20,7 +19,6 @@ public class Prototipus {
 			e.printStackTrace();
 		}
 		
-		//o.repaint();
 		if(o != null) {
 	        Timer t = new Timer(o);
 	        t.startTimer();

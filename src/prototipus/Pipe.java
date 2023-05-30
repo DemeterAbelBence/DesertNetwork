@@ -59,7 +59,7 @@ public class Pipe extends Component {
 	public void updateStatus() {
 		if (output != null && waterLevel > 0 && !leaks) {
 			boolean isOutputFull = output.isFull();
-			if (!isOutputFull) {
+			if (!isOutputFull && this.output.getInput() == this) {
 				output.waterFlows();
 				this.takeWater();
 			}

@@ -41,12 +41,12 @@ public class GamePanel extends JPanel {
 		return null;
 	}
 	
-	private void displayPipeOrientation(Graphics g) { 
+	private void displayPipeInformation(Graphics g) { 
 		ArrayList<Component> components = observer.getObservedMap().getComponents();
 		
 		
 		for(Component c : components) {
-			if(!c.getNode()) {
+			if(!c.getNode()) {				
 				Component input = c.getInput();
 				Component output = c.getOutput();
 				DrawableComponent inputD = (DrawableComponent) observer.getDrawableOfComponent(input);
@@ -57,14 +57,16 @@ public class GamePanel extends JPanel {
 				Vector2 outputPosition = outputD.getCoordinates();
 				Vector2 pipeMiddle = pipeD.getCoordinates();	
 				
-				Vector2 arrowPoint1 = getArrowPoint(pipeMiddle, inputPosition, Math.PI / 4);
+				/*Vector2 arrowPoint1 = getArrowPoint(pipeMiddle, inputPosition, Math.PI / 4);
 				Vector2 arrowPoint2 = getArrowPoint(pipeMiddle, inputPosition, -Math.PI / 4);
 				
 				g.drawLine(arrowPoint1.getX(), arrowPoint1.getY(),
 						pipeMiddle.getX(), pipeMiddle.getY());
 				
 				g.drawLine(arrowPoint2.getX(), arrowPoint2.getY(),
-						pipeMiddle.getX(), pipeMiddle.getY());
+						pipeMiddle.getX(), pipeMiddle.getY());*/
+				g.setColor(Color.BLACK);
+				g.drawString("" + c.getWaterLevel() + "/" + c.getCapacity(), pipeMiddle.getX(),pipeMiddle.getY() + 50);
 			}
 		}
 	}
@@ -170,6 +172,7 @@ public class GamePanel extends JPanel {
 		displayScores(g);
 		outlineFocusedPlayer(g);
 		outlineSelectedComponent(g);
+		displayPipeInformation(g);
 		observer.drawDrawables(g);
 
 	}
