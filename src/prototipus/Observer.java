@@ -12,8 +12,11 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
@@ -98,6 +101,48 @@ public class Observer extends JFrame implements Updateable {
 		this.getContentPane().revalidate();
 	}
 
+	private String[] listToArray(ArrayList<String> a) {
+		int size = a.size();
+		String[] result = new String[size];
+		for(int i = 0; i < size; ++i) 
+			result[i] = a.get(i); 
+		
+		return result;
+	}
+	
+	private String[] readCommandsFromTxt(String fileName) throws Exception {
+		File file = new File(fileName);
+		
+		if(!file.canRead())
+			throw new Exception("Could not locate file!");
+		
+        String line;
+        ArrayList<String> result = new ArrayList<String>();
+        try (
+        	FileInputStream fileInputStream = new FileInputStream(file);
+        	InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+       	    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);)
+        {
+        	
+        	 while ((line = bufferedReader.readLine()) != null) {
+                 result.add(line);
+             }
+        }catch (IOException e) {}
+        
+        return listToArray(result);
+	}
+
+	public void initializeGameEnvironment(String edgeCommandsFile, String nodeCommandsFile) throws Exception{
+		String[] edgeCommands = readCommandsFromTxt(edgeCommandsFile);
+		String[] nodeCommands = readCommandsFromTxt(nodeCommandsFile);
+		
+		try {
+			observedMap.createFromCommands(nodeCommands, edgeCommands);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**Változáskor újrarajzolja a képernyőt.*/
 	public void updateStatus()
 	{

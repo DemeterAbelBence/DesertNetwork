@@ -19,10 +19,18 @@ public class MenuPanel extends JPanel implements Updateable{
 	JButton stickyButton = new JButton("Sticky pipe");
 	JButton punctureButton = new JButton("Puncture pipe");
 	JButton slipperyButton = new JButton("Make pipe slippery");
+	JButton brepair = new JButton("Repair");
 	JButton bplacepipe = new JButton("Place Pipe");
 	JButton bpickPipe = new JButton("Pick Pipe");
 	JButton bchangeinput = new JButton("ChangeInput");
 	JButton bchangeoutput = new JButton("ChangeOutput");
+	JButton bInitializeMap = new JButton("InitializeMap");
+	JButton bpickpump = new JButton("PickupPump");
+	JButton bCreateDefaultMap = new JButton("CreateDafaultMap");
+	JButton bplacedownPump = new JButton("PlacedownPump");
+	JButton move = new JButton("Move to selected");
+	JTextField tEdge = new JTextField("EdgeCommands");
+	JTextField tNode = new JTextField("NodeCommands");
 
 	JLabel playerNameLabel = new JLabel("Player 0");
 
@@ -47,59 +55,52 @@ public class MenuPanel extends JPanel implements Updateable{
 	 * @param o: a játékért felelős Observer*/
 	public MenuPanel(Observer o)
 	{
-		this.setLayout(new FlowLayout());
-		this.setSize(200,200);
+		this.setLayout(null);
+		//this.setSize(200,200);
 		observer = o;
 		setBackground(Observer.colorFromRGB(77,143,195));
 		int playerCount = observer.getObservedMap().getPlayers().size();
 
 		PlayerButton b;
 		int i = 0;
-		for(Player p : observer.getObservedMap().getPlayers()) {
-			b = new PlayerButton(observer.getObservedMap().getPlayers().get(observer.getObservedMap().getPlayers().indexOf(p)),i++);
-			b.setBackground(Color.GREEN);
 		
+		for(Player p : observer.getObservedMap().getPlayers()) {
+			b = new PlayerButton(observer.getObservedMap().getPlayers().get(observer.getObservedMap().getPlayers().indexOf(p)),i);
+			b.setBackground(Color.GREEN);
+			b.setBounds(30 + 80 * i, 30, 80, 30);
 			b.revalidate();
 			b.addActionListener(new PlayerButtonListener());
 			add(b);
 			b.revalidate();
+			i++;
 		}
 		add(Box.createRigidArea(new Dimension(getWidth(),200)));
 
-
-		//---------------------------//
-		/**Implementálja, hogy az adott gomb csúszóssá tegye a csövet.*/
-		slipperyButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				focusedPlayer.makeSlippery();
-				observer.repaint();
-			}
-		});
-		add(slipperyButton);
+		tNode.setBounds(200, 100, 100, 30);
+		this.add(tNode);
+		
+		tEdge.setBounds(50, 100, 100, 30);
+		this.add(tEdge);
 		
 		//---------------------------//
-		/**Implementálja, hogy az adott gomb kilyukassza a csövet.*/
-		punctureButton.addActionListener(new ActionListener() {
+		bCreateDefaultMap.setBounds(200, 150, 150, 30);
+		bCreateDefaultMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				focusedPlayer.sabotage();
-				observer.repaint();
+				//observer.
 			}
 		});
-		add(punctureButton);
-
+		add(bCreateDefaultMap);
+		
 		//---------------------------//
-		/**implementálja, hogy az adott gomb ragadóssá tegye a csövet*/
-		stickyButton.addActionListener(new ActionListener() {
+		bInitializeMap.setBounds(30, 150, 150, 30);
+		bInitializeMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				focusedPlayer.makeSticky();
-				observer.repaint();
+				//observer.
 			}
 		});
-		add(stickyButton);
+		add(bInitializeMap);
 		
 		//---------------------------//
 		focusedPlayer = observer.getObservedMap().getPlayers().get(0);
@@ -107,11 +108,20 @@ public class MenuPanel extends JPanel implements Updateable{
 		DefaultListModel listModel = new DefaultListModel();
 		listModel.addAll(0,List.of(s));
 		 jl = new JList(listModel);
+		 jl.setBounds(50, 270, 70, 200);
 		add(jl);
 		
+		//action button parameters
+		int k = 0;
+		int actionButtonHeight = 20;
+		int offsetY = 230;
+		int offsetX = 170;
+		int spacing = 25;
+		
+		
 		//---------------------------//
-		JButton move = new JButton("Move to selected");
 		/**Implementálja, hogy a játékos gombnyomásra a kiválasztott mezőre lépjen.*/
+		move.setBounds(offsetX, offsetY + spacing * k++, 160, 20);
 		move.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,10 +133,34 @@ public class MenuPanel extends JPanel implements Updateable{
 			}
 		});
 		add(move);
+		
+		//---------------------------//
+		/**Implementálja, hogy az adott gomb csúszóssá tegye a csövet.*/
+		slipperyButton.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
+		slipperyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				focusedPlayer.makeSlippery();
+				observer.repaint();
+			}
+		});
+		add(slipperyButton);
 
 		//---------------------------//
-		JButton brepair = new JButton("Repair");
+		/**implementálja, hogy az adott gomb ragadóssá tegye a csövet*/
+		stickyButton.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
+		stickyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				focusedPlayer.makeSticky();
+				observer.repaint();
+			}
+		});
+		add(stickyButton);
+
+		//---------------------------//
 		/**Implementálja, hogy a játékos megjavítson gombnyomásra egy elromlott/kilyukadt elemet*/
+		brepair.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
 		brepair.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -137,8 +171,8 @@ public class MenuPanel extends JPanel implements Updateable{
 		add(brepair);
 
 		//---------------------------//
-		JButton bpickpump = new JButton("PickupPump");
 		/**Implementálja, hogy felvegyen a játékos gombnyomásra egy pumpát.*/
+		bpickpump.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
 		bpickpump.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -149,8 +183,8 @@ public class MenuPanel extends JPanel implements Updateable{
 		add(bpickpump);
 
 		//---------------------------//
-		JButton bplacedownPump = new JButton("PlacedownPump");
 		/**Implementálja, hogy egy játékos lerakjon gombnyomásra egy pumpát*/
+		bplacedownPump.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
 		bplacedownPump.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -162,6 +196,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		
 		//---------------------------//
 		/**Implementálja, hogy a játékos letegyen gombnyomásra egy csövet.*/
+		bplacepipe.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
 		bplacepipe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -172,7 +207,20 @@ public class MenuPanel extends JPanel implements Updateable{
 		add(bplacepipe);
 		
 		//---------------------------//
+		/**Implementálja, hogy az adott gomb kilyukassza a csövet.*/
+		punctureButton.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
+		punctureButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				focusedPlayer.sabotage();
+				observer.repaint();
+			}
+		});
+		add(punctureButton);
+		
+		//---------------------------//
 		/**Implementálja, hogy egy játékos felvegyen egy csövet gombnyomásra. (Nem ciszternánál kiválasztott elemet)*/
+		bpickPipe.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
 		bpickPipe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -186,9 +234,10 @@ public class MenuPanel extends JPanel implements Updateable{
 			}
 		});
 		add(bpickPipe);	
-
+		
 		//---------------------------//
 		/**Implementálja, hogy egy pumpának megváltozzon a bemenete gombnyomásra kiválasztott elemre*/
+		bchangeinput.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
 		bchangeinput.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -203,6 +252,7 @@ public class MenuPanel extends JPanel implements Updateable{
 		
 		//---------------------------//
 		/**Implementálja, hogy egy pumpának gombnyomásra megváltozzon a kimenete kiválasztott elemre.*/
+		bchangeoutput.setBounds(offsetX, offsetY + spacing * k++, 160, actionButtonHeight);
 		bchangeoutput.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
