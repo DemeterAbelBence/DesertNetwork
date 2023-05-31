@@ -118,7 +118,6 @@ public class MenuPanel extends JPanel implements Updateable{
 		int offsetX = 170;
 		int spacing = 25;
 		
-		
 		//---------------------------//
 		/**Implementálja, hogy a játékos gombnyomásra a kiválasztott mezőre lépjen.*/
 		move.setBounds(offsetX, offsetY + spacing * k++, 160, 20);

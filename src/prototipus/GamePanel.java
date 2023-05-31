@@ -49,22 +49,26 @@ public class GamePanel extends JPanel {
 			if(!c.getNode()) {				
 				Component input = c.getInput();
 				Component output = c.getOutput();
+				
+				if(input == null || output == null)
+					return;
+				
 				DrawableComponent inputD = (DrawableComponent) observer.getDrawableOfComponent(input);
 				DrawableComponent outputD = (DrawableComponent) observer.getDrawableOfComponent(output);
 				DrawableComponent pipeD = (DrawableComponent) observer.getDrawableOfComponent(c);
 				
 				Vector2 inputPosition = inputD.getCoordinates();
 				Vector2 outputPosition = outputD.getCoordinates();
-				Vector2 pipeMiddle = pipeD.getCoordinates();	
+				Vector2 pipeMiddle = pipeD.getCoordinates();
 				
-				/*Vector2 arrowPoint1 = getArrowPoint(pipeMiddle, inputPosition, Math.PI / 4);
-				Vector2 arrowPoint2 = getArrowPoint(pipeMiddle, inputPosition, -Math.PI / 4);
+				if(pipeMiddle == null) {
+					Vector2 n1 = inputD.getCoordinates();
+					Vector2 n2 = outputD.getCoordinates();
+					pipeMiddle = observer.getObservedMap().calculatePipeMiddle(n1, n2);
+					pipeD.setX(pipeMiddle.getX());
+					pipeD.setY(pipeMiddle.getY());
+				}
 				
-				g.drawLine(arrowPoint1.getX(), arrowPoint1.getY(),
-						pipeMiddle.getX(), pipeMiddle.getY());
-				
-				g.drawLine(arrowPoint2.getX(), arrowPoint2.getY(),
-						pipeMiddle.getX(), pipeMiddle.getY());*/
 				g.setColor(Color.BLACK);
 				g.drawString("" + c.getWaterLevel() + "/" + c.getCapacity(), pipeMiddle.getX(),pipeMiddle.getY() + 50);
 			}

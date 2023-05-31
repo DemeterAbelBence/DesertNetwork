@@ -159,7 +159,35 @@ public class Map {
 	
 	}
 
+	public Vector2 calculatePipeMiddle(Vector2 neighbourPosition1, Vector2 neighbourPosition2) {
+		int x1 = neighbourPosition1.getX();
+		int y1 = neighbourPosition1.getY();
+		int x2 = neighbourPosition2.getX();
+		int y2 = neighbourPosition2.getY();
+		
+		int deltaX = Math.abs(x1 - x2);
+		int deltaY = Math.abs(y1 - y2);
+		
+		Vector2 pipeMiddle = null;
+		if(x1 < x2) {
+			if(y1 < y2) {
+				pipeMiddle = new Vector2(x1 + deltaX / 2, y1 + deltaY / 2);
+			}else {
+				pipeMiddle = new Vector2(x1 + deltaX / 2, y2 + deltaY / 2);
+			}
+		}else {
+			if(y1 < y2) {
+				pipeMiddle = new Vector2(x2 + deltaX / 2, y1 + deltaY / 2);
+			}else {
+				pipeMiddle = new Vector2(x2 + deltaX / 2, y2 + deltaY / 2);
+			}
+		}
+		
+		return pipeMiddle;
+	}
+	
 	private void createEdges(String[] inputCommands) throws Exception {
+
 		ArrayList<Component> pipes = new ArrayList<Component>();
 		
 		for(int i = 0; !inputCommands[i].equals("done"); ++i) {
@@ -192,28 +220,7 @@ public class Map {
 				Vector2 neighbourPosition1 = neighbourDrawable1.getCoordinates();
 				Vector2 neighbourPosition2 = neighbourDrawable2.getCoordinates();
 				
-				int x1 = neighbourPosition1.getX();
-				int y1 = neighbourPosition1.getY();
-				int x2 = neighbourPosition2.getX();
-				int y2 = neighbourPosition2.getY();
-				
-				int deltaX = Math.abs(x1 - x2);
-				int deltaY = Math.abs(y1 - y2);
-				
-				Vector2 pipeMiddle = null;
-				if(x1 < x2) {
-					if(y1 < y2) {
-						pipeMiddle = new Vector2(x1 + deltaX / 2, y1 + deltaY / 2);
-					}else {
-						pipeMiddle = new Vector2(x1 + deltaX / 2, y2 + deltaY / 2);
-					}
-				}else {
-					if(y1 < y2) {
-						pipeMiddle = new Vector2(x2 + deltaX / 2, y1 + deltaY / 2);
-					}else {
-						pipeMiddle = new Vector2(x2 + deltaX / 2, y2 + deltaY / 2);
-					}
-				}
+				Vector2 pipeMiddle = calculatePipeMiddle(neighbourPosition1, neighbourPosition2);
 				
 				if(pipeMiddle != null) {
 					DrawableComponent d = new DrawableComponent(p, pipeMiddle, null);
@@ -224,7 +231,6 @@ public class Map {
 		}
 		components.addAll(pipes);
 	}
-	
 	public void createFromCommands(String[] nodeCommands, String[] edgeCommands) throws Exception {
 			createNodes(nodeCommands);
 			createEdges(edgeCommands);
