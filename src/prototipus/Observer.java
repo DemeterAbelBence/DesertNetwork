@@ -35,9 +35,10 @@ public class Observer extends JFrame implements Updateable {
 	public static Timer t;
 
 	private static ArrayList<Drawable> drawables = new ArrayList<Drawable>();
-
 	private static HashMap<Player, Drawable> drawablePlayers = new HashMap<Player, Drawable>();
 	private static HashMap<Component, Drawable> drawableComponents = new HashMap<Component, Drawable>();
+	
+	public static boolean mapIsInitialized = false;
 
 	private int repairManScore = 0;
 	private int saboteurScore = 0;
@@ -52,39 +53,6 @@ public class Observer extends JFrame implements Updateable {
 		observedMap = map;
 		// feltolti a default map csoveivel, pumpaival, stb.
 		//observedMap.makeDefaultMap(2, 3, 4, 8);
-
-		String str1= "cistern 100 100 repairMan\n"
-				+ "cistern 100 300 repairMan\n"
-				+ "pump 400 50\n"
-				+ "pump 500 200\n"
-				+ "pump 400 350\n"
-				+ "spring 700 100 saboteur\n"
-				+ "spring 700 300 saboteur\n"
-				+ "done\n";
-
-		String str2= "0 3\n"
-				+ "1 4\n"
-				+ "2 3\n"
-				+ "4 3\n"
-				+ "4 5\n"
-				+ "3 5\n"
-				+ "4 6\n"
-				+ "done\n";
-		
-		/*String str2= "0 2\n"
-				+ "1 2\n"
-				+ "3 2\n"
-				+ "4 2\n"
-				+ "done\n";*/
-
-		String[] nodeCommands = str1.split("\n");
-		String[] edgeCommands = str2.split("\n");
-
-		try {
-			observedMap.createFromCommands(nodeCommands, edgeCommands);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
@@ -132,6 +100,35 @@ public class Observer extends JFrame implements Updateable {
         }catch (IOException e) {}
         
         return listToArray(result);
+	}
+	
+	public void makeDefaultMap() {
+		String str1= "cistern 100 100 repairMan\n"
+				+ "cistern 100 300 repairMan\n"
+				+ "pump 400 50\n"
+				+ "pump 500 200\n"
+				+ "pump 400 350\n"
+				+ "spring 700 100 saboteur\n"
+				+ "spring 700 300 saboteur\n"
+				+ "done\n";
+
+		String str2= "0 3\n"
+				+ "1 4\n"
+				+ "2 3\n"
+				+ "4 3\n"
+				+ "4 5\n"
+				+ "3 5\n"
+				+ "4 6\n"
+				+ "done\n";
+
+		String[] nodeCommands = str1.split("\n");
+		String[] edgeCommands = str2.split("\n");
+
+		try {
+			observedMap.createFromCommands(nodeCommands, edgeCommands);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void initializeGameEnvironment(String edgeCommandsFile, String nodeCommandsFile) throws Exception{

@@ -173,11 +173,14 @@ public class GamePanel extends JPanel {
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		displayScores(g);
-		outlineFocusedPlayer(g);
-		outlineSelectedComponent(g);
-		displayPipeInformation(g);
-		observer.drawDrawables(g);
+		
+		if(observer.mapIsInitialized) {
+			displayScores(g);
+			outlineFocusedPlayer(g);
+			outlineSelectedComponent(g);
+			displayPipeInformation(g);
+			observer.drawDrawables(g);
+		}
 
 	}
 }

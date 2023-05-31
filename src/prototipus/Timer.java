@@ -17,16 +17,14 @@ import java.util.ArrayList;
 
 /**Az idő megjelenítésének megvalósítására való osztály.*/
 public class Timer implements Runnable {
-	private static ArrayList<Updateable> updateables;
-	private static Observer o;
+	private ArrayList<Updateable> updateables;
 	private Thread gameThread;
 	private final int TPS = 1; //Tick Per Second
 
-	/**Az osztály konstruktora.
-	 * @param observer: a játék összehangolásához*/
-	public Timer(Observer observer)
-	{
-		o=observer;
+	private Observer observer;
+	private boolean menuIsInitialized = false;
+	
+	private void initializeUpdateables() {
 		updateables = new ArrayList<Updateable>();
 		for (Updateable item:
 				observer.getObservedMap().getComponents()) {
@@ -39,28 +37,42 @@ public class Timer implements Runnable {
 		updateables.add(observer);
 		updateables.add(observer.getMenuPanel());
 	}
-
-	/**Az updateables frissítése.*/
-	public static void updateUpdateables(){
+	
+	public void updateUpdateables(){
 		if(updateables == null){ return;}
 			updateables.clear();
 			for (Updateable item:
-					o.getObservedMap().getComponents()) {
+				observer.getObservedMap().getComponents()) {
 				updateables.add(item);
 			}
 			for (Updateable item:
-					o.getObservedMap().getPlayers()) {
+				observer.getObservedMap().getPlayers()) {
 				updateables.add(item);
 			}
-			updateables.add(o);
-			updateables.add(o.getMenuPanel());
-
+			updateables.add(observer);
+			updateables.add(observer.getMenuPanel());
 	}
 
+	
+	/**Az osztály konstruktora.
+	 * @param observer: a játék összehangolásához*/
+	public Timer(Observer o)
+	{
+		observer = o;
+	}
 	/**Az időzítő léptető függvénye, ez lépteti az összes léptetendő objektumot.*/
 	public void tick() {
-		for(Updateable updateable:updateables)
-			updateable.updateStatus();
+		if(observer.mapIsInitialized) {
+			if(!menuIsInitialized) {
+				initializeUpdateables();
+				observer.getMenuPanel().initializeMenu();
+				menuIsInitialized = true;
+			}
+			
+			for(Updateable updateable:updateables)
+				updateable.updateStatus();
+		}
+		observer.getMenuPanel().updateStatus();
 
 		System.out.println("Tick!");
 	}

@@ -1,0 +1,8 @@
+cistern 100 100 repairMan
+cistern 100 300 repairMan
+pump 400 50
+pump 500 200
+pump 400 350
+spring 700 100 saboteur
+spring 700 300 saboteur
+done
