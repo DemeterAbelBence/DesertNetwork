@@ -52,6 +52,8 @@ public class Map {
 		}
 	}
 
+	/**A komponensek input-outputját állítja be.
+	 * @throws Exception*/
 	private void initializeComponentIOInterface() throws Exception {
 		for(Component c: components) {
 			int neighbourCount = c.countNeighbours();
@@ -92,6 +94,10 @@ public class Map {
 		}
 	}
 
+
+	/**A pályán található csomópontok generálása parancsok alapján.
+	 * @param inputCommands: parancsok
+	 * @throws Exception*/
 	private void createNodes(String[] inputCommands) throws Exception {
 		for(int i = 0; !inputCommands[i].equals("done"); ++i) {
 			
@@ -159,6 +165,10 @@ public class Map {
 	
 	}
 
+	/**Egy cső közepének kiszámítására.
+	 * @param neighbourPosition1: egyik szomszéd pozíciója
+	 * @param neighbourPosition2: másik szomszéd pozíciója
+	 * @return Vector2*/
 	public Vector2 calculatePipeMiddle(Vector2 neighbourPosition1, Vector2 neighbourPosition2) {
 		int x1 = neighbourPosition1.getX();
 		int y1 = neighbourPosition1.getY();
@@ -185,7 +195,10 @@ public class Map {
 		
 		return pipeMiddle;
 	}
-	
+
+	/**A csövek parancsból való generálása.
+	 * @param inputCommands: a parancsok
+	 * @throws Exception*/
 	private void createEdges(String[] inputCommands) throws Exception {
 
 		ArrayList<Component> pipes = new ArrayList<Component>();
@@ -231,6 +244,11 @@ public class Map {
 		}
 		components.addAll(pipes);
 	}
+
+	/**Pálya generálása parancsok alapján.
+	 * @param edgeCommands: a csövek generálásához való parancsok
+	 * @param nodeCommands: a csomópontok generálásához való parancsok
+	 * @throws Exception*/
 	public void createFromCommands(String[] nodeCommands, String[] edgeCommands) throws Exception {
 			createNodes(nodeCommands);
 			createEdges(edgeCommands);
@@ -504,7 +522,7 @@ public class Map {
 
 	/**Alaptérkép generálása
 	 * */
-	public void makeDefaultMap(int nrOfCisterns, int nrOfSprings, int nrOfPumps, int nrOfPipes) {
+	/*public void makeDefaultMap(int nrOfCisterns, int nrOfSprings, int nrOfPumps, int nrOfPipes) {
 		for(int i = 0; i < nrOfCisterns; ++i)
 		{
 			Cistern newCistern = new Cistern();
@@ -548,5 +566,5 @@ public class Map {
 		Observer.addDrawablePlayer(getPlayers().get(1),new DrawablePlayer(getPlayers().get(1),new Vector2(),repairManImage));
 		Observer.addDrawablePlayer(getPlayers().get(2),new DrawablePlayer(getPlayers().get(2),new Vector2(),saboteurImage));
 		Observer.addDrawablePlayer(getPlayers().get(3),new DrawablePlayer(getPlayers().get(3),new Vector2(),saboteurImage));
-	}
+	}*/
 }

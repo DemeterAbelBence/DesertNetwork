@@ -95,8 +95,11 @@ public class RepairMan extends Player implements Updateable{
 				newPipe.addNeighbour(newPump);
 				newPump.addNeighbour(newPipe);
 
-				newPump.input = null; newPump.output =  null;
-				newPipe.input = null; newPipe.output = null;
+				host.output = newPump; newPump.input = host;
+				newPump.output = newPipe;
+				newPipe.input = newPump;
+				otherEndPump.input = newPipe;
+
 
 				//PrototypeTest.addPump(newPump);
 				//PrototypeTest.addPipe(newPipe);

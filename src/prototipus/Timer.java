@@ -40,6 +40,7 @@ public class Timer implements Runnable {
 		updateables.add(observer.getMenuPanel());
 	}
 
+	/**Az updateables frissítése.*/
 	public static void updateUpdateables(){
 		if(updateables == null){ return;}
 			updateables.clear();
