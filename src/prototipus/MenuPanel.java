@@ -29,8 +29,8 @@ public class MenuPanel extends JPanel implements Updateable{
 	JButton bCreateDefaultMap = new JButton("CreateDafaultMap");
 	JButton bplacedownPump = new JButton("PlacedownPump");
 	JButton move = new JButton("Move to selected");
-	JTextField tEdge = new JTextField("EdgeCommands");
-	JTextField tNode = new JTextField("NodeCommands");
+	JTextField tEdge = new JTextField("edgeCommands.txt");
+	JTextField tNode = new JTextField("nodeCommands.txt");
 
 	JLabel playerNameLabel = new JLabel("Player 0");
 

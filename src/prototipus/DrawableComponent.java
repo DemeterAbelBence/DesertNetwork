@@ -30,8 +30,13 @@ public class DrawableComponent extends Drawable{
 	@Override
 	public void Draw(Graphics g) {
 		// TODO
-		if(component.getNode())
-			g.drawImage(image, coordinates.getX(), coordinates.getY(),null);
+		if(component.getNode()) {
+			g.drawImage(image, coordinates.getX(), coordinates.getY(), null);
+			if(component.broken){
+				g.setColor(Color.RED);
+				g.drawRect(coordinates.getX(), coordinates.getY(), 10, 10);
+			}
+		}
 		else  
 		{
 			if(component.getNeighbour(0) != null && component.getNeighbour(1) != null) {
