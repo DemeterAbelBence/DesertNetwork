@@ -223,7 +223,8 @@ public class MenuPanel extends JPanel implements Updateable{
 		bpickPipe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!jl.isSelectionEmpty()) {
+				if(focusedPlayer.host.getItemSource()) focusedPlayer.pickUpPipe(null);
+				else if(!jl.isSelectionEmpty()) {
 					int idx = jl.getSelectedIndex();
 					if(!focusedPlayer.host.getNode()) return;
 					Pipe p = (Pipe) focusedPlayer.host.neighbours.get(idx);

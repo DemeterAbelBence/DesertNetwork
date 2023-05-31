@@ -289,11 +289,17 @@ public abstract class Component implements Updateable{
 			neighboursStatus += "neighbour" + (i + 1) + ": " + PrototypeTest.getComponentTypeAndIndex(neighbours.get(i)) + System.lineSeparator();
 		return status + playersStatus + neighboursStatus;
 	}*/
-	
+
+	/**Visszaadja az input változót.
+	 * @return Component*/
 	public Component getInput() {return input;}
-	
+
+	/**Visszaadja az output változót.
+	 * @return Component*/
 	public Component getOutput() {return output;}
-	
+
+	/**Visszaadja a vízszintet.
+	 * @return int*/
 	public int getWaterLevel() {
 		return waterLevel;
 	}

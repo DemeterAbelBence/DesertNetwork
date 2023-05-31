@@ -34,6 +34,7 @@ public class RepairMan extends Player implements Updateable{
 			Pipe newPipe = new Pipe();
 			pipeInHand = newPipe;
 			Map.addPipe(newPipe);
+			System.out.println("uj cso");
 		}
 	}
 	/**Cső felvétele pumpánál (inkább lekapcsolásnak nevezhető).
@@ -111,12 +112,12 @@ public class RepairMan extends Player implements Updateable{
 			//ellenőrzi hogy ciszternára akarjuk-e lerakni
 			//ha mindkettő igaz, nem engedi
 			if (host.itemSource && pipeInHand.countNeighbours() == 1 && pipeInHand.getNeighbour(0).itemSource) {
-				return;
+				//return;
 			}
 			//mint ciszternánál, csak forrásra ellenőriz
 			if(host.capacity == -1 && !host.itemSource){
 				if(pipeInHand.countNeighbours() == 1 && !pipeInHand.getNeighbour(0).itemSource && pipeInHand.getNeighbour(0).capacity ==-1){
-					return;
+					//return;
 				}
 			}
 			host.addNeighbour(pipeInHand);
