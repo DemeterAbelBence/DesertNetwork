@@ -130,11 +130,14 @@ public class RepairMan extends Player implements Updateable{
 			}
 			host.addNeighbour(pipeInHand);
 			pipeInHand.addNeighbour(host);
+
 		}
 		int nrOfNeighboursOfPipeInHand = pipeInHand.countNeighbours();
 		if(nrOfNeighboursOfPipeInHand == 2) {
 			pipeInHand.setLeaks(false);
 			setPipeInHand(null);
+			pipeInHand.output = pipeInHand.getNeighbour(0);
+			pipeInHand.input = pipeInHand.getNeighbour(1);
 		}
 	}
 	/**Üres függvény, nincsen implementációja.*/
