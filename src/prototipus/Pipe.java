@@ -83,6 +83,7 @@ public class Pipe extends Component {
 		decreaseSlipperyCounter();
 		decreaseStickyCounter();
 		decreasePunctureCounter();
+		System.out.println("Sticky: " + getStickyCounter());
 	}
 
 	/**A vízfolyásért felelős.*/

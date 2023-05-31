@@ -21,6 +21,7 @@ public class Prototipus {
 		
 		if(o != null) {
 	        Timer t = new Timer(o);
+			o.t = t;
 	        t.startTimer();
 		}
 	}

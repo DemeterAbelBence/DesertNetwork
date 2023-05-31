@@ -492,6 +492,7 @@ public class Map {
 		components.add(p);
 		Drawable drawableOfRepairman = Observer.getDrawableOfPlayer(repairman);
 		Observer.addDrawableComponent(p, new DrawableComponent(p, drawableOfRepairman.coordinates, pumpImage));
+
 	}
 
 	/**Cső hozzáadása pályához

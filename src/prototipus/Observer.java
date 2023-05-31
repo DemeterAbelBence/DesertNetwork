@@ -32,6 +32,8 @@ public class Observer extends JFrame implements Updateable {
 	private MenuPanel menuPanel;
 	private GamePanel gamePanel;
 
+	public static Timer t;
+
 	private static ArrayList<Drawable> drawables = new ArrayList<Drawable>();
 
 	private static HashMap<Player, Drawable> drawablePlayers = new HashMap<Player, Drawable>();
@@ -216,6 +218,7 @@ public class Observer extends JFrame implements Updateable {
 	public static void addDrawableComponent(Component component, Drawable drawable) {
 		drawables.add(drawable);
 		drawableComponents.put(component, drawable);
+		t.updateUpdateables();
 	}
 
 	/**Egy játékosnak megmondja a hozzá tartozó kirajzolható verzióját.
