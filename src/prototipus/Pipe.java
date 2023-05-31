@@ -61,9 +61,10 @@ public class Pipe extends Component {
 			boolean isOutputFull = output.isFull();
 			if(output.getItemSource()){
 				output.waterFlows();
-				if((getWaterLevel() >1 && input.getOutput() == this) || getLeaks()) this.takeWater();
+				if(getWaterLevel() >1 || getLeaks() || this.input.getOutput() != this) this.takeWater();
+
 			}
-			if (!isOutputFull && this.output.getInput() == this) {
+			else if (!isOutputFull && this.output.getInput() == this) {
 				output.waterFlows();
 				//csak a megjelenítés miatt jobb, ha van benne 1 egység víz amikor lehet
 				if(getWaterLevel() >1 || getLeaks()){
